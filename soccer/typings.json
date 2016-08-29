@@ -1,0 +1,5 @@
+{
+  "globalDependencies": {
+    "peerjs": "registry:dt/peerjs#0.0.0+20160317120654"
+  }
+}
