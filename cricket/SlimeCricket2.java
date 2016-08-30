@@ -761,7 +761,7 @@ public class SlimeCricket2 extends Applet
         screen.fillArc(leftbound, topbound, sWidth, 2*sHeight, 0, 180);
         // now fill in the central bit
         screen.setColor(slimeColours[p1Col]);
-        screen.fillArc(leftbound, topbound, sWidth, 2*sHeight, 53, 74);
+        //screen.fillArc(leftbound, topbound, sWidth, 2*sHeight, 53, 74);
         screen.fillRect(leftbound+sWidth/5, topbound+sHeight/5,
             sWidth*3/5, sHeight*4/5);
 
@@ -791,7 +791,7 @@ public class SlimeCricket2 extends Applet
         screen.fillArc(leftbound, topbound, sWidth, 2*sHeight, 0, 180);
         // now fill in the central bit
         screen.setColor(slimeColours[p2Col]);
-        screen.fillArc(leftbound, topbound, sWidth, 2*sHeight, 53, 74);
+        //screen.fillArc(leftbound, topbound, sWidth, 2*sHeight, 53, 74);
         screen.fillRect(leftbound+sWidth/5, topbound+sHeight/5,
             sWidth*3/5, sHeight*4/5);
 
@@ -821,7 +821,7 @@ public class SlimeCricket2 extends Applet
         screen.fillArc(leftbound, topbound, sWidth, 2*sHeight, 0, 180);
         // now fill in the central bit
         screen.setColor(slimeColours[p1Col]);
-        screen.fillArc(leftbound, topbound, sWidth, 2*sHeight, 53, 74);
+        //screen.fillArc(leftbound, topbound, sWidth, 2*sHeight, 53, 74);
         screen.fillRect(leftbound+sWidth/5, topbound+sHeight/5,
             sWidth*3/5, sHeight*4/5);
 

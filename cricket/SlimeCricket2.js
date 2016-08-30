@@ -163,14 +163,16 @@ class SlimeCricket2 extends SlimeGame {
         this.paint(super.getGraphics());
         this.DrawSlimers();
     }
-    paint(_g) {
+    paint(_g, excludeGround = false) {
         var graphics = this.buffer.getGraphics();
         this.nWidth = super.size().width;
         this.nHeight = super.size().height;
         graphics.setColor(this.SKY_COL);
         graphics.fillRect(0, 0, this.nWidth, 4 * this.nHeight / 5);
-        graphics.setColor(this.COURT_COL);
-        graphics.fillRect(0, 4 * this.nHeight / 5, this.nWidth, this.nHeight / 5);
+        if (!excludeGround) {
+            graphics.setColor(this.COURT_COL);
+            graphics.fillRect(0, 4 * this.nHeight / 5, this.nWidth, this.nHeight / 5);
+        }
         graphics.setColor(Color.fromString("white"));
         graphics.fillRect(this.nWidth * 920 / 1000 - 2, this.nHeight * 7 / 10, 3, this.nHeight / 10);
         graphics.fillRect(this.nWidth * this.bowlingCrease / 1000 - 1, this.nHeight * 4 / 5, 2, 5);
@@ -728,7 +730,9 @@ class SlimeCricket2 extends SlimeGame {
         }
     }
     DrawSlimers() {
+        const _super = name => super[name];
         return __awaiter(this, void 0, void 0, function* () {
+            yield this.paint(_super("getGraphics").call(this));
             var num = this.ballX * this.nWidth / 1000;
             var num2 = 4 * this.nHeight / 5 - this.ballY * this.nHeight / 1000;
             var num3 = this.nWidth * 75 / 1000;
@@ -759,7 +763,7 @@ class SlimeCricket2 extends SlimeGame {
             this.screen.setColor(this.slimeColours2[this.p1Col]);
             this.screen.fillArc(num5, num6, num3, 2 * num4, 0, 180);
             this.screen.setColor(this.slimeColours[this.p1Col]);
-            this.screen.fillArc(num5, num6, num3, 2 * num4, 53, 74);
+            //this.screen.fillArc(num5, num6, num3, 2 * num4, 53, 74);
             this.screen.fillRect(num5 + num3 / 5, num6 + num4 / 5, num3 * 3 / 5, num4 * 4 / 5);
             var num9 = this.p1X + 28;
             var num10 = this.p1Y - 45;
@@ -785,7 +789,7 @@ class SlimeCricket2 extends SlimeGame {
             this.screen.setColor(this.slimeColours2[this.p2Col]);
             this.screen.fillArc(num5, num6, num3, 2 * num4, 0, 180);
             this.screen.setColor(this.slimeColours[this.p2Col]);
-            this.screen.fillArc(num5, num6, num3, 2 * num4, 53, 74);
+            //this.screen.fillArc(num5, num6, num3, 2 * num4, 53, 74);
             this.screen.fillRect(num5 + num3 / 5, num6 + num4 / 5, num3 * 3 / 5, num4 * 4 / 5);
             num9 = this.p2X - 13;
             num10 = this.p2Y - 45;
@@ -811,7 +815,7 @@ class SlimeCricket2 extends SlimeGame {
             this.screen.setColor(this.slimeColours2[this.p1Col]);
             this.screen.fillArc(num5, num6, num3, 2 * num4, 0, 180);
             this.screen.setColor(this.slimeColours[this.p1Col]);
-            this.screen.fillArc(num5, num6, num3, 2 * num4, 53, 74);
+            //this.screen.fillArc(num5, num6, num3, 2 * num4, 53, 74);
             this.screen.fillRect(num5 + num3 / 5, num6 + num4 / 5, num3 * 3 / 5, num4 * 4 / 5);
             num9 = this.p3X - 13;
             num10 = this.p3Y - 45;

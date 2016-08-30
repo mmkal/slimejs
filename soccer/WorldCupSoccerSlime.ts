@@ -228,7 +228,9 @@ class Graphics
         var radiusY = height / 2;
         var startAngleRadians = startAngleDegrees * Math.PI / 180;
         var endAngleRadians = endAngleDegrees * Math.PI / 180;
-        this.ctx["ellipse"](centreX, centreY, radiusX, radiusY, 0, startAngleRadians, endAngleRadians, true);
+        if (radiusX !== radiusY) console.log("##########################xxxxyyyyy")
+        this.ctx.arc(centreX, centreY, radiusX, startAngleRadians, endAngleRadians, true);
+        //this.ctx["ellipse"](centreX, centreY, radiusX, radiusY, 0, startAngleRadians, endAngleRadians, true);
     }
 
     fillArc(x: number, y: number, width: number, height: number, startAngleDegrees: number, endAngleDegrees: number): void {
