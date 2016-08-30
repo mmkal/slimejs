@@ -7,8 +7,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments)).next());
     });
 };
-var connectionToHost = null;
-var connectionToGuest = null;
 var guestSendTask = null;
 var wasdToJikl = {
     83: 75,
@@ -27,6 +25,130 @@ for (let ks in wasdToJikl) {
     let v = wasdToJikl[k];
     jiklToWasd[v] = k;
 }
+class AutoPeer {
+    constructor(apiKey) {
+        this.connectionToHost = null;
+        this.connectionToGuest = null;
+        this.peerOptions = { key: "" };
+        this.localPeers = new Set();
+        this.peerOptions = { key: apiKey };
+    }
+    connect(game) {
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log("Trying to find an existing host...");
+            let conn = yield this.findHost();
+            if (conn) {
+                conn.serialization = "json";
+                this.connectionToHost = conn;
+                conn.on("data", (hostGameState) => {
+                    game.restoreFromRemote(hostGameState);
+                });
+                return;
+            }
+            console.log("Establishing self as host");
+            conn = yield this.tryBecomeHost();
+            if (conn) {
+                conn.serialization = "json";
+                this.connectionToGuest = conn;
+                conn.on("data", (wevent) => {
+                    game.handleEvent(wevent);
+                });
+            }
+        });
+    }
+    tryConnectToHost(id) {
+        const hostId = "host" + id;
+        const guestId = "guest" + Math.random().toString().substring(2);
+        this.localPeers.add(guestId);
+        const connectionDebugInfo = hostId + " as " + guestId;
+        var peer = new Peer(guestId, this.peerOptions);
+        peer;
+        console.log("Trying to connect to " + connectionDebugInfo);
+        return new Promise((complete, error) => {
+            const conn = peer.connect(hostId);
+            const tooSlowTimeout = setTimeout(() => {
+                console.log("Too slow to connect to " + connectionDebugInfo);
+                complete(null);
+            }, 3000);
+            conn.on("open", () => {
+                console.log("Connection opened to " + connectionDebugInfo);
+                conn.on("data", (success) => {
+                    clearTimeout(tooSlowTimeout);
+                    if (success) {
+                        console.log("Connection to " + connectionDebugInfo + " successful.");
+                        complete(conn);
+                    }
+                    else {
+                        console.log("Connection to " + connectionDebugInfo + " rejected/failed.");
+                        complete(null);
+                    }
+                });
+            });
+        }).then((conn) => {
+            if (conn) {
+                console.log("I am " + peer.id + " and I am now connected to " + conn.peer);
+            }
+            else {
+                console.log("Destroying peer " + peer.id);
+                peer.destroy();
+                peer.disconnect();
+            }
+            return conn;
+        });
+    }
+    findHost() {
+        return __awaiter(this, void 0, void 0, function* () {
+            let conn = null;
+            for (let id = 0; conn === null && id < 3; id++) {
+                conn = yield this.tryConnectToHost(id);
+            }
+            return conn;
+        });
+    }
+    connectToGuest(hostPeer) {
+        console.log("Waiting for guest connections");
+        let isAlreadyConnected = false;
+        return new Promise((complete, error) => {
+            hostPeer.on("connection", conn => {
+                if (this.localPeers.has(conn.peer)) {
+                    console.log("Tried to connect to self. Ignoring connection.");
+                    return;
+                }
+                conn.on("open", () => {
+                    if (isAlreadyConnected) {
+                        console.log("Guest tried to open connection but I'm already connected, rejecting.");
+                        conn.send(false);
+                        return;
+                    }
+                    console.log("Guest opened connection, accepting...");
+                    isAlreadyConnected = true;
+                    conn.send(true);
+                    console.log("I am " + hostPeer.id + " and I am now connected to " + conn.peer);
+                    complete(conn);
+                });
+            });
+        });
+    }
+    tryBecomeHost() {
+        return __awaiter(this, void 0, Promise, function* () {
+            let peer = null;
+            for (let id = 0; peer === null && id < 3; id++) {
+                let conn = yield this.tryConnectToHost(id);
+                if (conn === null) {
+                    const hostId = "host" + id;
+                    console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
+                    // hopefully this means this id is free!
+                    peer = new Peer("host" + id, this.peerOptions);
+                }
+            }
+            if (peer === null) {
+                throw "Too many hosts already!";
+            }
+            return yield this.connectToGuest(peer);
+        });
+    }
+}
+var autoPeer = new AutoPeer("tlr3fwfyk1g1ra4i");
 class WImage {
     constructor(root) {
         this.root = null;
@@ -156,6 +278,27 @@ class Applet {
     constructor(canvasEl) {
         this.canvasEl = null;
         this.canvasEl = canvasEl;
+    }
+    registerEventListeners(wcss) {
+        document.body.onmousedown = ev => {
+            var wevent = new WEvent();
+            wevent.id = 501;
+            wevent.x = ev.clientX;
+            wevent.y = ev.clientY;
+            wcss.handleEvent(wevent);
+        };
+        document.body.onkeypress = ev => {
+            var wevent = new WEvent();
+            wevent.id = 401;
+            wevent.key = ev.keyCode;
+            wcss.handleEvent(wevent);
+        };
+        document.body.onkeyup = ev => {
+            var wevent = new WEvent();
+            wevent.id = 402;
+            wevent.key = ev.keyCode;
+            wcss.handleEvent(wevent);
+        };
     }
     size() {
         var size = new Size();
@@ -298,14 +441,14 @@ class WorldCupSoccerSlime extends Applet {
         this._screen = value;
     }
     updateGuest() {
-        if (connectionToGuest === null)
+        if (autoPeer.connectionToGuest === null)
             return;
         if (guestSendTask)
             return;
         var state = this;
-        connectionToGuest.send(state);
+        autoPeer.connectionToGuest.send(state);
         guestSendTask = setTimeout(() => {
-            connectionToGuest.send(state);
+            autoPeer.connectionToGuest.send(state);
             guestSendTask = null;
         }, 4);
     }
@@ -322,10 +465,10 @@ class WorldCupSoccerSlime extends Applet {
         this.DrawStatus();
     }
     mapKeyCode(keyCode) {
-        if (connectionToHost) {
+        if (autoPeer.connectionToHost) {
             keyCode = wasdToJikl[keyCode] || keyCode;
         }
-        if (this.worldCup) {
+        if (autoPeer.connectionToGuest || this.worldCup) {
             keyCode = jiklToWasd[keyCode] || keyCode;
         }
         return keyCode;
@@ -376,7 +519,7 @@ class WorldCupSoccerSlime extends Applet {
         conn.serialization = "json";
         conn.on("open", () => {
             console.log("I am " + peer.id + " and I am connected to host");
-            connectionToHost = conn;
+            autoPeer.connectionToHost = conn;
             conn.on("data", (wcss) => {
                 this.restoreFromRemote(wcss);
             });
@@ -387,7 +530,7 @@ class WorldCupSoccerSlime extends Applet {
         peer.on("connection", conn => {
             conn.on("open", () => {
                 console.log("I am " + peer.id + " and I am connected to guest");
-                connectionToGuest = conn;
+                autoPeer.connectionToGuest = conn;
                 conn.on("data", (wevent) => {
                     this.handleEvent(wevent);
                 });
@@ -399,6 +542,10 @@ class WorldCupSoccerSlime extends Applet {
         for (var k = 0; k < 5; k = k + 1) {
             var flag = i > (2 * k + 1) * this.nWidth / 10 - this.nWidth / 12 && i < (2 * k + 1) * this.nWidth / 10 + this.nWidth / 12 && j > this.nHeight * 2 / 10 && j < this.nHeight * 3 / 10;
             if (flag) {
+                if (k === 0) {
+                    autoPeer.connect(this);
+                    return;
+                }
                 if (k === 2) {
                     this.setupAsGuest();
                     return;
@@ -426,9 +573,9 @@ class WorldCupSoccerSlime extends Applet {
     handleEvent(event0) {
         const _super = name => super[name];
         return __awaiter(this, void 0, void 0, function* () {
-            event0.key = this.mapKeyCode(event0.key);
-            if (connectionToHost) {
-                connectionToHost.send(event0);
+            //event0.key = this.mapKeyCode(event0.key);
+            if (autoPeer.connectionToHost) {
+                autoPeer.connectionToHost.send(event0);
                 return;
             }
             var id = event0.id;
@@ -1612,25 +1759,7 @@ class WorldCupSoccerSlime extends Applet {
         this.backBuffer = super.createImage(this.nWidth, this.nHeight);
         this.screen = super.getGraphics();
         this.screen.setFont(new Font(this.screen.getFont().getName(), 1, 15));
-        document.body.onmousedown = ev => {
-            var wevent = new WEvent();
-            wevent.id = 501;
-            wevent.x = ev.clientX;
-            wevent.y = ev.clientY;
-            this.handleEvent(wevent);
-        };
-        document.body.onkeypress = ev => {
-            var wevent = new WEvent();
-            wevent.id = 401;
-            wevent.key = ev.keyCode;
-            this.handleEvent(wevent);
-        };
-        document.body.onkeyup = ev => {
-            var wevent = new WEvent();
-            wevent.id = 402;
-            wevent.key = ev.keyCode;
-            this.handleEvent(wevent);
-        };
+        super.registerEventListeners(this);
     }
     toggleBuffering() {
         const _super = name => super[name];
