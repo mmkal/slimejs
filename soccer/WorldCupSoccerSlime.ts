@@ -33,13 +33,7 @@ class AutoPeer {
 
     constructor(apiKey: string) {
         this.peerOptions = {
-            key: apiKey,
-            debug: 3,
-            config: {'iceServers': [
-                { url: 'stun:stun1.l.google.com:19302' },
-                { url: 'turn:numb.viagenie.ca',
-                credential: 'muazkh', username: 'webrtc@live.com' }
-            ]}
+            key: apiKey
         };
     }
 
@@ -107,7 +101,7 @@ class AutoPeer {
 
             conn.on("open", () => {
                 console.log("Connection opened to " + connectionDebugInfo);
-                conn.on("data", (success: boolean) => {
+                conn["once"]("data", (success: boolean) => {
                     clearTimeout(tooSlowTimeout);
                     if (success) {
                         console.log("Connection to " + connectionDebugInfo + " successful.");
@@ -174,8 +168,8 @@ class WImage
 class Font
 {
     private p: string = null;
-    private v1: number = 0;
-    private v2: number = 0;
+    public v1: number = 0;
+    public v2: number = 0;
     constructor(p: string, v1: number, v2: number)
     {
         this.p = p;
@@ -270,11 +264,11 @@ class Graphics
     }
 
     getFont(): Font {
-        return new Font(this.ctx.font, 0, 0);
+        return new Font(this.ctx.font, 1, 15);
     }
 
     setFont(font: Font): void {
-        this.ctx.font = font.getName();
+        this.ctx.font = font.v2 * 2 + "px";
     }
 
     drawImage(backBuffer: WImage, v1: number, v2: number, p: any): void {
@@ -467,9 +461,9 @@ class WorldCupSoccerSlime extends Applet
         var state = this;
         autoPeer.connectionToGuest.send(state);
         guestSendTask = setTimeout(() => {
-            autoPeer.connectionToGuest.send(state);
+            autoPeer.connectionToGuest.send(this);
             guestSendTask = null;
-        }, 4);
+        }, 0);
     }
 
     restoreFromRemote(wcss: WorldCupSoccerSlime) {

@@ -33,13 +33,7 @@ class AutoPeer {
         this.localPeers = new Set();
         this.hostPrefix = "host1";
         this.peerOptions = {
-            key: apiKey,
-            debug: 3,
-            config: { 'iceServers': [
-                    { url: 'stun:stun1.l.google.com:19302' },
-                    { url: 'turn:numb.viagenie.ca',
-                        credential: 'muazkh', username: 'webrtc@live.com' }
-                ] }
+            key: apiKey
         };
     }
     get isAlreadyConnected() {
@@ -105,7 +99,7 @@ class AutoPeer {
             }, 3000);
             conn.on("open", () => {
                 console.log("Connection opened to " + connectionDebugInfo);
-                conn.on("data", (success) => {
+                conn["once"]("data", (success) => {
                     clearTimeout(tooSlowTimeout);
                     if (success) {
                         console.log("Connection to " + connectionDebugInfo + " successful.");
@@ -245,10 +239,10 @@ class Graphics {
         this.ctx.stroke();
     }
     getFont() {
-        return new Font(this.ctx.font, 0, 0);
+        return new Font(this.ctx.font, 1, 15);
     }
     setFont(font) {
-        this.ctx.font = font.getName();
+        this.ctx.font = font.v2 * 2 + "px";
     }
     drawImage(backBuffer, v1, v2, p) {
     }
@@ -454,9 +448,9 @@ class WorldCupSoccerSlime extends Applet {
         var state = this;
         autoPeer.connectionToGuest.send(state);
         guestSendTask = setTimeout(() => {
-            autoPeer.connectionToGuest.send(state);
+            autoPeer.connectionToGuest.send(this);
             guestSendTask = null;
-        }, 4);
+        }, 0);
     }
     restoreFromRemote(wcss) {
         Object.getOwnPropertyNames(this).forEach(propName => {
