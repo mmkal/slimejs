@@ -29,9 +29,18 @@ class AutoPeer {
     constructor(apiKey) {
         this.connectionToHost = null;
         this.connectionToGuest = null;
-        this.peerOptions = { key: "" };
+        this.peerOptions = null;
         this.localPeers = new Set();
-        this.peerOptions = { key: apiKey };
+        this.hostPrefix = "host1";
+        this.peerOptions = {
+            key: apiKey,
+            debug: 3,
+            config: { 'iceServers': [
+                    { url: 'stun:stun1.l.google.com:19302' },
+                    { url: 'turn:numb.viagenie.ca',
+                        credential: 'muazkh', username: 'webrtc@live.com' }
+                ] }
+        };
     }
     get isAlreadyConnected() {
         return !!this.connectionToHost || !!this.connectionToGuest;
@@ -58,9 +67,9 @@ class AutoPeer {
                     return;
                 }
                 if (!hostPeer) {
-                    const hostId = "host" + id;
+                    const hostId = this.hostPrefix + id;
                     console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
-                    hostPeer = new Peer("host" + id, this.peerOptions);
+                    hostPeer = new Peer(this.hostPrefix + id, this.peerOptions);
                     this.connectToGuest(hostPeer).then(connectionToGuest => {
                         if (this.isAlreadyConnected) {
                             return;
@@ -81,7 +90,7 @@ class AutoPeer {
         });
     }
     connectToHost(id) {
-        const hostId = "host" + id;
+        const hostId = this.hostPrefix + id;
         const guestId = "guest" + Math.random().toString().substring(2);
         this.localPeers.add(guestId);
         const connectionDebugInfo = hostId + " as " + guestId;
@@ -146,7 +155,7 @@ class AutoPeer {
         });
     }
 }
-var autoPeer = new AutoPeer("tlr3fwfyk1g1ra4i");
+var autoPeer = new AutoPeer("vxv7ldsv1h71ra4i");
 class WImage {
     constructor(root) {
         this.root = null;

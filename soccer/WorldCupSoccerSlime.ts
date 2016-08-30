@@ -23,14 +23,24 @@ for (let ks in wasdToJikl) {
 class AutoPeer {
     public connectionToHost: PeerJs.DataConnection = null;
     public connectionToGuest: PeerJs.DataConnection = null;
-    public peerOptions = { key: "" };
+    public peerOptions = null;
     private localPeers = new Set<string>();
     public get isAlreadyConnected() {
         return !!this.connectionToHost || !!this.connectionToGuest;
     }
 
+    private hostPrefix = "host1";
+
     constructor(apiKey: string) {
-        this.peerOptions = { key: apiKey };
+        this.peerOptions = {
+            key: apiKey,
+            debug: 3,
+            config: {'iceServers': [
+                { url: 'stun:stun1.l.google.com:19302' },
+                { url: 'turn:numb.viagenie.ca',
+                credential: 'muazkh', username: 'webrtc@live.com' }
+            ]}
+        };
     }
 
     public async connect(game: WorldCupSoccerSlime) {
@@ -55,9 +65,9 @@ class AutoPeer {
                 return;
             }
             if (!hostPeer) {
-                const hostId = "host" + id;
+                const hostId = this.hostPrefix + id;
                 console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
-                hostPeer = new Peer("host" + id, this.peerOptions);
+                hostPeer = new Peer(this.hostPrefix + id, this.peerOptions);
 
                 this.connectToGuest(hostPeer).then(connectionToGuest => {
                     if (this.isAlreadyConnected) {
@@ -79,7 +89,7 @@ class AutoPeer {
     }
 
     private connectToHost(id: number): Promise<PeerJs.DataConnection> {
-        const hostId = "host" + id;
+        const hostId = this.hostPrefix + id;
         const guestId = "guest" + Math.random().toString().substring(2);
         this.localPeers.add(guestId);
         const connectionDebugInfo = hostId + " as " + guestId;
@@ -148,7 +158,7 @@ class AutoPeer {
     }
 }
 
-var autoPeer = new AutoPeer("tlr3fwfyk1g1ra4i");
+var autoPeer = new AutoPeer("vxv7ldsv1h71ra4i");
 
 class WImage
 {
