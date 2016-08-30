@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments)).next());
     });
 };
-class SlimeCricket2 extends Applet {
+class SlimeCricket2 extends SlimeGame {
     constructor() {
         super(document.querySelector("canvas"));
         this.nWidth = 0;
@@ -137,11 +137,6 @@ class SlimeCricket2 extends Applet {
             "Got him, yes!", "It's all happening here!", "A marvellous effort, that!", "He's out.", "Oh dear.", "Gone!", "What a magnificent fielding side this team is.", "Yes, another one! He's a hero, this man!"
         ];
     }
-    static go() {
-        var game = new SlimeCricket2();
-        game.init();
-        game.run();
-    }
     init() {
         this.nWidth = super.size().width;
         this.nHeight = super.size().height;
@@ -156,25 +151,17 @@ class SlimeCricket2 extends Applet {
         this.p1Col = 9;
         this.p2Col = 9;
         this.inns = 0;
-        document.body.onmousedown = ev => {
-            var wevent = new WEvent();
-            wevent.id = 501;
-            wevent.x = ev.clientX;
-            wevent.y = ev.clientY;
-            this.handleEvent(wevent);
-        };
-        document.body.onkeypress = ev => {
-            var wevent = new WEvent();
-            wevent.id = 401;
-            wevent.key = ev.keyCode;
-            this.handleEvent(wevent);
-        };
-        document.body.onkeyup = ev => {
-            var wevent = new WEvent();
-            wevent.id = 402;
-            wevent.key = ev.keyCode;
-            this.handleEvent(wevent);
-        };
+        super.registerEventListeners(this);
+    }
+    restoreFromRemote(game) {
+        Object.getOwnPropertyNames(this).forEach(propName => {
+            var propType = typeof (this[propName]);
+            if (propType === "number" || propType === "boolean" || propType === "string" || propName === "p1bxb" || propName === "p2bxb") {
+                this[propName] = game[propName];
+            }
+        });
+        this.paint(super.getGraphics());
+        this.DrawSlimers();
     }
     paint(_g) {
         var graphics = this.buffer.getGraphics();
@@ -283,7 +270,7 @@ class SlimeCricket2 extends Applet {
             var id = wevent.id;
             var flag = id === 503;
             if (flag) {
-                _super("showStatus").call(this, "Slime Cricket 2: by Wedgey: http://www.student.uwa.edu.au/~wedgey/slimec/", null);
+                _super("showStatus").call(this, "Slime Cricket 2: by Wedgey: http://www.student.uwa.edu.au/~wedgey/slimec/");
             }
             var flag2 = id === 501;
             if (flag2) {
@@ -315,13 +302,13 @@ class SlimeCricket2 extends Applet {
                                         var flag8 = this.p1Col === 9;
                                         if (flag8) {
                                             this.p2ai = true;
-                                            while ((this.p1Col = (this.Mathrandom() * this.slimeColours.length)) === this.p2Col) {
+                                            while ((this.p1Col = ((this.Mathrandom() * this.slimeColours.length)) >>> 0) === this.p2Col) {
                                             }
                                         }
                                         var flag9 = this.p2Col === 9;
                                         if (flag9) {
                                             this.p1ai = true;
-                                            while ((this.p2Col = (this.Mathrandom() * this.slimeColours.length)) === this.p1Col) {
+                                            while ((this.p2Col = ((this.Mathrandom() * this.slimeColours.length)) >>> 0) === this.p1Col) {
                                             }
                                         }
                                         this.inns = 1;
@@ -675,7 +662,7 @@ class SlimeCricket2 extends Applet {
         if (flag6) {
             this.p1X = 878;
         }
-        var flag7 = this.p1YV > 0;
+        var flag7 = this.p1YV !== 0;
         if (flag7) {
             this.p1Y = this.p1Y + (this.p1YV = this.p1YV - 2);
             var flag8 = this.p1Y < 0;
@@ -697,7 +684,7 @@ class SlimeCricket2 extends Applet {
         if (flag11) {
             this.p2X = 37;
         }
-        var flag12 = this.p2YV > 0;
+        var flag12 = this.p2YV != 0;
         if (flag12) {
             this.p2Y = this.p2Y + (this.p2YV = this.p2YV - 2);
             var flag13 = this.p2Y < 0;
@@ -730,7 +717,7 @@ class SlimeCricket2 extends Applet {
                 this.drawScores();
             }
         }
-        var flag18 = this.p3YV > 0;
+        var flag18 = this.p3YV != 0;
         if (flag18) {
             this.p3Y = this.p3Y + (this.p3YV = this.p3YV - 2);
         }
@@ -950,7 +937,7 @@ class SlimeCricket2 extends Applet {
                     }
                     var flag18 = this.fP2Touched && this.bounces === 0 && !this.fNoBall && !this.fHitBackWall && this.ballX >= this.p1X;
                     if (flag18) {
-                        this.promptMsg = this.COMM_CAUGHT[(this.COMM_CAUGHT.length * this.Mathrandom())];
+                        this.promptMsg = this.COMM_CAUGHT[(this.COMM_CAUGHT.length * this.Mathrandom()) >>> 0];
                         this.thisBall = -this.wicketPenalty;
                     }
                 }
@@ -1024,7 +1011,7 @@ class SlimeCricket2 extends Applet {
                     }
                     var flag32 = !this.fP1Touched && this.fP2Touched && this.bounces === 0 && !this.fNoBall;
                     if (flag32) {
-                        this.promptMsg = this.COMM_CTBEHIND[(this.COMM_CTBEHIND.length * this.Mathrandom())];
+                        this.promptMsg = this.COMM_CTBEHIND[(this.COMM_CTBEHIND.length * this.Mathrandom()) >>> 0];
                         this.thisBall = -this.wicketPenalty;
                     }
                     else {
@@ -1032,10 +1019,10 @@ class SlimeCricket2 extends Applet {
                         if (flag33) {
                             var flag34 = this.p2XMin - 37 > this.runningCrease && !this.fNoBall && !this.fP1Touched;
                             if (flag34) {
-                                this.promptMsg = this.COMM_STUMPED[(this.COMM_STUMPED.length * this.Mathrandom())];
+                                this.promptMsg = this.COMM_STUMPED[(this.COMM_STUMPED.length * this.Mathrandom()) >>> 0];
                             }
                             else {
-                                this.promptMsg = this.COMM_RUNOUT[(this.COMM_RUNOUT.length * this.Mathrandom())];
+                                this.promptMsg = this.COMM_RUNOUT[(this.COMM_RUNOUT.length * this.Mathrandom()) >>> 0];
                             }
                             this.thisBall = -this.wicketPenalty;
                         }
@@ -1048,10 +1035,10 @@ class SlimeCricket2 extends Applet {
                     this.ballVX = -this.ballVX * 2 / 3;
                     var flag36 = this.fP2Touched && this.bounces === 0 && !this.fHitBackWall;
                     if (flag36) {
-                        this.promptMsg = this.COMM_SIX[(this.COMM_SIX.length * this.Mathrandom())];
+                        this.promptMsg = this.COMM_SIX[(this.COMM_SIX.length * this.Mathrandom()) >>> 0];
                         var flag37 = this.fP1Touched && this.Mathrandom() < 0.7;
                         if (flag37) {
-                            this.promptMsg = this.COMM_SIXTOUCHED[(this.COMM_SIXTOUCHED.length * this.Mathrandom())];
+                            this.promptMsg = this.COMM_SIXTOUCHED[(this.COMM_SIXTOUCHED.length * this.Mathrandom()) >>> 0];
                         }
                         this.drawPrompt(this.promptMsg, 1);
                         this.promptMsg = "";
@@ -1060,10 +1047,10 @@ class SlimeCricket2 extends Applet {
                     else {
                         var flag38 = this.fP2Touched && !this.fHitBackWall;
                         if (flag38) {
-                            this.promptMsg = this.COMM_FOUR[(this.COMM_FOUR.length * this.Mathrandom())];
+                            this.promptMsg = this.COMM_FOUR[(this.COMM_FOUR.length * this.Mathrandom()) >>> 0];
                             var flag39 = this.fP1Touched && this.Mathrandom() < 0.7;
                             if (flag39) {
-                                this.promptMsg = this.COMM_FOURTOUCHED[(this.COMM_FOURTOUCHED.length * this.Mathrandom())];
+                                this.promptMsg = this.COMM_FOURTOUCHED[(this.COMM_FOURTOUCHED.length * this.Mathrandom()) >>> 0];
                             }
                             this.drawPrompt(this.promptMsg, 1);
                             this.promptMsg = "";
@@ -1092,16 +1079,16 @@ class SlimeCricket2 extends Applet {
                 if (flag43) {
                     var flag44 = ((this.p2X < this.battingCrease - 37 && this.p2X > this.runningCrease + 37) || this.p2Y !== 0) && this.fP1Touched && this.fP2Touched;
                     if (flag44) {
-                        this.promptMsg = this.COMM_RUNOUT[(this.COMM_RUNOUT.length * this.Mathrandom())];
+                        this.promptMsg = this.COMM_RUNOUT[(this.COMM_RUNOUT.length * this.Mathrandom()) >>> 0];
                         this.thisBall = -this.wicketPenalty;
                     }
                     else {
                         var flag45 = !this.fNoBall && !this.fHitBackWall && this.p1Touches === 1;
                         if (flag45) {
-                            this.promptMsg = this.COMM_BOWLED[(this.COMM_BOWLED.length * this.Mathrandom())];
+                            this.promptMsg = this.COMM_BOWLED[(this.COMM_BOWLED.length * this.Mathrandom()) >>> 0];
                             var flag46 = this.fP2Touched && this.Mathrandom() < 0.5;
                             if (flag46) {
-                                this.promptMsg = this.COMM_PLAYEDON[(this.COMM_PLAYEDON.length * this.Mathrandom())];
+                                this.promptMsg = this.COMM_PLAYEDON[(this.COMM_PLAYEDON.length * this.Mathrandom()) >>> 0];
                             }
                             this.thisBall = -this.wicketPenalty;
                         }
@@ -1139,7 +1126,7 @@ class SlimeCricket2 extends Applet {
             if (flag50) {
                 var flag51 = this.promptMsg.length > 1 && this.Mathrandom() < 0.3;
                 if (flag51) {
-                    this.promptMsg = this.COMM_OUT_GENERIC[(this.COMM_OUT_GENERIC.length * this.Mathrandom())];
+                    this.promptMsg = this.COMM_OUT_GENERIC[(this.COMM_OUT_GENERIC.length * this.Mathrandom()) >>> 0];
                 }
                 this.drawPrompt(this.promptMsg, 0);
                 _super("getGraphics").call(this).drawImage(this.buffer, 0, 0, this);
@@ -1347,11 +1334,11 @@ class SlimeCricket2 extends Applet {
                 }
                 var flag4 = this.difficulty === 1;
                 if (flag4) {
-                    this.balltype = (4.0 * this.Mathrandom());
+                    this.balltype = (4.0 * this.Mathrandom()) >>> 0;
                 }
                 var flag5 = this.difficulty === 2;
                 if (flag5) {
-                    this.balltype = (2.0 * this.Mathrandom()) + 2;
+                    this.balltype = (2.0 * this.Mathrandom()) >>> 0 + 2;
                 }
             }
             var flag6 = this.difficulty === 2 && this.p2X - 37 < this.battingCrease - (this.battingCrease - this.runningCrease) / 4;

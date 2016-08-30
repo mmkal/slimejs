@@ -311,27 +311,6 @@ class Applet
     {
         this.canvasEl = canvasEl;
     }
-    registerEventListeners(wcss: any) {
-        document.body.onmousedown = ev => {
-            var wevent = new WEvent();
-            wevent.id = 501;
-            wevent.x = ev.clientX;
-            wevent.y = ev.clientY;
-            wcss.handleEvent(wevent);
-        }
-        document.body.onkeypress = ev => {
-            var wevent = new WEvent();
-            wevent.id = 401;
-            wevent.key = ev.keyCode;
-            wcss.handleEvent(wevent);
-        }
-        document.body.onkeyup = ev => {
-            var wevent = new WEvent();
-            wevent.id = 402;
-            wevent.key = ev.keyCode;
-            wcss.handleEvent(wevent);
-        }
-    }
     size(): Size
     {
         var size = new Size();
@@ -372,6 +351,27 @@ abstract class SlimeGame extends Applet {
     public start() {
         this.init();
         this.run();
+    }
+    registerEventListeners(game: SlimeGame) {
+        document.body.onmousedown = ev => {
+            var wevent = new WEvent();
+            wevent.id = 501;
+            wevent.x = ev.clientX;
+            wevent.y = ev.clientY;
+            game.handleEvent(wevent);
+        }
+        document.body.onkeypress = ev => {
+            var wevent = new WEvent();
+            wevent.id = 401;
+            wevent.key = ev.keyCode;
+            game.handleEvent(wevent);
+        }
+        document.body.onkeyup = ev => {
+            var wevent = new WEvent();
+            wevent.id = 402;
+            wevent.key = ev.keyCode;
+            game.handleEvent(wevent);
+        }
     }
 }
 class WorldCupSoccerSlime extends SlimeGame
@@ -460,6 +460,7 @@ class WorldCupSoccerSlime extends SlimeGame
     private pointsY: number[] = null;
 
     updateGuest() {
+        // TODO make autopeer a property
         if (autoPeer.connectionToGuest === null) return;
         if (guestSendTask) return;
 

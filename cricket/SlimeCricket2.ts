@@ -1,13 +1,7 @@
 /// <reference path="../soccer/WorldCupSoccerSlime.ts" />
 
-class SlimeCricket2 extends Applet
+class SlimeCricket2 extends SlimeGame
 {
-    public static go() {
-        var game = new SlimeCricket2();
-        game.init();
-        game.run();
-    }
-
 	private static p1Diam: number = 75;
 	private static p2Diam: number = 75;
 	private static ballRad: number = 13;
@@ -156,26 +150,20 @@ class SlimeCricket2 extends Applet
 		this.p2Col = 9;
 		this.inns = 0;
 
-        document.body.onmousedown = ev => {
-            var wevent = new WEvent();
-            wevent.id = 501;
-            wevent.x = ev.clientX;
-            wevent.y = ev.clientY;
-            this.handleEvent(wevent);
-        }
-        document.body.onkeypress = ev => {
-            var wevent = new WEvent();
-            wevent.id = 401;
-            wevent.key = ev.keyCode;
-            this.handleEvent(wevent);
-        }
-        document.body.onkeyup = ev => {
-            var wevent = new WEvent();
-            wevent.id = 402;
-            wevent.key = ev.keyCode;
-            this.handleEvent(wevent);
-        }
+        super.registerEventListeners(this);
 	}
+
+    restoreFromRemote(game: SlimeGame) {
+        Object.getOwnPropertyNames(this).forEach(propName => {
+            var propType = typeof(this[propName]);
+            if (propType === "number" || propType === "boolean" || propType === "string" || propName === "p1bxb" || propName === "p2bxb") {
+                this[propName] = game[propName];
+            }
+        });
+        this.paint(super.getGraphics());
+        this.DrawSlimers();
+    }
+
 	paint(_g: Graphics): void
 	{
 		var graphics: Graphics = this.buffer.getGraphics();
@@ -291,7 +279,7 @@ class SlimeCricket2 extends Applet
 		var flag: boolean = id === 503;
 		if (flag)
 		{
-			super.showStatus("Slime Cricket 2: by Wedgey: http://www.student.uwa.edu.au/~wedgey/slimec/", null);
+			super.showStatus("Slime Cricket 2: by Wedgey: http://www.student.uwa.edu.au/~wedgey/slimec/");
 		}
 		var flag2: boolean = id === 501;
 		if (flag2)
@@ -779,7 +767,7 @@ class SlimeCricket2 extends Applet
 		{
 			this.p1X = 878;
 		}
-		var flag7: boolean = this.p1YV > 0;
+		var flag7: boolean = this.p1YV !== 0;
 		if (flag7)
 		{
 			this.p1Y = this.p1Y + (this.p1YV = this.p1YV - 2);
@@ -806,7 +794,7 @@ class SlimeCricket2 extends Applet
 		{
 			this.p2X = 37;
 		}
-		var flag12: boolean = this.p2YV > 0;
+		var flag12: boolean = this.p2YV != 0;
 		if (flag12)
 		{
 			this.p2Y = this.p2Y + (this.p2YV = this.p2YV - 2);
@@ -847,7 +835,7 @@ class SlimeCricket2 extends Applet
 				this.drawScores();
 			}
 		}
-		var flag18: boolean = this.p3YV > 0;
+		var flag18: boolean = this.p3YV != 0;
 		if (flag18)
 		{
 			this.p3Y = this.p3Y + (this.p3YV = this.p3YV - 2);
