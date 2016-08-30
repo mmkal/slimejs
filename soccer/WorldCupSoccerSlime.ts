@@ -399,7 +399,6 @@ class WorldCupSoccerSlime extends Applet
     private ballVY: number = 0;
     private ballOldX: number = 0;
     private ballOldY: number = 0;
-    private screen88: Graphics = null;
     private _screen: Graphics = null;
     get screen(): Graphics {
         this.updateGuest();
@@ -514,7 +513,7 @@ class WorldCupSoccerSlime extends Applet
     private drawButtons(): void
     {
         var array: string[] = [
-            "1 minute", "2 minutes", "be guest", "be host", "World Cup"
+            "1 minute", "2 minutes", "4 minutes", "play online", "World Cup"
         ];
         var fontMetrics: FontMetrics = this.screen.getFontMetrics();
         var color: Color = new Color(0, 0, 128);
@@ -562,16 +561,8 @@ class WorldCupSoccerSlime extends Applet
             var flag: boolean = i > (2 * k + 1) * this.nWidth / 10 - this.nWidth / 12 && i < (2 * k + 1) * this.nWidth / 10 + this.nWidth / 12 && j > this.nHeight * 2 / 10 && j < this.nHeight * 3 / 10;
             if (flag)
             {
-                if (k === 0) {
-                    autoPeer.connect(this);
-                    return;
-                }
-                if (k === 2) {
-                    this.setupAsGuest();
-                    return;
-                }
                 if (k === 3) {
-                    this.setupAsHost();
+                    autoPeer.connect(this);
                     return;
                 }
 
