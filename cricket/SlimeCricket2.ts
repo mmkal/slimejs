@@ -1565,12 +1565,12 @@ class SlimeCricket2 extends Applet
 				var flag4: boolean = this.difficulty === 1;
 				if (flag4)
 				{
-					this.balltype = <number>(4.0 * this.Mathrandom());
+					this.balltype = (4.0 * this.Mathrandom()) >>> 0;
 				}
 				var flag5: boolean = this.difficulty === 2;
 				if (flag5)
 				{
-					this.balltype = <number>(2.0 * this.Mathrandom()) + 2;
+					this.balltype = (2.0 * this.Mathrandom()) >>> 0 + 2;
 				}
 			}
 			var flag6: boolean = this.difficulty === 2 && this.p2X - 37 < this.battingCrease - (this.battingCrease - this.runningCrease) / 4;
