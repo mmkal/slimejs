@@ -424,6 +424,17 @@ abstract class SlimeGame extends Applet {
             guestSendTask = null;
         }, 0);
     }
+
+    // TODO make sure works
+    mapKeyCode(keyCode: number) {
+        if (autoPeer.connectionToHost) {
+            keyCode = wasdToJikl[keyCode] || keyCode;
+        }
+        if (autoPeer.connectionToGuest) {
+            keyCode = jiklToWasd[keyCode] || keyCode;
+        }
+        return keyCode;
+    }
 }
 class WorldCupSoccerSlime extends SlimeGame
 {
@@ -515,16 +526,6 @@ class WorldCupSoccerSlime extends SlimeGame
         this.DrawStatus();
     }
 
-    mapKeyCode(keyCode: number) {
-        if (autoPeer.connectionToHost) {
-            keyCode = wasdToJikl[keyCode] || keyCode;
-        }
-        if (autoPeer.connectionToGuest || this.worldCup) {
-            keyCode = jiklToWasd[keyCode] || keyCode;
-        }
-        return keyCode;
-    }
-
     initStuff(): void
     {
         this.fEndGame = true;
@@ -555,7 +556,7 @@ class WorldCupSoccerSlime extends SlimeGame
     private drawButtons(): void
     {
         var array: string[] = [
-            "1 minute", "2 minutes", "4 minutes", "play online", "World Cup"
+            "1 minute", "2 minutes", "4 minutes", "8 minutes", "World Cup"
         ];
         var fontMetrics: FontMetrics = this.screen.getFontMetrics();
         var color: Color = new Color(0, 0, 128);
@@ -577,11 +578,6 @@ class WorldCupSoccerSlime extends SlimeGame
             var flag: boolean = i > (2 * k + 1) * this.nWidth / 10 - this.nWidth / 12 && i < (2 * k + 1) * this.nWidth / 10 + this.nWidth / 12 && j > this.nHeight * 2 / 10 && j < this.nHeight * 3 / 10;
             if (flag)
             {
-                if (k === 3) {
-                    autoPeer.connect(this);
-                    return;
-                }
-
                 var flag2: boolean = k === 4;
                 if (flag2)
                 {
@@ -602,11 +598,6 @@ class WorldCupSoccerSlime extends SlimeGame
     }
     async handleEventCore(event0: WEvent)
     {
-        //event0.key = this.mapKeyCode(event0.key);
-        if (autoPeer.connectionToHost) {
-            autoPeer.connectionToHost.send(event0); 
-            return;
-        }
         var id: number = event0.id;
         var flag: boolean = id === 503;
         if (flag)

@@ -383,6 +383,16 @@ class SlimeGame extends Applet {
             guestSendTask = null;
         }, 0);
     }
+    // TODO make sure works
+    mapKeyCode(keyCode) {
+        if (autoPeer.connectionToHost) {
+            keyCode = wasdToJikl[keyCode] || keyCode;
+        }
+        if (autoPeer.connectionToGuest) {
+            keyCode = jiklToWasd[keyCode] || keyCode;
+        }
+        return keyCode;
+    }
 }
 class WorldCupSoccerSlime extends SlimeGame {
     constructor() {
@@ -498,15 +508,6 @@ class WorldCupSoccerSlime extends SlimeGame {
         this.DrawGoals();
         this.DrawStatus();
     }
-    mapKeyCode(keyCode) {
-        if (autoPeer.connectionToHost) {
-            keyCode = wasdToJikl[keyCode] || keyCode;
-        }
-        if (autoPeer.connectionToGuest || this.worldCup) {
-            keyCode = jiklToWasd[keyCode] || keyCode;
-        }
-        return keyCode;
-    }
     initStuff() {
         this.fEndGame = true;
         this.p1X = 200;
@@ -535,7 +536,7 @@ class WorldCupSoccerSlime extends SlimeGame {
     }
     drawButtons() {
         var array = [
-            "1 minute", "2 minutes", "4 minutes", "play online", "World Cup"
+            "1 minute", "2 minutes", "4 minutes", "8 minutes", "World Cup"
         ];
         var fontMetrics = this.screen.getFontMetrics();
         var color = new Color(0, 0, 128);
@@ -552,10 +553,6 @@ class WorldCupSoccerSlime extends SlimeGame {
         for (var k = 0; k < 5; k = k + 1) {
             var flag = i > (2 * k + 1) * this.nWidth / 10 - this.nWidth / 12 && i < (2 * k + 1) * this.nWidth / 10 + this.nWidth / 12 && j > this.nHeight * 2 / 10 && j < this.nHeight * 3 / 10;
             if (flag) {
-                if (k === 3) {
-                    autoPeer.connect(this);
-                    return;
-                }
                 var flag2 = k === 4;
                 if (flag2) {
                     this.gameLength = 120000;
@@ -575,11 +572,6 @@ class WorldCupSoccerSlime extends SlimeGame {
     handleEventCore(event0) {
         const _super = name => super[name];
         return __awaiter(this, void 0, void 0, function* () {
-            //event0.key = this.mapKeyCode(event0.key);
-            if (autoPeer.connectionToHost) {
-                autoPeer.connectionToHost.send(event0);
-                return;
-            }
             var id = event0.id;
             var flag = id === 503;
             if (flag) {
