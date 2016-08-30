@@ -108,7 +108,6 @@ class AutoPeer {
         }).then((conn: PeerJs.DataConnection) => {
             if (conn) {
                 console.log("I am " + peer.id + " and I am now connected to " + conn.peer);
-                //conn.off("data")
             }
             else {
                 console.log("Destroying peer " + peer.id);
