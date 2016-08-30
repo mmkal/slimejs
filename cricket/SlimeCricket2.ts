@@ -1,5 +1,3 @@
-/// <reference path="../soccer/WorldCupSoccerSlime.ts" />
-
 class SlimeCricket2 extends SlimeGame
 {
 	private static p1Diam: number = 75;

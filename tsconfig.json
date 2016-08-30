@@ -2,7 +2,9 @@
     "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
-        "sourceMap": true
+        "sourceMap": true,
+        "watch": true,
+        "outFile": "slime.js"
     },
     "exclude": [
         "node_modules",
