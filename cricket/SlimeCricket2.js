@@ -55,7 +55,6 @@ class SlimeCricket2 extends SlimeGame {
         this.ballVY = 0;
         this.ballOldX = 0;
         this.ballOldY = 0;
-        this.screen = null;
         this.promptMsg = null;
         this.mousePressed = false;
         this.fCanChangeCol = false;
@@ -266,7 +265,7 @@ class SlimeCricket2 extends SlimeGame {
             yield this.paint(_super("getGraphics").call(this));
         });
     }
-    handleEvent(wevent) {
+    handleEventCore(wevent) {
         const _super = name => super[name];
         return __awaiter(this, void 0, void 0, function* () {
             var id = wevent.id;

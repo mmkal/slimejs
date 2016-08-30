@@ -50,7 +50,6 @@ class SlimeCricket2 extends SlimeGame
 	private ballVY: number = 0;
 	private ballOldX: number = 0;
 	private ballOldY: number = 0;
-	private screen: Graphics = null;
 	private promptMsg: string = null;
 	private mousePressed: boolean = false;
 	private fCanChangeCol: boolean = false;
@@ -275,7 +274,7 @@ class SlimeCricket2 extends SlimeGame
        // super.getGraphics().ctx.clearRect(0, 0, super.size().width, super.size().height);
         await this.paint(super.getGraphics());
     }
-	async handleEvent(wevent: WEvent)
+	async handleEventCore(wevent: WEvent)
 	{
 		var id: number = wevent.id;
 		var flag: boolean = id === 503;
