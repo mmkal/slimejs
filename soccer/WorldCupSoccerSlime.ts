@@ -527,32 +527,6 @@ class WorldCupSoccerSlime extends Applet
         this.flip();
     }
 
-    private setupAsGuest() {
-        var peer = new Peer("guest", { key: "tlr3fwfyk1g1ra4i" });
-        var conn = peer.connect("host");
-        conn.serialization = "json";
-        conn.on("open", () => {
-            console.log("I am " + peer.id + " and I am connected to host");
-            autoPeer.connectionToHost = conn;
-            conn.on("data", (wcss: WorldCupSoccerSlime) => {
-                this.restoreFromRemote(wcss);
-            });
-        });
-    }
-
-    private setupAsHost() {
-        var peer = new Peer("host", { key: "tlr3fwfyk1g1ra4i" });
-        peer.on("connection", conn => {
-            conn.on("open", () => {
-                console.log("I am " + peer.id + " and I am connected to guest");
-                autoPeer.connectionToGuest = conn;
-                conn.on("data", (wevent: WEvent) => {
-                    this.handleEvent(wevent);
-                })
-            });
-        });
-    }
-
     private testButton(i: number, j: number): boolean
     {
         var result: boolean;
