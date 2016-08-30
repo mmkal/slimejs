@@ -732,7 +732,7 @@ class SlimeCricket2 extends SlimeGame {
     DrawSlimers() {
         const _super = name => super[name];
         return __awaiter(this, void 0, void 0, function* () {
-            yield this.paint(_super("getGraphics").call(this));
+            yield this.paint(_super("getGraphics").call(this), true);
             var num = this.ballX * this.nWidth / 1000;
             var num2 = 4 * this.nHeight / 5 - this.ballY * this.nHeight / 1000;
             var num3 = this.nWidth * 75 / 1000;

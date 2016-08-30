@@ -851,7 +851,7 @@ class SlimeCricket2 extends SlimeGame
 	}
 	private async DrawSlimers()
 	{
-        await this.paint(super.getGraphics());
+        await this.paint(super.getGraphics(), true);
 		var num: number = this.ballX * this.nWidth / 1000;
 		var num2: number = 4 * this.nHeight / 5 - this.ballY * this.nHeight / 1000;
 		var num3: number = this.nWidth * 75 / 1000;
