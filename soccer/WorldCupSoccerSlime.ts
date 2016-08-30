@@ -24,6 +24,8 @@ class AutoPeer {
     public connectionToHost: PeerJs.DataConnection = null;
     public connectionToGuest: PeerJs.DataConnection = null;
     public peerOptions = null;
+    private connectButton: JQuery;
+    private logDiv: JQuery;
     private localPeers = new Set<string>();
     public get isAlreadyConnected() {
         return !!this.connectionToHost || !!this.connectionToGuest;
@@ -35,6 +37,20 @@ class AutoPeer {
         this.peerOptions = {
             key: apiKey
         };
+        this.connectButton = $("<button>connect</button>");
+        this.connectButton.click(ev => {
+            this.connect(window["activeGame"]);
+        })
+        this.logDiv = $("<div></div>");
+        $(document.body).ready(() => {
+            $(document.body).append(this.connectButton);
+            $(document.body).append(this.logDiv);
+        });
+    }
+
+    private log(text: string) {
+        console.log(text);
+        this.logDiv.text(text);
     }
 
     public async connect(game: SlimeGame) {
@@ -59,7 +75,7 @@ class AutoPeer {
             }
             if (!hostPeer) {
                 const hostId = this.hostPrefix + id;
-                console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
+                this.log(hostId + " seems to be an available host id, I'll establish myself as that.");
                 hostPeer = new Peer(this.hostPrefix + id, this.peerOptions);
 
                 this.connectToGuest(hostPeer).then(connectionToGuest => {
@@ -86,36 +102,35 @@ class AutoPeer {
         this.localPeers.add(guestId);
         const connectionDebugInfo = hostId + " as " + guestId;
         var peer = new Peer(guestId, this.peerOptions);
-        peer
-        console.log("Trying to connect to " + connectionDebugInfo);
+        this.log("Trying to connect to " + connectionDebugInfo);
 
         return new Promise((complete, error) => {
             const conn = peer.connect(hostId);
             
             const tooSlowTimeout = setTimeout(() => {
-                console.log("Too slow to connect to " + connectionDebugInfo);
+                this.log("Too slow to connect to " + connectionDebugInfo);
                 complete(null);
             }, 3000);
 
             conn.on("open", () => {
-                console.log("Connection opened to " + connectionDebugInfo);
+                this.log("Connection opened to " + connectionDebugInfo);
                 conn["once"]("data", (success: boolean) => {
                     clearTimeout(tooSlowTimeout);
                     if (success) {
-                        console.log("Connection to " + connectionDebugInfo + " successful.");
+                        this.log("Connection to " + connectionDebugInfo + " successful.");
                         complete(conn);
                     } else {
-                        console.log("Connection to " + connectionDebugInfo + " rejected/failed.");
+                        this.log("Connection to " + connectionDebugInfo + " rejected/failed.");
                         complete(null);
                     }
                 });
             });
         }).then((conn: PeerJs.DataConnection) => {
             if (conn) {
-                console.log("I am " + peer.id + " and I am now connected to " + conn.peer);
+                this.log("I am " + peer.id + " and I am now connected to " + conn.peer);
             }
             else {
-                console.log("Destroying peer " + peer.id);
+                this.log("Destroying peer " + peer.id);
                 peer.destroy();
                 peer.disconnect();
             }
@@ -127,22 +142,22 @@ class AutoPeer {
         if (this.isAlreadyConnected) {
             return;
         }
-        console.log("Waiting for guest connections");
+        this.log("Waiting for guest connections");
         return new Promise((complete, error) => {
             hostPeer.on("connection", conn => {
                 if (this.localPeers.has(conn.peer)) {
-                    console.log("Tried to connect to self. Ignoring connection.");
+                    this.log("Tried to connect to self. Ignoring connection.");
                     return;
                 }
                 conn.on("open", () => {
                     if (this.isAlreadyConnected) {
-                        console.log("Guest tried to open connection but I'm already connected, rejecting.");
+                        this.log("Guest tried to open connection but I'm already connected, rejecting.");
                         conn.send(false);
                         return;
                     }
-                    console.log("Guest opened connection, accepting...");
+                    this.log("Guest opened connection, accepting...");
                     conn.send(true);
-                    console.log("I am " + hostPeer.id + " and I am now connected to " + conn.peer);
+                    this.log("I am " + hostPeer.id + " and I am now connected to " + conn.peer);
                     complete(conn);
                 });
             });
@@ -336,6 +351,9 @@ class Applet
     }
     createImage(nWidth: number, nHeight: number): WImage
     {
+        if (document.querySelector("canvas")) {
+            return new WImage(document.body);
+        }
         var div = document.createElement("div");
         var canv = document.createElement("canvas");
         canv.width = nWidth;
@@ -348,11 +366,12 @@ class Applet
 abstract class SlimeGame extends Applet {
     abstract init(): void;
     abstract run(): Promise<void>;
-    abstract handleEvent(wevent: WEvent);
+    abstract handleEventCore(wevent: WEvent);
     abstract restoreFromRemote(game: SlimeGame);
     public start() {
         this.init();
         this.run();
+        window["activeGame"] = this;
     }
     registerEventListeners(game: SlimeGame) {
         document.body.onmousedown = ev => {
@@ -374,6 +393,36 @@ abstract class SlimeGame extends Applet {
             wevent.key = ev.keyCode;
             game.handleEvent(wevent);
         }
+    }
+    private _screen: Graphics = null;
+    get screen(): Graphics {
+        this.updateGuest();
+        return this._screen;
+    }
+    set screen(value: Graphics) {
+        this._screen = value; 
+    }
+
+    async handleEvent(event0: WEvent) {
+        //event0.key = this.mapKeyCode(event0.key);
+        if (autoPeer.connectionToHost) {
+            autoPeer.connectionToHost.send(event0); 
+            return;
+        }
+        await this.handleEventCore(event0);
+    }
+
+    updateGuest() {
+        // TODO make autopeer a property
+        if (autoPeer.connectionToGuest === null) return;
+        if (guestSendTask) return;
+
+        var state = this;
+        autoPeer.connectionToGuest.send(state);
+        guestSendTask = setTimeout(() => {
+            autoPeer.connectionToGuest.send(this);
+            guestSendTask = null;
+        }, 0);
     }
 }
 class WorldCupSoccerSlime extends SlimeGame
@@ -412,14 +461,6 @@ class WorldCupSoccerSlime extends SlimeGame
     private ballVY: number = 0;
     private ballOldX: number = 0;
     private ballOldY: number = 0;
-    private _screen: Graphics = null;
-    get screen(): Graphics {
-        this.updateGuest();
-        return this._screen;
-    }
-    set screen(value: Graphics) {
-        this._screen = value; 
-    }
     private promptMsg: string = null;
     private replayData: number[][] = null;
     private replayPos: number = 0;
@@ -460,19 +501,6 @@ class WorldCupSoccerSlime extends SlimeGame
     private doubleBuffered: boolean = false;
     private pointsX: number[] = null;
     private pointsY: number[] = null;
-
-    updateGuest() {
-        // TODO make autopeer a property
-        if (autoPeer.connectionToGuest === null) return;
-        if (guestSendTask) return;
-
-        var state = this;
-        autoPeer.connectionToGuest.send(state);
-        guestSendTask = setTimeout(() => {
-            autoPeer.connectionToGuest.send(this);
-            guestSendTask = null;
-        }, 0);
-    }
 
     restoreFromRemote(game: SlimeGame) {
         Object.getOwnPropertyNames(this).forEach(propName => {
@@ -572,7 +600,7 @@ class WorldCupSoccerSlime extends SlimeGame
         result = false;
         return result;
     }
-    async handleEvent(event0: WEvent)
+    async handleEventCore(event0: WEvent)
     {
         //event0.key = this.mapKeyCode(event0.key);
         if (autoPeer.connectionToHost) {
