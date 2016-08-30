@@ -36,41 +36,42 @@ class AutoPeer {
 
     public async connect(game: WorldCupSoccerSlime) {
         let hostPeer: PeerJs.Peer = null;
-        let conn: PeerJs.DataConnection = null;
-        for (let id = 0; conn === null && id < 3; id++) {
+        for (let id = 0; id < 3; id++) {
             if (this.isAlreadyConnected) {
                 return;
             }
-            conn = await this.connectToHost(id);
-            if (conn === null && hostPeer === null) {
+
+            const connectionToHost = await this.connectToHost(id);
+            if (this.isAlreadyConnected) {
+                return;
+            }
+            if (connectionToHost) {
+                connectionToHost.serialization = "json";
+                this.connectionToHost = connectionToHost;
+                connectionToHost.on("data", (hostGameState: WorldCupSoccerSlime) => {
+                    game.restoreFromRemote(hostGameState);
+                });
+                return;
+            }
+            if (!hostPeer) {
                 const hostId = "host" + id;
                 console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
                 hostPeer = new Peer("host" + id, this.peerOptions);
+
+                this.connectToGuest(hostPeer).then(connectionToGuest => {
+                    if (this.isAlreadyConnected) {
+                        return;
+                    }
+                    if (connectionToGuest === null) {
+                        throw "Failed to connect to guest. Try refreshing";
+                    }
+                    connectionToGuest.serialization = "json";
+                    this.connectionToGuest = connectionToGuest;
+                    connectionToGuest.on("data", (wevent: WEvent) => {
+                        game.handleEvent(wevent);
+                    });
+                });
             }
-        }
-
-        if (conn) {
-            conn.serialization = "json";
-            this.connectionToHost = conn;
-            conn.on("data", (hostGameState: WorldCupSoccerSlime) => {
-                game.restoreFromRemote(hostGameState);
-            });
-            return;
-        }
-
-        console.log("Establishing self as host");
-        conn = await this.connectToGuest(hostPeer);    
-
-        if (conn) {
-            conn.serialization = "json";
-            this.connectionToGuest = conn;
-            conn.on("data", (wevent: WEvent) => {
-                game.handleEvent(wevent);
-            });
-        }
-
-        if (!conn) {
-            console.error("Couldn't connect as guest or host. Try refreshing.");
         }
     }
 

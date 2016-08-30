@@ -39,37 +39,40 @@ class AutoPeer {
     connect(game) {
         return __awaiter(this, void 0, void 0, function* () {
             let hostPeer = null;
-            let conn = null;
-            for (let id = 0; conn === null && id < 3; id++) {
+            for (let id = 0; id < 3; id++) {
                 if (this.isAlreadyConnected) {
                     return;
                 }
-                conn = yield this.connectToHost(id);
-                if (conn === null && hostPeer === null) {
+                const connectionToHost = yield this.connectToHost(id);
+                if (this.isAlreadyConnected) {
+                    return;
+                }
+                if (connectionToHost) {
+                    connectionToHost.serialization = "json";
+                    this.connectionToHost = connectionToHost;
+                    connectionToHost.on("data", (hostGameState) => {
+                        game.restoreFromRemote(hostGameState);
+                    });
+                    return;
+                }
+                if (!hostPeer) {
                     const hostId = "host" + id;
                     console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
                     hostPeer = new Peer("host" + id, this.peerOptions);
+                    this.connectToGuest(hostPeer).then(connectionToGuest => {
+                        if (this.isAlreadyConnected) {
+                            return;
+                        }
+                        if (connectionToGuest === null) {
+                            throw "Failed to connect to guest. Try refreshing";
+                        }
+                        connectionToGuest.serialization = "json";
+                        this.connectionToGuest = connectionToGuest;
+                        connectionToGuest.on("data", (wevent) => {
+                            game.handleEvent(wevent);
+                        });
+                    });
                 }
-            }
-            if (conn) {
-                conn.serialization = "json";
-                this.connectionToHost = conn;
-                conn.on("data", (hostGameState) => {
-                    game.restoreFromRemote(hostGameState);
-                });
-                return;
-            }
-            console.log("Establishing self as host");
-            conn = yield this.connectToGuest(hostPeer);
-            if (conn) {
-                conn.serialization = "json";
-                this.connectionToGuest = conn;
-                conn.on("data", (wevent) => {
-                    game.handleEvent(wevent);
-                });
-            }
-            if (!conn) {
-                console.error("Couldn't connect as guest or host. Try refreshing.");
             }
         });
     }
