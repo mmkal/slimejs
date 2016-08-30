@@ -26,12 +26,55 @@ class AutoPeer {
     public connectionToGuest: PeerJs.DataConnection = null;
     public peerOptions = { key: "" };
     private localPeers = new Set<string>();
+    public get isAlreadyConnected() {
+        return !!this.connectionToHost || !!this.connectionToGuest;
+    }
 
     constructor(apiKey: string) {
         this.peerOptions = { key: apiKey };
     }
 
-    public async connect(game: WorldCupSoccerSlime) {
+    public async connect2(game: WorldCupSoccerSlime) {
+        let hostPeer: PeerJs.Peer = null;
+        let conn: PeerJs.DataConnection = null;
+        for (let id = 0; conn === null && id < 3; id++) {
+            if (this.isAlreadyConnected) {
+                return;
+            }
+            conn = await this.tryConnectToHost(id);
+            if (conn === null && hostPeer === null) {
+                const hostId = "host" + id;
+                console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
+                hostPeer = new Peer("host" + id, this.peerOptions);
+            }
+        }
+
+        if (conn) {
+            conn.serialization = "json";
+            this.connectionToHost = conn;
+            conn.on("data", (hostGameState: WorldCupSoccerSlime) => {
+                game.restoreFromRemote(hostGameState);
+            });
+            return;
+        }
+
+        console.log("Establishing self as host");
+        conn = await this.connectToGuest(hostPeer);    
+
+        if (conn) {
+            conn.serialization = "json";
+            this.connectionToGuest = conn;
+            conn.on("data", (wevent: WEvent) => {
+                game.handleEvent(wevent);
+            });
+        }
+
+        if (!conn) {
+            console.error("Couldn't connect as guest or host. Try refreshing.");
+        }
+    }
+
+    public async connect88(game: WorldCupSoccerSlime) {
         console.log("Trying to find an existing host...");
         let conn = await this.findHost();
         if (conn) {
@@ -107,8 +150,10 @@ class AutoPeer {
     }
 
     private connectToGuest(hostPeer: PeerJs.Peer): Promise<PeerJs.DataConnection> {
+        if (this.isAlreadyConnected) {
+            return;
+        }
         console.log("Waiting for guest connections");
-        let isAlreadyConnected: boolean = false;
         return new Promise((complete, error) => {
             hostPeer.on("connection", conn => {
                 if (this.localPeers.has(conn.peer)) {
@@ -116,13 +161,12 @@ class AutoPeer {
                     return;
                 }
                 conn.on("open", () => {
-                    if (isAlreadyConnected) {
+                    if (this.isAlreadyConnected) {
                         console.log("Guest tried to open connection but I'm already connected, rejecting.");
                         conn.send(false);
                         return;
                     }
                     console.log("Guest opened connection, accepting...");
-                    isAlreadyConnected = true;
                     conn.send(true);
                     console.log("I am " + hostPeer.id + " and I am now connected to " + conn.peer);
                     complete(conn);
@@ -138,7 +182,6 @@ class AutoPeer {
             if (conn === null) {
                 const hostId = "host" + id;
                 console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
-                // hopefully this means this id is free!
                 peer = new Peer("host" + id, this.peerOptions);
             }
         }
@@ -568,7 +611,7 @@ class WorldCupSoccerSlime extends Applet
             if (flag)
             {
                 if (k === 0) {
-                    autoPeer.connect(this);
+                    autoPeer.connect2(this);
                     return;
                 }
                 if (k === 2) {
@@ -602,7 +645,7 @@ class WorldCupSoccerSlime extends Applet
     {
         //event0.key = this.mapKeyCode(event0.key);
         if (autoPeer.connectionToHost) {
-            autoPeer.connectionToHost.send(event0);
+            autoPeer.connectionToHost.send(event0); 
             return;
         }
         var id: number = event0.id;

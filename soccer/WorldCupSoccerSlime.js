@@ -33,7 +33,47 @@ class AutoPeer {
         this.localPeers = new Set();
         this.peerOptions = { key: apiKey };
     }
-    connect(game) {
+    get isAlreadyConnected() {
+        return !!this.connectionToHost || !!this.connectionToGuest;
+    }
+    connect2(game) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let hostPeer = null;
+            let conn = null;
+            for (let id = 0; conn === null && id < 3; id++) {
+                if (this.isAlreadyConnected) {
+                    return;
+                }
+                conn = yield this.tryConnectToHost(id);
+                if (conn === null && hostPeer === null) {
+                    const hostId = "host" + id;
+                    console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
+                    hostPeer = new Peer("host" + id, this.peerOptions);
+                }
+            }
+            if (conn) {
+                conn.serialization = "json";
+                this.connectionToHost = conn;
+                conn.on("data", (hostGameState) => {
+                    game.restoreFromRemote(hostGameState);
+                });
+                return;
+            }
+            console.log("Establishing self as host");
+            conn = yield this.connectToGuest(hostPeer);
+            if (conn) {
+                conn.serialization = "json";
+                this.connectionToGuest = conn;
+                conn.on("data", (wevent) => {
+                    game.handleEvent(wevent);
+                });
+            }
+            if (!conn) {
+                console.error("Couldn't connect as guest or host. Try refreshing.");
+            }
+        });
+    }
+    connect88(game) {
         return __awaiter(this, void 0, void 0, function* () {
             console.log("Trying to find an existing host...");
             let conn = yield this.findHost();
@@ -106,8 +146,10 @@ class AutoPeer {
         });
     }
     connectToGuest(hostPeer) {
+        if (this.isAlreadyConnected) {
+            return;
+        }
         console.log("Waiting for guest connections");
-        let isAlreadyConnected = false;
         return new Promise((complete, error) => {
             hostPeer.on("connection", conn => {
                 if (this.localPeers.has(conn.peer)) {
@@ -115,13 +157,12 @@ class AutoPeer {
                     return;
                 }
                 conn.on("open", () => {
-                    if (isAlreadyConnected) {
+                    if (this.isAlreadyConnected) {
                         console.log("Guest tried to open connection but I'm already connected, rejecting.");
                         conn.send(false);
                         return;
                     }
                     console.log("Guest opened connection, accepting...");
-                    isAlreadyConnected = true;
                     conn.send(true);
                     console.log("I am " + hostPeer.id + " and I am now connected to " + conn.peer);
                     complete(conn);
@@ -137,7 +178,6 @@ class AutoPeer {
                 if (conn === null) {
                     const hostId = "host" + id;
                     console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
-                    // hopefully this means this id is free!
                     peer = new Peer("host" + id, this.peerOptions);
                 }
             }
@@ -543,7 +583,7 @@ class WorldCupSoccerSlime extends Applet {
             var flag = i > (2 * k + 1) * this.nWidth / 10 - this.nWidth / 12 && i < (2 * k + 1) * this.nWidth / 10 + this.nWidth / 12 && j > this.nHeight * 2 / 10 && j < this.nHeight * 3 / 10;
             if (flag) {
                 if (k === 0) {
-                    autoPeer.connect(this);
+                    autoPeer.connect2(this);
                     return;
                 }
                 if (k === 2) {
