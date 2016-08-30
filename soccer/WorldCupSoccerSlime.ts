@@ -34,14 +34,14 @@ class AutoPeer {
         this.peerOptions = { key: apiKey };
     }
 
-    public async connect2(game: WorldCupSoccerSlime) {
+    public async connect(game: WorldCupSoccerSlime) {
         let hostPeer: PeerJs.Peer = null;
         let conn: PeerJs.DataConnection = null;
         for (let id = 0; conn === null && id < 3; id++) {
             if (this.isAlreadyConnected) {
                 return;
             }
-            conn = await this.tryConnectToHost(id);
+            conn = await this.connectToHost(id);
             if (conn === null && hostPeer === null) {
                 const hostId = "host" + id;
                 console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
@@ -74,30 +74,7 @@ class AutoPeer {
         }
     }
 
-    public async connect88(game: WorldCupSoccerSlime) {
-        console.log("Trying to find an existing host...");
-        let conn = await this.findHost();
-        if (conn) {
-            conn.serialization = "json";
-            this.connectionToHost = conn;
-            conn.on("data", (hostGameState: WorldCupSoccerSlime) => {
-                game.restoreFromRemote(hostGameState);
-            });
-            return;
-        } 
-
-        console.log("Establishing self as host");
-        conn = await this.tryBecomeHost();
-        if (conn) {
-            conn.serialization = "json";
-            this.connectionToGuest = conn;
-            conn.on("data", (wevent: WEvent) => {
-                game.handleEvent(wevent);
-            })
-        }
-    }
-
-    private tryConnectToHost(id: number): Promise<PeerJs.DataConnection> {
+    private connectToHost(id: number): Promise<PeerJs.DataConnection> {
         const hostId = "host" + id;
         const guestId = "guest" + Math.random().toString().substring(2);
         this.localPeers.add(guestId);
@@ -141,14 +118,6 @@ class AutoPeer {
         });
     }
 
-    private async findHost() {
-        let conn: PeerJs.DataConnection = null;
-        for (let id = 0; conn === null && id < 3; id++) {
-            conn = await this.tryConnectToHost(id);
-        }
-        return conn;
-    }
-
     private connectToGuest(hostPeer: PeerJs.Peer): Promise<PeerJs.DataConnection> {
         if (this.isAlreadyConnected) {
             return;
@@ -173,24 +142,6 @@ class AutoPeer {
                 });
             });
         });
-    }
-
-    private async tryBecomeHost(): Promise<PeerJs.DataConnection> {
-        let peer: PeerJs.Peer = null;
-        for (let id = 0; peer === null && id < 3; id++) {
-            let conn = await this.tryConnectToHost(id);
-            if (conn === null) {
-                const hostId = "host" + id;
-                console.log(hostId + " seems to be an available host id, I'll establish myself as that.");
-                peer = new Peer("host" + id, this.peerOptions);
-            }
-        }
-
-        if (peer === null) {
-            throw "Too many hosts already!";
-        }
-
-        return await this.connectToGuest(peer);
     }
 }
 
@@ -611,7 +562,7 @@ class WorldCupSoccerSlime extends Applet
             if (flag)
             {
                 if (k === 0) {
-                    autoPeer.connect2(this);
+                    autoPeer.connect(this);
                     return;
                 }
                 if (k === 2) {
