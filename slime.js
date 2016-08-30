@@ -569,7 +569,7 @@ class SlimeCricket2 extends SlimeGame {
             var fontMetrics = this.screen.getFontMetrics();
             this.screen.setColor(Color.fromString("white"));
             this.screen.drawString("Slime Cricket 2: World Cup Edition BETA", this.nWidth / 2 - fontMetrics.stringWidth("Slime Cricket 2: World Cup Edition BETA") / 2, this.nHeight / 2 - fontMetrics.getHeight() * 7);
-            this.screen.drawString("This is not the final version of the game!", this.nWidth / 2 - fontMetrics.stringWidth("This is not the final version of the game!") / 2, this.nHeight / 2 - fontMetrics.getHeight() * 6);
+            //this.screen.drawString("This is not the final version of the game!", this.nWidth / 2 - fontMetrics.stringWidth("This is not the final version of the game!") / 2, this.nHeight / 2 - fontMetrics.getHeight() * 6);
             this.screen.setColor(this.slimeColours[this.p2Col]);
             this.screen.fillRect(this.nWidth / 4 - fontMetrics.stringWidth(this.slimeColText[this.p2Col]) / 2 - 10, this.nHeight / 2 - fontMetrics.getAscent() * 2, fontMetrics.stringWidth(this.slimeColText[this.p2Col]) + 20, fontMetrics.getAscent() * 2);
             this.screen.setColor(this.slimeColours2[this.p2Col]);
