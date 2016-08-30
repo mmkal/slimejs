@@ -1,5 +1,4 @@
 /// <reference path="typings/index.d.ts" />
-
 var guestSendTask = null;
 var wasdToJikl = {
     83: 75,
@@ -46,6 +45,8 @@ class AutoPeer {
                 return;
             }
             if (connectionToHost) {
+                game.screen.setColor(Color.fromString("green"));
+                game.screen.drawString("Connected", 10, 10);
                 connectionToHost.serialization = "json";
                 this.connectionToHost = connectionToHost;
                 connectionToHost.on("data", (hostGameState: WorldCupSoccerSlime) => {
@@ -65,6 +66,8 @@ class AutoPeer {
                     if (connectionToGuest === null) {
                         throw "Failed to connect to guest. Try refreshing";
                     }
+                    game.screen.setColor(Color.fromString("green"));
+                    game.screen.drawString("Connected", 10, 10);
                     connectionToGuest.serialization = "json";
                     this.connectionToGuest = connectionToGuest;
                     connectionToGuest.on("data", (wevent: WEvent) => {
