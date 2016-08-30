@@ -239,10 +239,10 @@ class Graphics {
         this.ctx.stroke();
     }
     getFont() {
-        return new Font(this.ctx.font, 1, 15);
+        return new Font(this.ctx.font, 0, 0);
     }
     setFont(font) {
-        this.ctx.font = font.v2 * 2 + "px";
+        this.ctx.font = font.getName();
     }
     drawImage(backBuffer, v1, v2, p) {
     }

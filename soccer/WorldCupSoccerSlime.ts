@@ -168,8 +168,8 @@ class WImage
 class Font
 {
     private p: string = null;
-    public v1: number = 0;
-    public v2: number = 0;
+    private v1: number = 0;
+    private v2: number = 0;
     constructor(p: string, v1: number, v2: number)
     {
         this.p = p;
@@ -264,11 +264,11 @@ class Graphics
     }
 
     getFont(): Font {
-        return new Font(this.ctx.font, 1, 15);
+        return new Font(this.ctx.font, 0, 0);
     }
 
     setFont(font: Font): void {
-        this.ctx.font = font.v2 * 2 + "px";
+        this.ctx.font = font.getName();
     }
 
     drawImage(backBuffer: WImage, v1: number, v2: number, p: any): void {
