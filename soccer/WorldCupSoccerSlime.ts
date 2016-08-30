@@ -37,7 +37,7 @@ class AutoPeer {
         };
     }
 
-    public async connect(game: WorldCupSoccerSlime) {
+    public async connect(game: SlimeGame) {
         let hostPeer: PeerJs.Peer = null;
         for (let id = 0; id < 3; id++) {
             if (this.isAlreadyConnected) {
@@ -49,11 +49,10 @@ class AutoPeer {
                 return;
             }
             if (connectionToHost) {
-                game.screen.setColor(Color.fromString("green"));
-                game.screen.drawString("Connected", 10, 10);
+                game.showStatus("Connected");
                 connectionToHost.serialization = "json";
                 this.connectionToHost = connectionToHost;
-                connectionToHost.on("data", (hostGameState: WorldCupSoccerSlime) => {
+                connectionToHost.on("data", (hostGameState: SlimeGame) => {
                     game.restoreFromRemote(hostGameState);
                 });
                 return;
@@ -70,8 +69,7 @@ class AutoPeer {
                     if (connectionToGuest === null) {
                         throw "Failed to connect to guest. Try refreshing";
                     }
-                    game.screen.setColor(Color.fromString("green"));
-                    game.screen.drawString("Connected", 10, 10);
+                    game.showStatus("Connected");
                     connectionToGuest.serialization = "json";
                     this.connectionToGuest = connectionToGuest;
                     connectionToGuest.on("data", (wevent: WEvent) => {
@@ -341,9 +339,11 @@ class Applet
         size.height = this.canvasEl.height;
         return size;
     }
-    showStatus(a: string = null, b: string = null): void
+    showStatus(text: string): void
     {
-        console.log(a + " " + b);
+        var screen = this.getGraphics();
+        screen.setColor(Color.fromString("Green"));
+        screen.drawString(text, 10, 10);
     }
     requestFocus(): void
     {
@@ -364,13 +364,18 @@ class Applet
         return new WImage(div);
     }
 }
-class WorldCupSoccerSlime extends Applet
-{
-    public static go() {
-        var wcss = new WorldCupSoccerSlime();
-        wcss.init();
-        wcss.run();
+abstract class SlimeGame extends Applet {
+    abstract init(): void;
+    abstract run(): Promise<void>;
+    abstract handleEvent(wevent: WEvent);
+    abstract restoreFromRemote(game: SlimeGame);
+    public start() {
+        this.init();
+        this.run();
     }
+}
+class WorldCupSoccerSlime extends SlimeGame
+{
     private isStarted: boolean = false;
     private nWidth: number = 0;
     private nHeight: number = 0;
@@ -466,11 +471,11 @@ class WorldCupSoccerSlime extends Applet
         }, 0);
     }
 
-    restoreFromRemote(wcss: WorldCupSoccerSlime) {
+    restoreFromRemote(game: SlimeGame) {
         Object.getOwnPropertyNames(this).forEach(propName => {
             var propType = typeof(this[propName]);
             if (propType === "number" || propType === "boolean" || propType === "string" || propName === "pointsX" || propName === "pointsY" || propName === "replayData") {
-                this[propName] = wcss[propName];
+                this[propName] = game[propName];
             }
         });
         this.paint(super.getGraphics());
@@ -575,7 +580,7 @@ class WorldCupSoccerSlime extends Applet
         var flag: boolean = id === 503;
         if (flag)
         {
-            super.showStatus("Slime Volleyball 2-Player: Soccer Slime, by Quin Pendragon: tartarus.uwa.edu.au/~fractoid", null);
+            super.showStatus("Slime Volleyball 2-Player: Soccer Slime, by Quin Pendragon: tartarus.uwa.edu.au/~fractoid");
             super.requestFocus();
         }
         else
@@ -973,7 +978,7 @@ class WorldCupSoccerSlime extends Applet
         var num11: number = num7 - num5;
         var num12: number = num8 - num6;
         var num13: number = <number>Math.sqrt(<number>(num11 * num11 + num12 * num12));
-        var flag2: boolean = WorldCupSoccerSlime.Mathrandom() < 0.01;
+        var flag2: boolean = Math.random() < 0.01;
         var flag3: boolean = flag2;
         if (flag3)
         {
@@ -1029,7 +1034,7 @@ class WorldCupSoccerSlime extends Applet
         num11 = num7 - num5;
         num12 = num8 - num6;
         num13 = <number>Math.sqrt(<number>(num11 * num11 + num12 * num12));
-        flag2 = (WorldCupSoccerSlime.Mathrandom() < 0.01);
+        flag2 = (Math.random() < 0.01);
         var flag7: boolean = flag2;
         if (flag7)
         {
@@ -1640,14 +1645,6 @@ class WorldCupSoccerSlime extends Applet
         }
         return result;
     }
-    static Mathrandom(): number
-    {
-        return Math.random();
-    }
-    static SystemcurrentTimeMillis(): number
-    {
-        return Date.now();
-    }
     async run()
     {
         this.worldCupRound = 0;
@@ -1658,7 +1655,7 @@ class WorldCupSoccerSlime extends Applet
             this.scoringRun = 0;
             this.fP1Touched = (this.fP2Touched = false);
             this.gameTime = 0;
-            this.startTime = WorldCupSoccerSlime.SystemcurrentTimeMillis();
+            this.startTime = Date.now();
             this.fEndGame = false;
             this.fCanChangeCol = false;
             this.mousePressed = false;
@@ -1671,7 +1668,7 @@ class WorldCupSoccerSlime extends Applet
                 this.paint(super.getGraphics());
                 do
                 {
-                    this.p2Col = <number>(WorldCupSoccerSlime.Mathrandom() * <number>this.slimaryCols.length / 4.0) + this.worldCupRound * this.slimaryCols.length / 4 >>> 0;
+                    this.p2Col = <number>(Math.random() * <number>this.slimaryCols.length / 4.0) + this.worldCupRound * this.slimaryCols.length / 4 >>> 0;
                 }
                 while (this.p1Col === this.p2Col);
                 var s: string = this.slimeColText[this.p1Col] + " vs. " + this.slimeColText[this.p2Col];
@@ -1715,7 +1712,7 @@ class WorldCupSoccerSlime extends Applet
             }
             while (this.gameTime > 0 || (this.worldCup && this.worldCupRound > 0 && this.p1Score === this.p2Score))
             {
-                this.gameTime = this.startTime + <number>this.gameLength - WorldCupSoccerSlime.SystemcurrentTimeMillis();
+                this.gameTime = this.startTime + <number>this.gameLength - Date.now();
                 var flag6: boolean = this.gameTime < 0;
                 if (flag6)
                 {
@@ -1792,7 +1789,7 @@ class WorldCupSoccerSlime extends Applet
                 var flag12: boolean = this.playOnTicks === 0 || this.p1TouchingGoal > 60 || this.p2TouchingGoal > 60;
                 if (flag12)
                 {
-                    var num2: number = WorldCupSoccerSlime.SystemcurrentTimeMillis();
+                    var num2: number = Date.now();
                     var flag13: boolean = this.p1TouchingGoal > 60;
                     if (flag13)
                     {
@@ -1841,9 +1838,9 @@ class WorldCupSoccerSlime extends Applet
                     this.drawPrompt();
                     this.playOnTicks = 10;
                     this.fPlayOn = false;
-                    this.startTime = this.startTime + (WorldCupSoccerSlime.SystemcurrentTimeMillis() - num2);
-                    this.ballX = 490 + ((WorldCupSoccerSlime.Mathrandom() * 20.0) >>> 0);
-                    this.ballY = 190 + ((WorldCupSoccerSlime.Mathrandom() * 20.0) >>> 0);
+                    this.startTime = this.startTime + (Date.now() - num2);
+                    this.ballX = 490 + ((Math.random() * 20.0) >>> 0);
+                    this.ballY = 190 + ((Math.random() * 20.0) >>> 0);
                     this.ballVX = 0;
                     this.ballVY = 0;
                     this.p1X = 200;
