@@ -33,6 +33,8 @@ class WImage {
         this.root = root;
     }
     getGraphics() {
+        if (!!true)
+            return new Graphics(document.querySelector("canvas")["getContext"]("2d"));
         return this.root.querySelector("canvas")["getContext"]("2d");
     }
 }
@@ -51,7 +53,11 @@ class Font {
 }
 class NString {
     static Concat(things) {
-        return things.join("");
+        var vals = [];
+        for (var i = 0; i < arguments.length; i++) {
+            vals.push(arguments[i]);
+        }
+        return vals.join("");
     }
 }
 class WEvent {
@@ -279,7 +285,7 @@ class WorldCupSoccerSlime extends Applet {
             this.replayData.push(arr);
         }
     }
-    static bootstrap() {
+    static go() {
         var wcss = new WorldCupSoccerSlime();
         wcss.init();
         wcss.run();

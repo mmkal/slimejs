@@ -30,6 +30,7 @@ class WImage
         this.root = root;
     } 
     getGraphics(): Graphics {
+        if(!!true) return new Graphics(document.querySelector("canvas")["getContext"]("2d"));
         return this.root.querySelector("canvas")["getContext"]("2d");
     }
 }
@@ -51,8 +52,12 @@ class Font
 }
 class NString
 {
-    public static Concat(things: any[]){
-        return things.join("");
+    public static Concat(things: any){
+        var vals = [];
+        for (var i = 0; i < arguments.length; i++) {
+            vals.push(arguments[i]);
+        }
+        return vals.join("");
     }
 }
 class WEvent
@@ -209,7 +214,7 @@ class Applet
 }
 class WorldCupSoccerSlime extends Applet
 {
-    public static bootstrap() {
+    public static go() {
         var wcss = new WorldCupSoccerSlime();
         wcss.init();
         wcss.run();
