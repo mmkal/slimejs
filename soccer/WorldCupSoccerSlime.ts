@@ -586,7 +586,7 @@ class WorldCupSoccerSlime extends SlimeGame {
             this.p1Blink = this.p1Blink - 1;
         }
         var flag6: boolean = this.p1Score > this.p2Score + 2;
-        if (flag6 || true)
+        if (flag6)
         {
             var j: number = this.p1X * this.nWidth / 1000;
             var num14: number = 7 * this.nHeight / 10 - (this.p1Y - 40) * this.nHeight / 1000;
