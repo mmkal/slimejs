@@ -1,23 +1,3 @@
-var wasdToJikl = {
-    83: 75,
-    65: 74,
-    68: 76,
-    87: 73
-};
-for (let ks in wasdToJikl) {
-    let k = parseInt(ks);
-    let v = wasdToJikl[k];
-    wasdToJikl[k + 32] = v + 32;
-}
-
-var jiklToWasd = {};
-
-for (let ks in wasdToJikl) {
-    let k = parseInt(ks);
-    let v = wasdToJikl[k];
-    jiklToWasd[v] = k;
-}
-
 class WImage {
     root: HTMLElement = null;
     constructor(root: HTMLElement) {
@@ -259,7 +239,6 @@ abstract class SlimeGame extends Applet {
     }
 
     updateGuest() {
-        // TODO make autopeer a property
         if (this.autoPeer.connectionToGuest === null) return;
         if (this.guestSendTask) return;
 
@@ -272,13 +251,13 @@ abstract class SlimeGame extends Applet {
     }
 
     // TODO make sure works
-    mapKeyCode(keyCode: number) {
-        if (this.autoPeer.connectionToHost) {
-            keyCode = wasdToJikl[keyCode] || keyCode;
-        }
-        if (this.autoPeer.connectionToGuest) {
-            keyCode = jiklToWasd[keyCode] || keyCode;
-        }
-        return keyCode;
-    }
+    // mapKeyCode(keyCode: number) {
+    //     if (this.autoPeer.connectionToHost) {
+    //         keyCode = wasdToJikl[keyCode] || keyCode;
+    //     }
+    //     if (this.autoPeer.connectionToGuest) {
+    //         keyCode = jiklToWasd[keyCode] || keyCode;
+    //     }
+    //     return keyCode;
+    // }
 }
