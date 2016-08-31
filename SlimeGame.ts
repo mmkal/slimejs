@@ -87,9 +87,12 @@ class Graphics {
         var radiusY = height / 2;
         var startAngleRadians = startAngleDegrees * Math.PI / 180;
         var endAngleRadians = endAngleDegrees * Math.PI / 180;
-        // TODO make this work properly
-        this.ctx.arc(centreX, centreY, radiusX, startAngleRadians, endAngleRadians, true);
-        //this.ctx["ellipse"](centreX, centreY, radiusX, radiusY, 0, startAngleRadians, endAngleRadians, true);
+        var anticlockwise = endAngleRadians >= 0;
+        if (startAngleRadians < 0 && endAngleRadians < 0) {
+            this.ctx.arc(centreX, centreY - radiusX / 2, radiusX, -endAngleRadians, -startAngleRadians, true);
+        }else {
+            this.ctx.arc(centreX, centreY, radiusX, startAngleRadians, endAngleRadians, endAngleRadians >= 0);
+        }
     }
 
     fillArc(x: number, y: number, width: number, height: number, startAngleDegrees: number, endAngleDegrees: number): void {

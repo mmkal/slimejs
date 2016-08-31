@@ -219,9 +219,13 @@ class Graphics {
         var radiusY = height / 2;
         var startAngleRadians = startAngleDegrees * Math.PI / 180;
         var endAngleRadians = endAngleDegrees * Math.PI / 180;
-        // TODO make this work properly
-        this.ctx.arc(centreX, centreY, radiusX, startAngleRadians, endAngleRadians, true);
-        //this.ctx["ellipse"](centreX, centreY, radiusX, radiusY, 0, startAngleRadians, endAngleRadians, true);
+        var anticlockwise = endAngleRadians >= 0;
+        if (startAngleRadians < 0 && endAngleRadians < 0) {
+            this.ctx.arc(centreX, centreY - radiusX / 2, radiusX, -endAngleRadians, -startAngleRadians, true);
+        }
+        else {
+            this.ctx.arc(centreX, centreY, radiusX, startAngleRadians, endAngleRadians, endAngleRadians >= 0);
+        }
     }
     fillArc(x, y, width, height, startAngleDegrees, endAngleDegrees) {
         this.arcPath(x, y, width, height, startAngleDegrees, endAngleDegrees);
@@ -2525,7 +2529,7 @@ class WorldCupSoccerSlime extends SlimeGame {
             this.p1Blink = this.p1Blink - 1;
         }
         var flag6 = this.p1Score > this.p2Score + 2;
-        if (flag6) {
+        if (flag6 || true) {
             var j = this.p1X * this.nWidth / 1000;
             var num14 = 7 * this.nHeight / 10 - (this.p1Y - 40) * this.nHeight / 1000;
             var j2 = this.nWidth / 20;
@@ -2533,7 +2537,7 @@ class WorldCupSoccerSlime extends SlimeGame {
             var num15 = 0;
             do {
                 this.screen.setColor(Color.fromString("black"));
-                this.screen.drawArc(j, num14 + num15, j2, l, 150, 30);
+                this.screen.drawArc(j, num14 + num15, j2, l, -30, -150);
             } while ((num15 = num15 + 1) < 3);
         }
         num7 = this.p2X * this.nWidth / 1000 - num / 2;
@@ -2582,7 +2586,7 @@ class WorldCupSoccerSlime extends SlimeGame {
             var num18 = 0;
             do {
                 this.screen.setColor(Color.fromString("black"));
-                this.screen.drawArc(j3, num17 + num18, num16, l2, 150, 10);
+                this.screen.drawArc(j3, num17 + num18, num16, l2, -10, -150);
             } while ((num18 = num18 + 1) < 3);
         }
         this.DrawGoals();

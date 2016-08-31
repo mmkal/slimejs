@@ -586,7 +586,7 @@ class WorldCupSoccerSlime extends SlimeGame {
             this.p1Blink = this.p1Blink - 1;
         }
         var flag6: boolean = this.p1Score > this.p2Score + 2;
-        if (flag6)
+        if (flag6 || true)
         {
             var j: number = this.p1X * this.nWidth / 1000;
             var num14: number = 7 * this.nHeight / 10 - (this.p1Y - 40) * this.nHeight / 1000;
@@ -596,7 +596,7 @@ class WorldCupSoccerSlime extends SlimeGame {
             do
             {
                 this.screen.setColor(Color.fromString("black"));
-                this.screen.drawArc(j, num14 + num15, j2, l, 150, 30);
+                this.screen.drawArc(j, num14 + num15, j2, l, -30, -150);
             }
             while ((num15 = num15 + 1) < 3);
         }
@@ -652,7 +652,7 @@ class WorldCupSoccerSlime extends SlimeGame {
             do
             {
                 this.screen.setColor(Color.fromString("black"));
-                this.screen.drawArc(j3, num17 + num18, num16, l2, 150, 10);
+                this.screen.drawArc(j3, num17 + num18, num16, l2, -10, -150);
             }
             while ((num18 = num18 + 1) < 3);
         }
