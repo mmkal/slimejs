@@ -1,6 +1,0 @@
-{
-  "globalDependencies": {
-    "jquery": "registry:dt/jquery#1.10.0+20160704162008",
-    "peerjs": "registry:dt/peerjs#0.0.0+20160317120654"
-  }
-}

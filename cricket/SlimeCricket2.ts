@@ -1,5 +1,4 @@
-class SlimeCricket2 extends SlimeGame
-{
+class SlimeCricket2 extends SlimeGame {
 	private static p1Diam: number = 75;
 	private static p2Diam: number = 75;
 	private static ballRad: number = 13;

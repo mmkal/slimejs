@@ -1,0 +1,27 @@
+{
+  "name": "slimejs",
+  "version": "0.0.1",
+  "description": "Javascript port of Slime volleyball/soccer/cricket.",
+  "main": "dist/slime.js",
+  "dependencies": {},
+  "devDependencies": {
+    "@types/jquery": "^2.0.33",
+    "@types/peerjs": "0.0.28"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmkal/slimejs.git"
+  },
+  "keywords": [
+    "slime"
+  ],
+  "author": "mmkal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mmkal/slimejs/issues"
+  },
+  "homepage": "https://github.com/mmkal/slimejs#readme"
+}

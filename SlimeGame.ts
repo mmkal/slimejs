@@ -4,8 +4,7 @@ class WImage {
         this.root = root;
     } 
     getGraphics(): Graphics {
-        if(!!true) return new Graphics(document.querySelector("canvas")["getContext"]("2d"));
-        return this.root.querySelector("canvas")["getContext"]("2d");
+        return new Graphics(document.querySelector("canvas")["getContext"]("2d"));
     }
 }
 class Font {

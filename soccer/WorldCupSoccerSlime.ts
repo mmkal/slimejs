@@ -1,5 +1,3 @@
-/// <reference path="../SlimeGame.ts" />
-
 class WorldCupSoccerSlime extends SlimeGame {
     private isStarted: boolean = false;
     private nWidth: number = 0;

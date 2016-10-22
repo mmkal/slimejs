@@ -4,10 +4,6 @@
         "module": "commonjs",
         "sourceMap": true,
         "watch": true,
-        "outFile": "slime.js"
-    },
-    "exclude": [
-        "node_modules",
-        "typings"
-    ]
+        "outFile": "dist/slime.js"
+    }
 }

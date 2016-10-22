@@ -1,5 +1,3 @@
-/// <reference path="typings/index.d.ts" />
-
 class AutoPeer {
     public connectionToHost: PeerJs.DataConnection = null;
     public connectionToGuest: PeerJs.DataConnection = null;
