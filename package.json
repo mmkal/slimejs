@@ -5,8 +5,14 @@
   "main": "dist/slime.js",
   "dependencies": {},
   "devDependencies": {
+    "@types/bluebird": "^3.0.35",
     "@types/jquery": "^2.0.33",
-    "@types/peerjs": "0.0.28"
+    "@types/node": "^6.0.45",
+    "@types/peerjs": "0.0.28",
+    "@types/request": "0.0.32",
+    "@types/request-promise": "^3.0.32",
+    "request": "^2.75.0",
+    "request-promise": "^4.1.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

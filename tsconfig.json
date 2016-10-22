@@ -3,7 +3,6 @@
         "target": "es6",
         "module": "commonjs",
         "sourceMap": true,
-        "watch": true,
-        "outFile": "dist/slime.js"
+        "outDir": "dist"
     }
 }

@@ -19,8 +19,7 @@
             },
             "console": "internalConsole",
             "sourceMaps": true,
-            "outDir": "${workspaceRoot}/dist",
-            "outFiles": ["${workspaceRoot}/dist/slime.js"]
+            "outDir": "${workspaceRoot}/dist"
         },
         {
             "name": "Attach",
