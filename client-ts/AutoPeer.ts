@@ -1,3 +1,5 @@
+import { ShimmedApplet, ShimmedEvent } from "./AppletShims"
+
 export default class AutoPeer {
     public connectionToHost: PeerJs.DataConnection = null;
     public connectionToGuest: PeerJs.DataConnection = null;
@@ -31,7 +33,7 @@ export default class AutoPeer {
         this.logDiv.text(text);
     }
 
-    public async connect(game: SlimeGame) {
+    public async connect(game: ShimmedApplet) {
         let hostPeer: PeerJs.Peer = null;
         for (let id = 0; id < 3; id++) {
             if (this.isAlreadyConnected) {
@@ -46,7 +48,7 @@ export default class AutoPeer {
                 game.showStatus("Connected");
                 connectionToHost.serialization = "json";
                 this.connectionToHost = connectionToHost;
-                connectionToHost.on("data", (hostGameState: SlimeGame) => {
+                connectionToHost.on("data", (hostGameState: ShimmedApplet) => {
                     game.restoreFromRemote(hostGameState);
                 });
                 return;
@@ -67,7 +69,7 @@ export default class AutoPeer {
                     connectionToGuest.serialization = "json";
                     this.connectionToGuest = connectionToGuest;
                     connectionToGuest.on("data", (evt: ShimmedEvent) => {
-                        game.handleEvent(evt);
+                        game.onEvent(evt);
                     });
                 });
             }

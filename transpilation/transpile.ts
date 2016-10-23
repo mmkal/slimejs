@@ -35,6 +35,7 @@ function cleanUpTranspiledTypeScript(ts: string) {
     const sleeps = /ShimmedThread\.sleep\((\d+)\);/g;
     const thisMethodCalls = /this\.\w+\(/g;
     const colours = /Color\.(\w+)/g
+    const privates = /\bprivate\b/g;
     const shimmedClasses = /Shimmed\w+\b/g;
     
     ts = ts.replace(voidFunctions, (m, g1, g2) => `${g1} async ${g2}`);
@@ -46,6 +47,8 @@ function cleanUpTranspiledTypeScript(ts: string) {
     ts = ts.replace(thisMethodCalls, m => `await ${m}`);
 
     ts = ts.replace(colours, (m, g1) => `Color.fromString("${g1}")`);
+
+    ts = ts.replace(privates, "public");
 
     const marker = "class EndOfShimDeclarations {}";
 
@@ -74,8 +77,8 @@ async function transpileJavaGame(javaGamePath: string) {
         }
         fs.writeFileSync(tsPath, ts, "utf8");
     } else {
-        if (transpilation.tsout) fs.writeFileSync("failure.ts", transpilation.tsout, "utf8");
-        else fs.writeFileSync("failure.java", java, "utf8");
+        if (transpilation.tsout) fs.writeFileSync("generated-ts/failure.ts", transpilation.tsout, "utf8");
+        else fs.writeFileSync("generated-ts/failure.java", java, "utf8");
         throw new Error(transpilation.errors.join("\r\n"));
     }
 }

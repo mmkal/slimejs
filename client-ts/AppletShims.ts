@@ -137,7 +137,7 @@ export class ShimmedSize {
     height: number = 0;
     width: number = 0;
 }
-export class ShimmedApplet {
+class ShimmedAppletCore {
     canvasEl: HTMLCanvasElement = null;
     constructor() {
         this.canvasEl = document.querySelector("canvas");
@@ -174,20 +174,35 @@ export class ShimmedApplet {
         throw new Error("not implemented");
     }
 }
-export abstract class SlimeGame extends ShimmedApplet {
+export abstract class ShimmedApplet extends ShimmedAppletCore {
     guestSendTask: any = null;
     autoPeer = new AutoPeer("vxv7ldsv1h71ra4i");
 
     abstract init(): void;
     abstract run(): Promise<void>;
-    abstract handleEventCore(wevent: ShimmedEvent);
-    abstract restoreFromRemote(game: SlimeGame);
+
+    public abstract handleEvent(wevent: ShimmedEvent) : Promise<boolean>;
+    
+    restoreFromRemote(game: ShimmedApplet) {
+        Object.getOwnPropertyNames(this).forEach(propName => {
+            var propType = typeof(this[propName]);
+            if (propType === "number" || propType === "boolean" || propType === "string" || propName === "pointsX" || propName === "pointsY" || propName === "replayData") {
+                this[propName] = game[propName];
+            }
+        });
+        const _this: any = this;
+        _this.paint && _this.paint(_this.getGraphics());
+        _this.DrawSlimers && _this.DrawSlimers();
+        _this.DrawGoals && _this.DrawGoals();
+        _this.DrawStatus && _this.DrawStatus();
+    }
+
     public start() {
         this.init();
         this.run();
         window["activeGame"] = this;
     }
-    registerEventListeners(game: SlimeGame) {
+    registerEventListeners(game: ShimmedApplet) {
         document.body.onmousedown = ev => {
             var wevent = new ShimmedEvent();
             wevent.id = 501;
@@ -205,7 +220,7 @@ export abstract class SlimeGame extends ShimmedApplet {
             var wevent = new ShimmedEvent();
             wevent.id = 402;
             wevent.key = ev.keyCode;
-            game.handleEvent(wevent);
+            game.onEvent(wevent);
         }
     }
     private _screen: ShimmedGraphics = null;
@@ -217,13 +232,13 @@ export abstract class SlimeGame extends ShimmedApplet {
         this._screen = value; 
     }
 
-    async handleEvent(event0: ShimmedEvent) {
+    public async onEvent(event0: ShimmedEvent) {
         //event0.key = this.mapKeyCode(event0.key);
         if (this.autoPeer.connectionToHost) {
             this.autoPeer.connectionToHost.send(event0); 
             return;
         }
-        await this.handleEventCore(event0);
+        await this.handleEvent(event0);
     }
 
     updateGuest() {
