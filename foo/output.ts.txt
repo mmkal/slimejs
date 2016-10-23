@@ -1,183 +1,5 @@
-"Generated from Java with JSweet 1.1.0 - http://www.jsweet.org";
-class ShimmedSize {
-    public width : number;
-
-    public height : number;
-
-    constructor() {
-        this.width = 0;
-        this.height = 0;
-    }
-}
-
-class ShimmedApplet {
-    public size() : ShimmedSize {
-        return null;
-    }
-
-    public createImage(x : number, y : number) : ShimmedImage {
-        return null;
-    }
-
-    public showStatus(s : string) {
-    }
-
-    public repaint() {
-    }
-
-    public getGraphics() : ShimmedGraphics {
-        return null;
-    }
-
-    public requestFocus() {
-    }
-}
-
-class ShimmedColor {
-    public static yellow : ShimmedColor = null;
-
-    public static black : ShimmedColor = null;
-
-    public static red : ShimmedColor = null;
-
-    public static gray : ShimmedColor = null;
-
-    public static white : ShimmedColor = null;
-
-    public static blue : ShimmedColor = null;
-
-    public static green : ShimmedColor = null;
-
-    public static pink : ShimmedColor = null;
-
-    public static cyan : ShimmedColor = null;
-
-    public static lightGray : ShimmedColor = null;
-
-    public static darkGray : ShimmedColor = null;
-
-    public constructor(r : number, g : number, b : number) {
-    }
-}
-
-class ShimmedGraphics {
-    public getFont() : ShimmedFont {
-        return null;
-    }
-
-    public setFont(f : ShimmedFont) {
-    }
-
-    public setColor(c : ShimmedColor) {
-    }
-
-    public fillRect(x : number, y : number, w : number, h : number) {
-    }
-
-    public getFontMetrics() : ShimmedFontMetrics {
-        return null;
-    }
-
-    public drawString(s : string, x : number, y : number) {
-    }
-
-    public drawImage(i : ShimmedImage, x : number, y : number, o : any) {
-    }
-
-    public fillOval(x : number, y : number, w : number, h : number) {
-    }
-
-    public fillArc(x : number, y : number, w : number, h : number, s : number, e : number) {
-    }
-
-    public drawLine(x : number, y : number, w : number, h : number) {
-    }
-
-    public fillPolygon(xs : number[], ys : number[], n : number) {
-    }
-
-    public drawArc(x : number, y : number, w : number, h : number, s : number, e : number) {
-    }
-}
-
-class ShimmedImage {
-    public getGraphics() : ShimmedGraphics {
-        return null;
-    }
-}
-
-class ShimmedEvent {
-    public id : number;
-
-    public x : number;
-
-    public y : number;
-
-    public static KEY_ACTION : number = 0;
-
-    public key : number;
-
-    public static LEFT : number = 1;
-
-    public static RIGHT : number = 2;
-
-    public static UP : number = 3;
-
-    public static DOWN : number = 4;
-
-    public static KEY_ACTION_RELEASE : number = 5;
-
-    constructor() {
-        this.id = 0;
-        this.x = 0;
-        this.y = 0;
-        this.key = 0;
-    }
-}
-
-class ShimmedFont {
-    public getName() : string {
-        return null;
-    }
-
-    public constructor(name : string, w : number, h : number) {
-    }
-}
-
-class ShimmedFontMetrics {
-    public getHeight() : number {
-        return 0;
-    }
-
-    public stringWidth(s : string) : number {
-        return 0;
-    }
-
-    public getAscent() : number {
-        return 0;
-    }
-}
-
-class ShimmedThread {
-    public static sleep(ms : number) {
-    }
-
-    public constructor(r : ShimmedRunnable) {
-    }
-
-    public start() {
-    }
-
-    public stop() {
-    }
-}
-
-interface ShimmedRunnable {}
-
-class Marker {}
-
 class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
-    public initStuff() {
+    public async initStuff() {
         this.fEndGame = true;
         this.p1X = 200;
         this.p1Y = 0;
@@ -204,7 +26,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         this.GRAVITY = this.fSuperSlime?8:2;
     }
 
-    private drawButtons() {
+    private async drawButtons() {
         var as : string[] = ["1 minute", "2 minutes", "4 minutes", "8 minutes", "World Cup"];
         var fontmetrics : ShimmedFontMetrics = this.screen.getFontMetrics();
         var color : ShimmedColor = new ShimmedColor(0, 0, 128);
@@ -214,10 +36,10 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
             this.screen.setColor(ShimmedColor.white);
             this.screen.drawString(as[i], (((2 * i + 1) * this.nWidth) / 10|0) - (fontmetrics.stringWidth(as[i]) / 2|0), ((this.nHeight * 5) / 20|0) + (fontmetrics.getHeight() / 2|0));
         }
-        this.flip();
+        await this.flip();
     }
 
-    private testButton(i : number, j : number) : boolean {
+    private async testButton(i : number, j : number) :  Promise<boolean>  {
         for(var k : number = 0; k < 5; k++) if(i > (((2 * k + 1) * this.nWidth) / 10|0) - (this.nWidth / 12|0) && i < (((2 * k + 1) * this.nWidth) / 10|0) + (this.nWidth / 12|0) && j > ((this.nHeight * 2) / 10|0) && j < ((this.nHeight * 3) / 10|0)) {
             if(k === 4) {
                 this.gameLength = 120000;
@@ -231,17 +53,17 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         return false;
     }
 
-    public handleEvent(event : ShimmedEvent) : boolean {
+    public async handleEvent(event : ShimmedEvent) :  Promise<boolean>  {
         label0: switch((event.id)) {
         default:
             break;
         case 503:
-            this.showStatus("Slime Volleyball 2-Player: Soccer Slime, by Quin Pendragon: tartarus.uwa.edu.au/~fractoid");
-            this.requestFocus();
+            await this.showStatus("Slime Volleyball 2-Player: Soccer Slime, by Quin Pendragon: tartarus.uwa.edu.au/~fractoid");
+            await this.requestFocus();
             break;
         case 501:
             this.mousePressed = true;
-            if(this.fInPlay || !this.testButton(event.x, event.y)) break;
+            if(this.fInPlay || !await this.testButton(event.x, event.y)) break;
             this.fEndGame = false;
             this.fInPlay = true;
             this.p1X = 200;
@@ -261,9 +83,9 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
             this.p1Score = 0;
             this.p2Score = 0;
             this.promptMsg = "";
-            this.paint(this.getGraphics());
+            await this.paint(await this.getGraphics());
             try {
-                ShimmedThread.sleep(100);
+                await ShimmedThread.sleep(100);
             } catch(_ex) {
             };
             this.gameThread = new ShimmedThread(this);
@@ -279,16 +101,16 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
                 do {
                     this.p1Col = this.p1Col === this.slimaryCols.length - 1?0:this.p1Col + 1;
                 } while((this.p1Col === this.p2Col));
-                this.drawScores();
-                this.repaint();
+                await this.drawScores();
+                await this.repaint();
                 break;
             case 87:
             case 119:
                 do {
                     this.p1Col = this.p1Col !== 0?this.p1Col - 1:this.slimaryCols.length - 1;
                 } while((this.p1Col === this.p2Col));
-                this.drawScores();
-                this.repaint();
+                await this.drawScores();
+                await this.repaint();
                 break;
             case 75:
             case 107:
@@ -296,8 +118,8 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
                 do {
                     this.p2Col = this.p2Col === this.slimaryCols.length - 1?0:this.p2Col + 1;
                 } while((this.p2Col === this.p1Col));
-                this.drawScores();
-                this.repaint();
+                await this.drawScores();
+                await this.repaint();
                 break;
             case 73:
             case 105:
@@ -305,12 +127,12 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
                 do {
                     this.p2Col = this.p2Col !== 0?this.p2Col - 1:this.slimaryCols.length - 1;
                 } while((this.p1Col === this.p2Col));
-                this.drawScores();
-                this.repaint();
+                await this.drawScores();
+                await this.repaint();
                 break;
             case 54:
                 this.fSuperSlime = !this.fSuperSlime;
-                this.repaint();
+                await this.repaint();
                 break;
             }
             if(this.fEndGame) break;
@@ -355,7 +177,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
                 break;
             case 66:
             case 98:
-                this.toggleBuffering();
+                await this.toggleBuffering();
                 break;
             case 32:
                 this.mousePressed = true;
@@ -400,7 +222,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         return false;
     }
 
-    private DrawSlimers() {
+    private async DrawSlimers() {
         var i : number = (this.nWidth / 10|0);
         var j : number = (this.nHeight / 10|0);
         var k : number = (this.nWidth / 50|0);
@@ -415,7 +237,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         l1 = ((7 * this.nHeight) / 10|0) - ((this.p2OldY * this.nHeight) / 1000|0);
         this.screen.setColor(ShimmedColor.blue);
         this.screen.fillRect(k1, l1, i, j);
-        if(!this.fEndGame) this.MoveBall();
+        if(!this.fEndGame) await this.MoveBall();
         k1 = ((this.p1X * this.nWidth) / 1000|0) - (i / 2|0);
         l1 = ((7 * this.nHeight) / 10|0) - ((this.p1Y * this.nHeight) / 1000|0);
         this.screen.setColor(this.fSuperSlime?this.slimaryCols[this.frenzyCol = (this.frenzyCol + 1) % this.slimaryCols.length]:this.slimaryCols[this.p1Col]);
@@ -502,21 +324,21 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         }
     }
 
-    public paint(g : ShimmedGraphics) {
-        this.nWidth = this.size().width;
-        this.nHeight = this.size().height;
+    public async paint(g : ShimmedGraphics) {
+        this.nWidth = await this.size().width;
+        this.nHeight = await this.size().height;
         this.screen.setColor(ShimmedColor.blue);
         this.screen.fillRect(0, 0, this.nWidth, ((4 * this.nHeight) / 5|0));
         this.screen.setColor(ShimmedColor.gray);
         this.screen.fillRect(0, ((4 * this.nHeight) / 5|0), this.nWidth, (this.nHeight / 5|0));
         this.screen.setColor(ShimmedColor.white);
-        this.drawScores();
+        await this.drawScores();
         if(!this.fInPlay) {
-            this.DrawSlimers();
-            this.drawButtons();
+            await this.DrawSlimers();
+            await this.drawButtons();
         }
-        this.DrawGoals();
-        this.drawPrompt();
+        await this.DrawGoals();
+        await this.drawPrompt();
         if(!this.fInPlay) {
             var fontmetrics : ShimmedFontMetrics = this.screen.getFontMetrics();
             this.screen.setColor(ShimmedColor.white);
@@ -525,15 +347,15 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
             fontmetrics = this.screen.getFontMetrics();
             this.screen.drawString("Written by Quin Pendragon", (this.nWidth / 2|0) - (fontmetrics.stringWidth("Written by Quin Pendragon") / 2|0), (this.nHeight / 2|0) + fontmetrics.getHeight() * 2);
         }
-        this.flip();
+        await this.flip();
     }
 
-    public destroy() {
+    public async destroy() {
         this.gameThread.stop();
         this.gameThread = null;
     }
 
-    private ReplayFrame(i : number, j : number, k : number, l : number, i1 : number, flag : boolean) {
+    private async ReplayFrame(i : number, j : number, k : number, l : number, i1 : number, flag : boolean) {
         if(flag) {
             this.ballX = -1000;
             this.ballOldX = 500;
@@ -571,17 +393,17 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
             this.screen.setColor(ShimmedColor.blue);
             this.screen.fillRect(j, k - i1, l, i1 * 2);
         }
-        this.DrawSlimers();
-        this.DrawGoals();
+        await this.DrawSlimers();
+        await this.DrawGoals();
         try {
-            ShimmedThread.sleep(20);
+            await ShimmedThread.sleep(20);
             return;
         } catch(_ex) {
             return;
         };
     }
 
-    private MakeTime(l : number) : string {
+    private async MakeTime(l : number) :  Promise<string>  {
         var l1 : number = (Math.round(l / 10)) % 100;
         var l2 : number = (Math.round(l / 1000)) % 60;
         var l3 : number = (Math.round(l / 60000)) % 60;
@@ -597,19 +419,19 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         return s;
     }
 
-    private MoveSlimers() {
+    private async MoveSlimers() {
         if(this.worldCup) switch((this.worldCupRound)) {
         case 0:
-            this.controlP2v0();
+            await this.controlP2v0();
             break;
         case 1:
-            this.controlP2v1();
+            await this.controlP2v1();
             break;
         case 2:
-            this.controlP2v2();
+            await this.controlP2v2();
             break;
         case 3:
-            this.controlP2v3();
+            await this.controlP2v3();
             break;
         }
         this.p1X += this.p1XV;
@@ -634,7 +456,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         }
     }
 
-    public constructor() {
+    public async constructor() {
         super();
         Object.defineProperty(this, '__interfaces', { configurable: true, value: ["ShimmedRunnable"] });
         this.nWidth = 0;
@@ -704,7 +526,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         this.replayData = <any> (function(dims) { var allocate = function(dims) { if(dims.length==0) { return undefined; } else { var array = []; for(var i = 0; i < dims[0]; i++) { array.push(allocate(dims.slice(1))); } return array; }}; return allocate(dims);})([200, 8]);
     }
 
-    private MoveBall() {
+    private async MoveBall() {
         var i : number = ((30 * this.nHeight) / 1000|0);
         var j : number = ((this.ballOldX * this.nWidth) / 1000|0);
         var k : number = ((4 * this.nHeight) / 5|0) - ((this.ballOldY * this.nHeight) / 1000|0);
@@ -799,7 +621,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         this.screen.fillOval(j - i, k - i, i * 2, i * 2);
     }
 
-    private DrawGoals() {
+    private async DrawGoals() {
         this.screen.setColor(ShimmedColor.white);
         this.screen.fillRect((this.nWidth / 20|0), ((4 * this.nHeight) / 5|0) - ((200 * this.nHeight) / 1000|0), 5, ((200 * this.nHeight) / 1000|0));
         this.screen.fillRect(this.nWidth - (this.nWidth / 20|0) - 5, ((4 * this.nHeight) / 5|0) - ((200 * this.nHeight) / 1000|0), 5, ((200 * this.nHeight) / 1000|0));
@@ -825,11 +647,11 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         this.screen.fillRect((this.nWidth / 2|0), this.nHeight - 5, l - (this.nWidth / 2|0), 5);
     }
 
-    private DrawStatus() {
+    private async DrawStatus() {
         var g : ShimmedGraphics = this.screen;
         var fontmetrics : ShimmedFontMetrics = this.screen.getFontMetrics();
         var s : string = null;
-        var s1 : string = this.MakeTime(this.gameTime);
+        var s1 : string = await this.MakeTime(this.gameTime);
         var i : number = (this.nHeight / 20|0);
         var j : number = 0;
         var k : number = fontmetrics.stringWidth(s1);
@@ -859,13 +681,13 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         if(s != null) this.screen.drawString(s, (this.nWidth / 2|0) - (j / 2|0), (fontmetrics.getAscent() + 20) - fontmetrics.getHeight());
     }
 
-    public drawPrompt$() {
+    public async drawPrompt$() {
         this.screen.setColor(ShimmedColor.gray);
         this.screen.fillRect(0, ((4 * this.nHeight) / 5|0) + 6, this.nWidth, (this.nHeight / 5|0) - 10);
-        this.drawPrompt(this.promptMsg, 0);
+        await this.drawPrompt(this.promptMsg, 0);
     }
 
-    public drawPrompt(s? : any, i? : any) : any {
+    public async drawPrompt(s? : any, i? : any) :  Promise<any>  {
         if(((typeof s === 'string') || s === null) && ((typeof i === 'number') || i === null)) {
             return <any>(() => {
                 var fontmetrics : ShimmedFontMetrics = this.screen.getFontMetrics();
@@ -877,7 +699,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         } else throw new Error('invalid overload');
     }
 
-    private promptBox(s : string, s1 : string) {
+    private async promptBox(s : string, s1 : string) {
         var fontmetrics : ShimmedFontMetrics = this.screen.getFontMetrics();
         var i : number = fontmetrics.stringWidth(s);
         var j : number = fontmetrics.stringWidth(s1);
@@ -887,10 +709,10 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         this.screen.setColor(ShimmedColor.white);
         this.screen.drawString(s, (this.nWidth / 2|0) - (i / 2|0), ((this.nHeight * 9) / 20|0));
         this.screen.drawString(s1, (this.nWidth / 2|0) - (j / 2|0), ((this.nHeight * 11) / 20|0));
-        this.flip();
+        await this.flip();
     }
 
-    private SaveReplayData() {
+    private async SaveReplayData() {
         this.replayData[this.replayPos][0] = this.p1X;
         this.replayData[this.replayPos][1] = this.p1Y;
         this.replayData[this.replayPos][2] = this.p2X;
@@ -905,7 +727,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         if(this.replayStart >= 200) this.replayStart = 0;
     }
 
-    private drawScores() {
+    private async drawScores() {
         var g : ShimmedGraphics = this.screen;
         var i : number = (this.nHeight / 20|0);
         var fontmetrics : ShimmedFontMetrics = this.screen.getFontMetrics();
@@ -918,7 +740,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         g.drawString(s, this.nWidth - (this.nWidth / 20|0) - fontmetrics.stringWidth(s), i);
     }
 
-    public checkScored() : boolean {
+    public async checkScored() :  Promise<boolean>  {
         if(this.ballY < 200 && (this.ballX < 40 || this.ballX > 960)) {
             this.nScoreX = this.ballX;
             this.fPlayOn = true;
@@ -929,10 +751,10 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         }
     }
 
-    public run() {
+    public async run() {
         this.worldCupRound = 0;
         do {
-            this.initStuff();
+            await this.initStuff();
             this.replayPos = this.replayStart = 0;
             this.scoringRun = 0;
             this.fP1Touched = this.fP2Touched = false;
@@ -945,77 +767,77 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
             this.fInPlay = true;
             this.fEndGame = false;
             if(this.worldCup) {
-                this.paint(this.getGraphics());
+                await this.paint(await this.getGraphics());
                 do {
                     this.p2Col = (<number>((Math.random() * <number>this.slimaryCols.length) / 4.0)|0) + ((this.worldCupRound * this.slimaryCols.length) / 4|0);
                 } while((this.p1Col === this.p2Col));
                 var s : string = this.slimeColText[this.p1Col] + " vs. " + this.slimeColText[this.p2Col];
                 switch((this.worldCupRound)) {
                 case 0:
-                    this.promptBox("Qualifying Round", s);
+                    await this.promptBox("Qualifying Round", s);
                     this.gameLength = 30000;
                     break;
                 case 1:
-                    this.promptBox("Quarter Finals", s);
+                    await this.promptBox("Quarter Finals", s);
                     this.gameLength = 120000;
                     break;
                 case 2:
-                    this.promptBox("Semi-Finals", s);
+                    await this.promptBox("Semi-Finals", s);
                     this.gameLength = 120000;
                     break;
                 case 3:
-                    this.promptBox("World Cup Final", s);
+                    await this.promptBox("World Cup Final", s);
                     this.gameLength = 300000;
                     break;
                 }
                 try {
-                    ShimmedThread.sleep(4000);
+                    await ShimmedThread.sleep(4000);
                 } catch(_ex) {
                 };
-                this.repaint();
-                this.flip();
+                await this.repaint();
+                await this.flip();
             }
             while((this.gameTime > 0 || this.worldCup && this.worldCupRound > 0 && this.p1Score === this.p2Score)){
                 this.gameTime = (this.startTime + Math.round(<number>this.gameLength)) - java.lang.System.currentTimeMillis();
                 if(this.gameTime < 0) this.gameTime = 0;
                 if(this.worldCup && !this.fExtraTime && this.gameTime <= 0 && this.worldCupRound > 0 && this.p1Score === this.p2Score) {
                     var s1 : string = this.p1Score !== 0?" " + this.p1Score:" nil";
-                    this.promptBox("The score is " + this.slimeColText[this.p1Col] + s1 + ", " + this.slimeColText[this.p2Col] + s1 + ".", "And the game goes into extra time...");
+                    await this.promptBox("The score is " + this.slimeColText[this.p1Col] + s1 + ", " + this.slimeColText[this.p2Col] + s1 + ".", "And the game goes into extra time...");
                     try {
-                        ShimmedThread.sleep(4000);
+                        await ShimmedThread.sleep(4000);
                     } catch(_ex) {
                     };
-                    this.repaint();
-                    this.flip();
+                    await this.repaint();
+                    await this.flip();
                     this.startTime += 30000;
                     this.gameTime += 30000;
                     this.fExtraTime = true;
                 } else if(this.gameTime <= 0 && this.fExtraTime && !this.fGoldenGoal && this.p1Score === this.p2Score) {
                     this.fGoldenGoal = true;
                     var s2 : string = this.p1Score !== 0?" " + this.p1Score:" nil";
-                    this.promptBox("The score is " + this.slimeColText[this.p1Col] + s2 + ", " + this.slimeColText[this.p2Col] + s2 + ", and the game goes into Golden Goal.", "The next player to score will win the match!");
+                    await this.promptBox("The score is " + this.slimeColText[this.p1Col] + s2 + ", " + this.slimeColText[this.p2Col] + s2 + ", and the game goes into Golden Goal.", "The next player to score will win the match!");
                     try {
-                        ShimmedThread.sleep(4000);
+                        await ShimmedThread.sleep(4000);
                     } catch(_ex) {
                     };
-                    this.repaint();
-                    this.flip();
+                    await this.repaint();
+                    await this.flip();
                 }
-                this.SaveReplayData();
+                await this.SaveReplayData();
                 this.p1OldX = this.p1X;
                 this.p1OldY = this.p1Y;
                 this.p2OldX = this.p2X;
                 this.p2OldY = this.p2Y;
                 this.ballOldX = this.ballX;
                 this.ballOldY = this.ballY;
-                this.MoveSlimers();
-                this.DrawSlimers();
-                this.DrawGoals();
-                this.DrawStatus();
-                this.flip();
+                await this.MoveSlimers();
+                await this.DrawSlimers();
+                await this.DrawGoals();
+                await this.DrawStatus();
+                await this.flip();
                 if(this.p1X < 150) this.p1TouchingGoal++; else this.p1TouchingGoal = 0;
                 if(this.p2X > 850) this.p2TouchingGoal++; else this.p2TouchingGoal = 0;
-                if(this.fPlayOn) this.playOnTicks--; else this.fPlayOn = this.checkScored();
+                if(this.fPlayOn) this.playOnTicks--; else this.fPlayOn = await this.checkScored();
                 if(this.playOnTicks === 0 || this.p1TouchingGoal > 60 || this.p2TouchingGoal > 60) {
                     var l : number = java.lang.System.currentTimeMillis();
                     if(this.p1TouchingGoal > 60) {
@@ -1031,20 +853,20 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
                         this.p1Score++;
                         this.promptMsg = this.slimeColText[this.p1Col] + " Scores!";
                     }
-                    this.drawPrompt();
-                    this.drawPrompt("Click mouse for replay...", 1);
-                    this.flip();
+                    await this.drawPrompt();
+                    await this.drawPrompt("Click mouse for replay...", 1);
+                    await this.flip();
                     this.mousePressed = false;
                     if(this.gameThread != null) try {
-                        ShimmedThread.sleep(2500);
+                        await ShimmedThread.sleep(2500);
                     } catch(_ex) {
                     };
                     if(this.mousePressed) {
-                        this.SaveReplayData();
-                        this.DoReplay();
+                        await this.SaveReplayData();
+                        await this.DoReplay();
                     }
                     this.promptMsg = "";
-                    this.drawPrompt();
+                    await this.drawPrompt();
                     this.playOnTicks = 10;
                     this.fPlayOn = false;
                     this.startTime += java.lang.System.currentTimeMillis() - l;
@@ -1059,10 +881,10 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
                     this.p2Y = 0;
                     this.p2YV = 0;
                     this.replayStart = this.replayPos = 0;
-                    this.repaint();
+                    await this.repaint();
                 }
                 if(this.gameThread != null) try {
-                    if(this.fPlayOn) ShimmedThread.sleep(120); else ShimmedThread.sleep(20);
+                    if(this.fPlayOn) await ShimmedThread.sleep(120); else await ShimmedThread.sleep(20);
                 } catch(_ex) {
                 };
             };
@@ -1075,34 +897,34 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
                     this.p1Score++;
                     this.promptMsg = this.slimeColText[this.p1Col] + " scores at the final whistle!";
                 }
-                this.drawPrompt();
+                await this.drawPrompt();
             } else {
-                this.drawPrompt("And that\'s the final whistle!", 0);
+                await this.drawPrompt("And that\'s the final whistle!", 0);
             }
             if(this.worldCup) {
                 if(this.p1Score === this.p2Score) {
-                    this.drawPrompt("It\'s a draw at full time, here at Slime Stadium!", 1);
-                    this.promptBox("You played well, but a draw is not enough.", "You have been eliminated.");
+                    await this.drawPrompt("It\'s a draw at full time, here at Slime Stadium!", 1);
+                    await this.promptBox("You played well, but a draw is not enough.", "You have been eliminated.");
                     this.worldCup = false;
-                    this.flip();
+                    await this.flip();
                 } else if(this.p1Score >= this.p2Score) {
                     switch((this.worldCupRound)) {
                     case 0:
-                        this.drawPrompt(this.slimeColText[this.p1Col] + " qualifies for the world cup!", 1);
+                        await this.drawPrompt(this.slimeColText[this.p1Col] + " qualifies for the world cup!", 1);
                         break;
                     case 1:
-                        this.drawPrompt(this.slimeColText[this.p1Col] + " proceeds to the semi-finals!", 1);
+                        await this.drawPrompt(this.slimeColText[this.p1Col] + " proceeds to the semi-finals!", 1);
                         break;
                     case 2:
-                        this.drawPrompt(this.slimeColText[this.p1Col] + " is through to the final!!!", 1);
+                        await this.drawPrompt(this.slimeColText[this.p1Col] + " is through to the final!!!", 1);
                         break;
                     case 3:
-                        this.drawPrompt(this.slimeColText[this.p1Col] + " wins the WORLD CUP!!!!!", 1);
+                        await this.drawPrompt(this.slimeColText[this.p1Col] + " wins the WORLD CUP!!!!!", 1);
                         break;
                     }
                     if(this.worldCupRound === 3) {
                         this.worldCup = false;
-                        this.promptBox("You win the world cup!!!", "Congratulations!");
+                        await this.promptBox("You win the world cup!!!", "Congratulations!");
                     } else {
                         this.worldCupRound++;
                     }
@@ -1110,54 +932,54 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
                     switch((this.worldCupRound)) {
                     case 0:
                     case 1:
-                        this.promptBox("You have been eliminated.", "Goodbye.");
+                        await this.promptBox("You have been eliminated.", "Goodbye.");
                         break;
                     case 2:
-                        this.promptBox("You have been knocked out of the semifinals.", "You played well.");
+                        await this.promptBox("You have been knocked out of the semifinals.", "You played well.");
                         break;
                     case 3:
-                        this.promptBox("You came second.", "Are you satisfied with that?");
+                        await this.promptBox("You came second.", "Are you satisfied with that?");
                         break;
                     }
                     this.worldCup = false;
                 }
-            } else if(this.p1Score === this.p2Score) this.drawPrompt("It\'s a draw at full time, here at Slime Stadium!", 1); else if(this.p1Score < this.p2Score) this.drawPrompt(this.slimeColText[this.p2Col] + " (" + this.p2Score + ")    def. " + this.slimeColText[this.p1Col] + " (" + this.p1Score + ")", 1); else this.drawPrompt(this.slimeColText[this.p1Col] + " (" + this.p1Score + ")    def. " + this.slimeColText[this.p2Col] + " (" + this.p2Score + ")", 1);
-            this.flip();
+            } else if(this.p1Score === this.p2Score) await this.drawPrompt("It\'s a draw at full time, here at Slime Stadium!", 1); else if(this.p1Score < this.p2Score) await this.drawPrompt(this.slimeColText[this.p2Col] + " (" + this.p2Score + ")    def. " + this.slimeColText[this.p1Col] + " (" + this.p1Score + ")", 1); else await this.drawPrompt(this.slimeColText[this.p1Col] + " (" + this.p1Score + ")    def. " + this.slimeColText[this.p2Col] + " (" + this.p2Score + ")", 1);
+            await this.flip();
             try {
-                ShimmedThread.sleep(5000);
+                await ShimmedThread.sleep(5000);
             } catch(_ex) {
             };
-            this.initStuff();
+            await this.initStuff();
         } while((this.worldCup));
         this.fCanChangeCol = true;
         this.fInPlay = false;
-        this.repaint();
+        await this.repaint();
     }
 
-    public init() {
-        this.nWidth = this.size().width;
-        this.nHeight = this.size().height;
+    public async init() {
+        this.nWidth = await this.size().width;
+        this.nHeight = await this.size().height;
         this.fInPlay = this.fEndGame = false;
         this.fCanChangeCol = true;
-        this.initStuff();
+        await this.initStuff();
         this.promptMsg = "Click on an option to play...";
-        this.backBuffer = this.createImage(this.nWidth, this.nHeight);
-        this.screen = this.getGraphics();
+        this.backBuffer = await this.createImage(this.nWidth, this.nHeight);
+        this.screen = await this.getGraphics();
         this.screen.setFont(new ShimmedFont(this.screen.getFont().getName(), 1, 15));
     }
 
-    private toggleBuffering() {
+    private async toggleBuffering() {
         if(this.doubleBuffered = !this.doubleBuffered) {
             this.screen = this.backBuffer.getGraphics();
             this.screen.setFont(new ShimmedFont(this.screen.getFont().getName(), 1, 15));
         } else {
-            this.screen = this.getGraphics();
+            this.screen = await this.getGraphics();
             this.screen.setFont(new ShimmedFont(this.screen.getFont().getName(), 1, 15));
         }
-        this.repaint();
+        await this.repaint();
     }
 
-    private DoReplay() {
+    private async DoReplay() {
         var fontmetrics : ShimmedFontMetrics = this.screen.getFontMetrics();
         var i : number = fontmetrics.stringWidth("Replay...");
         var j : number = fontmetrics.getHeight();
@@ -1170,24 +992,24 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
             if(++i1 >= 200) i1 = 0;
             if(i1 === this.replayPos) {
                 try {
-                    ShimmedThread.sleep(1000);
+                    await ShimmedThread.sleep(1000);
                 } catch(_ex) {
                 };
                 i1 = this.replayStart;
-                this.paint(this.getGraphics());
+                await this.paint(await this.getGraphics());
             }
-            this.ReplayFrame(i1, k, l, i, j, false);
-            this.flip();
+            await this.ReplayFrame(i1, k, l, i, j, false);
+            await this.flip();
         };
         this.promptMsg = "";
-        this.paint(this.getGraphics());
+        await this.paint(await this.getGraphics());
     }
 
-    private flip() {
-        if(this.doubleBuffered) this.getGraphics().drawImage(this.backBuffer, 0, 0, null);
+    private async flip() {
+        if(this.doubleBuffered) await this.getGraphics().drawImage(this.backBuffer, 0, 0, null);
     }
 
-    private getBallBounceX() : number {
+    private async getBallBounceX() :  Promise<number>  {
         var i : number = this.ballVY + (<number>Math.sqrt(this.ballVY * this.ballVY + 2 * this.ballY)|0);
         var j : number = this.ballX + i * this.ballVX;
         if(j < 0) j = -j;
@@ -1195,11 +1017,11 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         return j;
     }
 
-    private getBallMaxY() : number {
+    private async getBallMaxY() :  Promise<number>  {
         if(this.ballVY < 0) return this.ballY; else return this.ballY + ((this.ballVY * this.ballVY) / 2|0);
     }
 
-    private controlP2v0() {
+    private async controlP2v0() {
         this.p2XV = 0;
         if(this.ballX > this.p2X + 5 && this.ballX < 960) this.fP2Sticky = true;
         if(this.ballX > this.p2X - 10) this.p2XV = this.SLIMEVEL;
@@ -1215,10 +1037,10 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         if(this.p2TouchingGoal > 0 && 60 - this.p2TouchingGoal < 3 + ((this.p2X - 850) / this.SLIMEVEL|0)) this.p2XV = -this.SLIMEVEL;
     }
 
-    private controlP2v1() {
+    private async controlP2v1() {
         this.p2XV = 0;
-        var i : number = this.getBallBounceX();
-        var j : number = this.getBallMaxY();
+        var i : number = await this.getBallBounceX();
+        var j : number = await this.getBallMaxY();
         if(i > 900) this.p2XV = this.SLIMEVEL;
         if(i + 20 < this.p2X) {
             this.fP2Sticky = false;
@@ -1246,9 +1068,9 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         if(this.p2TouchingGoal > 0 && 60 - this.p2TouchingGoal < 3 + ((this.p2X - 850) / this.SLIMEVEL|0)) this.p2XV = -this.SLIMEVEL;
     }
 
-    private controlP2v2() {
-        var i : number = this.getBallBounceX();
-        var j : number = this.getBallMaxY();
+    private async controlP2v2() {
+        var i : number = await this.getBallBounceX();
+        var j : number = await this.getBallMaxY();
         if(this.p2X < 790) this.p2XV = this.SLIMEVEL; else if(this.p2X > 830) this.p2XV = -this.SLIMEVEL; else this.p2XV = 0;
         if(i > 900) this.p2XV = this.SLIMEVEL;
         if(i + 20 < this.p2X) {
@@ -1277,10 +1099,10 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         if(this.p2TouchingGoal > 0 && 60 - this.p2TouchingGoal < 3 + ((this.p2X - 850) / this.SLIMEVEL|0)) this.p2XV = -this.SLIMEVEL;
     }
 
-    private controlP2v3() {
+    private async controlP2v3() {
         var i : number = ((this.SLIMEVEL * 4) / 3|0);
-        var j : number = this.getBallBounceX();
-        var k : number = this.getBallMaxY();
+        var j : number = await this.getBallBounceX();
+        var k : number = await this.getBallMaxY();
         if(this.p2X < 790) this.p2XV = i; else if(this.p2X > 830) this.p2XV = -i; else this.p2XV = 0;
         if(j > 900) this.p2XV = i;
         if(j + 20 < this.p2X) {
@@ -1310,7 +1132,7 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
         if(this.p2TouchingGoal > 0 && 60 - this.p2TouchingGoal < 3 + ((this.p2X - 850) / i|0)) this.p2XV = -i;
     }
 
-    private p(s : string) {
+    private async p(s : string) {
         console.info(s);
     }
 
@@ -1456,5 +1278,3 @@ class WorldCupSoccerSlime extends ShimmedApplet implements ShimmedRunnable {
 
     private pointsY : number[];
 }
-
-
