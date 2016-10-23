@@ -3,14 +3,14 @@ import fs = require("fs");
 import path = require("path");
 
 (async function() {
-    const javaGames = "java/WorldCupSoccerSlime.java".split(" ")
+    const javaGames = "original-java/WorldCupSoccerSlime.java".split(" ")
     for (const gamePath of javaGames) {
         await transpileJavaGame(gamePath);
     }
 })();
 
 function getTranspilableJava(java: string) {
-    const appletShims = fs.readFileSync("foo/AppletShims.java", "utf8");
+    const appletShims = fs.readFileSync("transpilation/AppletShims.java", "utf8");
 
     const shimmableClasses = allMatches(appletShims, /public (class|interface) (\w+)/g).map(m => m[2]);
 
@@ -62,7 +62,10 @@ async function transpileJavaGame(javaGamePath: string) {
     const transpilation = JSON.parse(response);
     if (transpilation.success) {
         const ts = cleanUpTranspiledTypeScript(transpilation.tsout);
-        const tsPath = javaGamePath.replace("java/", "ts/").replace(".java", ".ts");
+        const tsPath = javaGamePath.replace("original-java/", "generated-ts/").replace(".java", ".ts");
+        if (!fs.existsSync(path.dirname(tsPath))) {
+            fs.mkdirSync(path.dirname(tsPath));
+        }
         fs.writeFileSync(tsPath, ts, "utf8");
     } else {
         throw new Error(transpilation);

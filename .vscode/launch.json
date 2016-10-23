@@ -5,7 +5,7 @@
             "name": "Launch",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/foo/sweettranspile.ts",
+            "program": "${workspaceRoot}/transpilation/transpile.ts",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
