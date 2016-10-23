@@ -134,7 +134,11 @@ function cleanUpTranspiledTypeScript(ts: string) {
 }
 
 async function transpileJavaGame(javaGamePath: string) {
-    const originalJava = fs.readdirSync(javaGamePath).map(j => fs.readFileSync(path.join(javaGamePath, j), "utf8")).join("\r\n\r\n");
+    const originalJava = fs
+        .readdirSync(javaGamePath)
+        .map(j => fs.readFileSync(path.join(javaGamePath, j), "utf8"))
+        .sort((leftCode, rightCode) => leftCode.indexOf(" extends ") - rightCode.indexOf(" extends "))
+        .join("\r\n\r\n");
 
     const transpilableJava = getTranspilableJava(originalJava);
     
@@ -164,7 +168,7 @@ async function transpileJavaGame(javaGamePath: string) {
         if (transpilation.tsout) fs.writeFileSync(tsPath.replace(/\.ts$/, ".fail.ts"), transpilation.tsout, "utf8");
         
         const errors: string = transpilation && transpilation.errors && transpilation.errors.join("\r\n");
-        console.log(e + "\r\n" + errors);
+        console.error(e + "\r\n" + errors);
         throw new Error(e + "\r\n" + errors);
     }
 }

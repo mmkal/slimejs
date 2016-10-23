@@ -9,6 +9,21 @@ public class Applet {
 	public void repaint() {}
 	public Graphics getGraphics() { return null; }
 	public void requestFocus() {}
+	public int getWidth() { return 0; }
+	public int getHeight() { return 0; }
+	public DocumentBase getDocumentBase() { return null; }
+	public AppletContext getAppletContext() { return null; }
+	public String getCodeBase() { return null; }
+}
+public class AppletContext {
+	public void showDocument(URL u, String s) {}
+}
+public class DocumentBase {
+	public String getHost() { return null; }
+}
+public class URL { 
+	public URL(String s) {}
+	public InputStream openStream() { return null; }
 }
 public class Color {
 	public static Color yellow = null;
@@ -36,6 +51,7 @@ public class Graphics {
 	public void fillArc(int x, int y, int w, int h, int s, int e) {}
 	public void drawLine(int x, int y, int w, int h) {}
 	public void fillPolygon(int[] xs, int[] ys, int n) {}
+	public void fillPolygon(Polygon p) {}
 	public void drawArc(int x, int y, int w, int h, int s, int e) {}
 }
 public class Image {
@@ -45,8 +61,9 @@ public class Event {
 	public int id;
 	public int x;
 	public int y;
-	public static final int KEY_ACTION = 0;
 	public int key;
+	public Button target;
+	public static final int KEY_ACTION = 0;
 	public static final int LEFT = 1;
 	public static final int RIGHT = 2;
 	public static final int UP = 3;
@@ -71,24 +88,64 @@ public class Thread {
 public interface Runnable {}
 
 public class PrintStream {
-	public Object println(String s) { return null; }
+	public Object print(Object s) { return null; }
+	public Object println() { return null; }
+	public Object println(Object s) { return null; }
 }
 public class System {
 	public static PrintStream out = null;
 	public static long currentTimeMillis() { return 0L; }
 }
-public class BufferedImage {
-
+public class BufferedImage extends Image {
+	public BufferedImage(int x, int y, int z) {}
+	public BufferedImage getSubimage(int a, int b, int c, int d) { return null; }
 }
 public class Vector {
-
+	public Vector(int n) {}
+	public void removeAllElements() {}
+	public Object get(int i) { return null; }
+	public int size() { return 0; }
+	public void add(int[] x) {}
 }
-public class Frame {
-
+public class Element {
+	public void add(Element e) {}
 }
-public class TextField {
-
+public class Frame extends Element {
+	public void setTitle(String s) {}
+	public void pack() {}
+	public void show() {}
+	public void dispose() {}
+	public void setLayout(GridLayout g) {}
 }
-public class Button {
-
+public class TextField extends Element {
+	public TextField(int s) {}
+	public String getText() { return null; }
+}
+public class Button extends Element {
+	public Button(String s) {}
+}
+public class Polygon {
+	public Polygon(int[] xs, int[] ys, int n) {}
+}
+public class InputStream {
+	public void close() {}
+}
+public class BufferedReader {
+	public BufferedReader(InputStreamReader i) {}
+	public String readLine() { return null; }
+	public void close() {}
+}
+public class InputStreamReader {
+	public InputStreamReader(InputStream is) {}
+}
+public class Panel extends Element {
+}
+public class Label extends Element {
+	public Label(String s) {}
+}
+public class GridLayout {
+	public GridLayout(int x, int y) {}
+}
+public class Long {
+	public static long parseLong(String s) { return 0L; }
 }
