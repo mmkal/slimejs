@@ -8,6 +8,8 @@ import webpack = require("webpack");
     for (const gamePath of javaGames) {
         await transpileJavaGame(gamePath);
     }
+    console.log("Success.");
+    process.exit(0);
 })();
 
 function getTranspilableJava(java: string) {
@@ -112,11 +114,11 @@ function cleanUpTranspiledTypeScript(ts: string) {
 }
 
 async function transpileJavaGame(javaGamePath: string) {
-    const originalJava = fs.readdirSync(javaGamePath).map(p => fs.readFileSync(p, "utf8")).join("\r\n\r\n");
+    const originalJava = fs.readdirSync(javaGamePath).map(j => fs.readFileSync(path.join(javaGamePath, j), "utf8")).join("\r\n\r\n");
 
     const transpilableJava = getTranspilableJava(originalJava);
     
-    const tsPath = path.join("generated-ts", javaGamePath + ".ts");
+    const tsPath = path.join("generated-ts", javaGamePath.replace("original-java/", "") + ".ts");
     if (!fs.existsSync(path.dirname(tsPath))) {
         fs.mkdirSync(path.dirname(tsPath));
     }
