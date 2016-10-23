@@ -1,4 +1,6 @@
-class ShimmedImage {
+import AutoPeer from "./AutoPeer"
+
+export class ShimmedImage {
     root: HTMLElement = null;
     constructor(root: HTMLElement) {
         this.root = root;
@@ -7,7 +9,7 @@ class ShimmedImage {
         return new ShimmedGraphics(document.querySelector("canvas")["getContext"]("2d"));
     }
 }
-class ShimmedFont {
+export class ShimmedFont {
     private name: string = null;
     private v1: number = 0;
     private v2: number = 0;
@@ -20,13 +22,13 @@ class ShimmedFont {
         return this.name;
     }
 }
-class ShimmedEvent {
+export class ShimmedEvent {
     id: number;
     key: number;
     x: number;
     y: number;
 }
-class ShimmedGraphics {
+export class ShimmedGraphics {
     public ctx: CanvasRenderingContext2D = null;
     constructor(ctx: CanvasRenderingContext2D) {
         this.ctx = ctx;
@@ -107,7 +109,7 @@ class ShimmedGraphics {
 
     }
 }
-class ShimmedColor {
+export class ShimmedColor {
     public stringRepresentation: string = null;
     constructor(r: number, g: number, b: number)
     {
@@ -120,7 +122,7 @@ class ShimmedColor {
         return color;
     }
 }
-class ShimmedFontMetrics {
+export class ShimmedFontMetrics {
     stringWidth(v: string): number {
         return v.length * 10;
     }
@@ -131,39 +133,32 @@ class ShimmedFontMetrics {
         return 10;
     }
 }
-class ShimmedSize {
+export class ShimmedSize {
     height: number = 0;
     width: number = 0;
 }
-class ShimmedApplet {
+export class ShimmedApplet {
     canvasEl: HTMLCanvasElement = null;
-    constructor(canvasEl: HTMLCanvasElement)
-    {
-        this.canvasEl = canvasEl;
+    constructor() {
+        this.canvasEl = document.querySelector("canvas");
     }
-    size(): ShimmedSize
-    {
+    size(): ShimmedSize {
         var size = new ShimmedSize();
         size.width = this.canvasEl.width;
         size.height = this.canvasEl.height;
         return size;
     }
-    showStatus(text: string): void
-    {
+    showStatus(text: string): void {
         var screen = this.getGraphics();
         screen.setColor(ShimmedColor.fromString("Green"));
         screen.drawString(text, 10, 10);
     }
-    requestFocus(): void
-    {
-        
+    requestFocus(): void { 
     }
-    getGraphics(): ShimmedGraphics
-    {
+    getGraphics(): ShimmedGraphics {
         return new ShimmedGraphics(this.canvasEl.getContext("2d"));
     }
-    createImage(nWidth: number, nHeight: number): ShimmedImage
-    {
+    createImage(nWidth: number, nHeight: number): ShimmedImage {
         if (document.querySelector("canvas")) {
             return new ShimmedImage(document.body);
         }
@@ -175,8 +170,11 @@ class ShimmedApplet {
         document.body.appendChild(div);
         return new ShimmedImage(div);
     }
+    repaint() {
+        throw new Error("not implemented");
+    }
 }
-abstract class SlimeGame extends ShimmedApplet {
+export abstract class SlimeGame extends ShimmedApplet {
     guestSendTask: any = null;
     autoPeer = new AutoPeer("vxv7ldsv1h71ra4i");
 
@@ -239,15 +237,30 @@ abstract class SlimeGame extends ShimmedApplet {
             this.guestSendTask = null;
         }, 0);
     }
+}
 
-    // TODO make sure works
-    // mapKeyCode(keyCode: number) {
-    //     if (this.autoPeer.connectionToHost) {
-    //         keyCode = wasdToJikl[keyCode] || keyCode;
-    //     }
-    //     if (this.autoPeer.connectionToGuest) {
-    //         keyCode = jiklToWasd[keyCode] || keyCode;
-    //     }
-    //     return keyCode;
-    // }
+export class ShimmedThread {
+    constructor(private runnable: ShimmedRunnable) {
+    }
+    public static sleep(ms: number) {
+        return new Promise(res => setTimeout(res, ms));
+    }
+    public start() {
+        this.runnable.run();
+    }
+    public stop() {
+    }
+}
+
+export interface ShimmedRunnable {
+    run();
+}
+
+export class ShimmedSystem {
+    public static out = {
+        println: console.log
+    }
+    public static currentTimeMillis() {
+        return Date.now();
+    }
 }

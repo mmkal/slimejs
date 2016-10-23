@@ -31,13 +31,15 @@ function getTranspilableJava(java: string) {
 function cleanUpTranspiledTypeScript(ts: string) {
     const voidFunctions = /(public|private) (.+?\(.*?\) {)/g;
     const nonVoidFunctions = /(public|private) (.+?\(.*?\) : )(.*?)( {)/g;
+    const asyncConstructors = /async constructor\(/g;
     const sleeps = /ShimmedThread\.sleep\((\d+)\);/g;
     const thisMethodCalls = /this\.\w+\(/g;
     const colours = /Color\.(\w+)/g
+    const shimmedClasses = /Shimmed\w+\b/g;
     
     ts = ts.replace(voidFunctions, (m, g1, g2) => `${g1} async ${g2}`);
-
     ts = ts.replace(nonVoidFunctions, (m, g1, g2, g3, g4) => `${g1} async ${g2} Promise<${g3}> ${g4}`);
+    ts = ts.replace(asyncConstructors, "constructor(");
 
     ts = ts.replace(sleeps, m => `await ${m}`);
 
@@ -52,6 +54,10 @@ function cleanUpTranspiledTypeScript(ts: string) {
     if (markerStart === -1) throw new Error("Marker code not found");
 
     ts = ts.substring(markerStart + marker.length, ts.length).trim();
+
+    const imports = Array.from(new Set(allMatches(ts, shimmedClasses).map(m => m.toString()))).join(", ");
+
+    ts = `import { ${imports} } from "../client-ts/AppletShims"\r\n\r\n${ts}`;
 
     return ts;
 }
@@ -68,7 +74,9 @@ async function transpileJavaGame(javaGamePath: string) {
         }
         fs.writeFileSync(tsPath, ts, "utf8");
     } else {
-        throw new Error(transpilation);
+        if (transpilation.tsout) fs.writeFileSync("failure.ts", transpilation.tsout, "utf8");
+        else fs.writeFileSync("failure.java", java, "utf8");
+        throw new Error(transpilation.errors.join("\r\n"));
     }
 }
 

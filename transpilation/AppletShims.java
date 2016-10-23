@@ -69,3 +69,11 @@ public class Thread {
     public void stop() {}
 }
 public interface Runnable {}
+
+public class PrintStream {
+	public Object println(String s) { return null; }
+}
+public class System {
+	public static PrintStream out = null;
+	public static long currentTimeMillis() { return 0L; }
+}

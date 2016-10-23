@@ -1,4 +1,4 @@
-class AutoPeer {
+export default class AutoPeer {
     public connectionToHost: PeerJs.DataConnection = null;
     public connectionToGuest: PeerJs.DataConnection = null;
     public peerOptions = null;
