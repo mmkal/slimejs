@@ -1,5 +1,5 @@
 module.exports = {
-    entry: "./generated-ts/WorldCupSoccerSlime",
+    entry: "./client-ts/slime",
     output: {
         filename: "dist/slime.js"
     },

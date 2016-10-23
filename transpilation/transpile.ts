@@ -110,6 +110,8 @@ function cleanUpTranspiledTypeScript(ts: string) {
 
     ts = `import { ${imports} } from "../client-ts/AppletShims"\r\n\r\n${ts}`;
 
+    ts = ts.replace(/\bclass\b/, "export default class");
+
     return ts;
 }
 
