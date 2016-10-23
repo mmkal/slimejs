@@ -1,5 +1,5 @@
-import SoccerGame from "../generated-ts/soccer"
+import Game from "../generated-ts/soccer"
 
 setTimeout(() => {
-    new SoccerGame().start();
+    new Game().start();
 }, 3000);

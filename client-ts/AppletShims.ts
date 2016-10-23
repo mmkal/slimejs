@@ -27,6 +27,14 @@ export class ShimmedEvent {
     key: number;
     x: number;
     y: number;
+
+    // todo: check the right values for these on java Event
+    static LEFT = 74;
+    static RIGHT = 76;
+    static UP = 73;
+    static DOWN = 107;
+    static KEY_ACTION = 401;
+    static KEY_ACTION_RELEASE = 402;
 }
 export class ShimmedGraphics {
     public ctx: CanvasRenderingContext2D = null;

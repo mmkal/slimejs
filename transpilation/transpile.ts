@@ -4,7 +4,7 @@ import path = require("path");
 import webpack = require("webpack");
 
 (async function() {
-    const javaGames = "original-java/soccer".split(" ")
+    const javaGames = "original-java/soccer original-java/cricket".split(" ")
     for (const gamePath of javaGames) {
         await transpileJavaGame(gamePath);
     }
@@ -17,7 +17,11 @@ function getTranspilableJava(java: string) {
 
     const shimmableClasses = allMatches(appletShims, /public (class|interface) (\w+)/g).map(m => m[2]);
 
-    java = java.replace(/(do)([^{]+?)(while)/g, (match, g1, g2, g3) => `${g1} { ${g2} } ${g3}`);
+    java = java.replace(/(\bdo\b)([^{]+?)(while)/g, (match, g1, g2, g3) => `${g1} { ${g2} } ${g3}`);
+
+    java = java.replace(/\bcase\b '(.)'/g, (m, ch: string) => `case ${ch.charCodeAt(0)}`);
+
+    java = java.replace(/\w+\.sleep\b/g, "ShimmedThread.sleep"); // nasty. Java can call static methods from instances, but the transpiler doesn't like it.
 
     java = java.replace(/import .*;/g, "");
 
@@ -67,19 +71,22 @@ function asyncify(ts: string) {
     const handledMethods = new Set<string>();
     const replacements = { };
 
+    function asyncifyMethod(m) {
+        const expression = new RegExp("this\\." + m + "\\(.*\\)", "g");
+        awaitableExpressions.push(expression);
+        
+        handledMethods.add(m);
+        
+        const declaration = declarations[m];
+        replacements[declaration] = declaration.replace("public", "public async"); 
+    }
+
+    asyncifyMethod("handleEvent");
+
     while (awaitableExpressions.length > 0) {
         const regexp = awaitableExpressions.pop();
-        const affectedMethods = methods.filter(m => regexp.test(getBody(m)) && !handledMethods.has(m));
-
-        affectedMethods
-            .map(m => new RegExp("this\\." + m + "\\(.*\\)", "g"))
-            .forEach(r => awaitableExpressions.push(r));
-
-        affectedMethods.forEach(m => handledMethods.add(m));
-
-        affectedMethods
-            .map(m => declarations[m])
-            .forEach(d => replacements[d] = d.replace("public", "public async"));
+        
+        methods.filter(m => regexp.test(getBody(m)) && !handledMethods.has(m)).forEach(asyncifyMethod);
 
         ts = ts.replace(regexp, m => "await " + m);
         ts = ts.replace("await await", "await");
@@ -139,9 +146,14 @@ async function transpileJavaGame(javaGamePath: string) {
         const ts = cleanUpTranspiledTypeScript(transpilation.tsout);
         fs.writeFileSync(tsPath, ts, "utf8");
     } else {
+        fs.unlinkSync(cached);
+        fs.writeFileSync(tsPath.replace(/\.ts$/, ".fail.java"), transpilableJava, "utf8");
+        
         if (transpilation.tsout) fs.writeFileSync(tsPath.replace(/\.ts$/, ".fail.ts"), transpilation.tsout, "utf8");
-        else fs.writeFileSync(tsPath.replace(/\.ts$/, ".fail.java"), transpilableJava, "utf8");
-        throw new Error(transpilation.errors.join("\r\n"));
+        
+        const errors: string = transpilation.errors.join("\r\n");
+        console.log(errors);
+        throw new Error(errors);
     }
 }
 
