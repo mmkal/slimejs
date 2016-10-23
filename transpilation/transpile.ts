@@ -4,7 +4,7 @@ import path = require("path");
 import webpack = require("webpack");
 
 (async function() {
-    const javaGames = "original-java/soccer original-java/cricket".split(" ")
+    const javaGames = "original-java/tennis".split(" ")
     for (const gamePath of javaGames) {
         await transpileJavaGame(gamePath);
     }
@@ -31,6 +31,17 @@ function getTranspilableJava(java: string) {
         const exactWord = new RegExp("\\b" + c + "\\b", "g");
         java = java.replace(exactWord, "Shimmed" + c);
     });
+
+    if (java.length > 100 * 1000) {
+        const newLineMarker = Date.now() + "NEWLINE" + Date.now();
+        java = java.replace(/\s*\n\s*/g, newLineMarker);
+        java = java.replace(/\s+/g, " ");
+        java = java.split(newLineMarker).join("\n");
+    }
+
+    if (java.length > 100 * 1000) {
+        throw new Error("Java code too long");
+    }
 
     return java;
 }
@@ -142,18 +153,19 @@ async function transpileJavaGame(javaGamePath: string) {
     }
 
     const transpilation = JSON.parse(response);
-    if (transpilation.success) {
+    try {
+        if (!transpilation.success) throw new Error("Transiplation failed");
         const ts = cleanUpTranspiledTypeScript(transpilation.tsout);
         fs.writeFileSync(tsPath, ts, "utf8");
-    } else {
+    } catch (e) {
         fs.unlinkSync(cached);
         fs.writeFileSync(tsPath.replace(/\.ts$/, ".fail.java"), transpilableJava, "utf8");
         
         if (transpilation.tsout) fs.writeFileSync(tsPath.replace(/\.ts$/, ".fail.ts"), transpilation.tsout, "utf8");
         
-        const errors: string = transpilation.errors.join("\r\n");
-        console.log(errors);
-        throw new Error(errors);
+        const errors: string = transpilation && transpilation.errors && transpilation.errors.join("\r\n");
+        console.log(e + "\r\n" + errors);
+        throw new Error(e + "\r\n" + errors);
     }
 }
 

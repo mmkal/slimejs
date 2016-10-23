@@ -77,3 +77,18 @@ public class System {
 	public static PrintStream out = null;
 	public static long currentTimeMillis() { return 0L; }
 }
+public class BufferedImage {
+
+}
+public class Vector {
+
+}
+public class Frame {
+
+}
+public class TextField {
+
+}
+public class Button {
+
+}
