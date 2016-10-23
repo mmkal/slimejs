@@ -171,7 +171,11 @@ class ShimmedAppletCore {
         return new ShimmedImage(div);
     }
     repaint() {
-        throw new Error("not implemented");
+        const _this: any = this;
+        _this.paint && _this.paint(_this.getGraphics());
+        _this.DrawSlimers && _this.DrawSlimers();
+        _this.DrawGoals && _this.DrawGoals();
+        _this.DrawStatus && _this.DrawStatus();
     }
 }
 export abstract class ShimmedApplet extends ShimmedAppletCore {
@@ -190,19 +194,17 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
                 this[propName] = game[propName];
             }
         });
-        const _this: any = this;
-        _this.paint && _this.paint(_this.getGraphics());
-        _this.DrawSlimers && _this.DrawSlimers();
-        _this.DrawGoals && _this.DrawGoals();
-        _this.DrawStatus && _this.DrawStatus();
+        this.repaint();
     }
 
     public start() {
         this.init();
+        this.registerEventListeners();
         this.run();
         window["activeGame"] = this;
     }
-    registerEventListeners(game: ShimmedApplet) {
+    registerEventListeners() {
+        const game = this;
         document.body.onmousedown = ev => {
             var wevent = new ShimmedEvent();
             wevent.id = 501;

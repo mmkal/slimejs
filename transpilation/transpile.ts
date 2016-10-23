@@ -4,7 +4,7 @@ import path = require("path");
 import webpack = require("webpack");
 
 (async function() {
-    const javaGames = "original-java/WorldCupSoccerSlime.java".split(" ")
+    const javaGames = "original-java/soccer".split(" ")
     for (const gamePath of javaGames) {
         await transpileJavaGame(gamePath);
     }
@@ -29,10 +29,7 @@ function getTranspilableJava(java: string) {
     return java;
 }
 
-/** Basic algorithm for making methods that need to be async, async */
 function asyncify(ts: string) {
-    const parts = ts.split("EndOfShimDeclarations");
-    ts = parts[1];
     const functionMatcher = /public ([\w$]+)\(.*\)/g;
 
     const declarations = { };
@@ -65,74 +62,49 @@ function asyncify(ts: string) {
     }
 
     const awaitableExpressions = [ /ShimmedThread\.sleep\(\d+\)/g ];
+    const handledMethods = new Set<string>();
     const replacements = { };
 
     while (awaitableExpressions.length > 0) {
         const regexp = awaitableExpressions.pop();
-        const affectedMethods = methods.filter(m => {
-            const body = getBody(m);
-            return regexp.test(body);
-            // regexp.test(getBody(m))
-        });
+        const affectedMethods = methods.filter(m => regexp.test(getBody(m)) && !handledMethods.has(m));
 
         affectedMethods
             .map(m => new RegExp("this\\." + m + "\\(.*\\)", "g"))
-            .filter(r => awaitableExpressions.every(e => e.source !== r.source))
             .forEach(r => awaitableExpressions.push(r));
+
+        affectedMethods.forEach(m => handledMethods.add(m));
 
         affectedMethods
             .map(m => declarations[m])
             .forEach(d => replacements[d] = d.replace("public", "public async"));
 
         ts = ts.replace(regexp, m => "await " + m);
+        ts = ts.replace("await await", "await");
     }
 
     for (let declaration in replacements) {
         ts = ts.replace(declaration, replacements[declaration]);
     }
 
-    parts[1] = ts;
-
-    ts = parts.join("EndOfShimDeclarations");
+    ts = ts.replace(/(public async .+\(.*\)) : (.+) {/g, (m, declaration, returnType) => `${declaration} : Promise<${returnType}> {`);
 
     return ts;
 }
 
 function cleanUpTranspiledTypeScript(ts: string) {
-    const voidFunctions = /public (.+?\(.*?\) {)/g;
-    const nonVoidFunctions = /public (.+?\(.*?\) : )(.*?)( {)/g;
-    const asyncConstructors = /async constructor\(/g;
-    const sleeps = /ShimmedThread\.sleep\((\d+)\);/g;
-    const thisMethodCalls = /this\.(\w+)\(/g;
-    const colours = /Color\.(\w+)/g
-    const privates = /\bprivate\b/g;
-    const shimmedClasses = /Shimmed\w+\b/g;
-
-    ts = ts.replace(privates, "public");
-    
-    // ts = ts.replace(voidFunctions, (m, g1, g2) => `${g1} async ${g2}`);
-    // ts = ts.replace(nonVoidFunctions, (m, g1, g2, g3, g4) => `${g1} async ${g2} Promise<${g3}> ${g4}`);
-    // ts = ts.replace(asyncConstructors, "constructor(");
-
-    fs.writeFileSync("foo.ts.txt", ts, "utf8");
-
-    ts = asyncify(ts);
-    // ts = ts.replace(sleeps, m => `await ${m}`);
-
-    // ts = ts.replace(thisMethodCalls, m => `await ${m}`);
-//    ts = ts.replace(thisMethodCalls, (m, g1) => ts.indexOf("async " + g1) > -1 ? `await ${m}` : m.toString());
-
-    ts = ts.replace(colours, (m, g1) => `Color.fromString("${g1}")`);
-
     const marker = "class EndOfShimDeclarations {}";
-
     const markerStart = ts.indexOf(marker);
-
     if (markerStart === -1) throw new Error("Marker code not found");
-
     ts = ts.substring(markerStart + marker.length, ts.length).trim();
 
-    const imports = Array.from(new Set(allMatches(ts, shimmedClasses).map(m => m.toString()))).join(", ");
+    ts = ts.replace(/\bprivate\b/g, "public");
+
+    ts = asyncify(ts);
+
+    ts = ts.replace(/Color\.(\w+)/g, (m, g1) => `Color.fromString("${g1}")`);
+
+    const imports = Array.from(new Set(allMatches(ts, /Shimmed\w+\b/g).map(m => m.toString()))).join(", ");
 
     ts = `import { ${imports} } from "../client-ts/AppletShims"\r\n\r\n${ts}`;
 
@@ -140,27 +112,31 @@ function cleanUpTranspiledTypeScript(ts: string) {
 }
 
 async function transpileJavaGame(javaGamePath: string) {
-    const java = getTranspilableJava(fs.readFileSync(javaGamePath, "utf8"));
+    const originalJava = fs.readdirSync(javaGamePath).map(p => fs.readFileSync(p, "utf8")).join("\r\n\r\n");
+
+    const transpilableJava = getTranspilableJava(originalJava);
+    
+    const tsPath = path.join("generated-ts", javaGamePath + ".ts");
+    if (!fs.existsSync(path.dirname(tsPath))) {
+        fs.mkdirSync(path.dirname(tsPath));
+    }
 
     let response: string = null;
-    if (fs.existsSync("cachedresponse.txt")) {
-        response = fs.readFileSync("cachedresponse.txt", "utf8");
+    const cached = tsPath + ".cachedresponse.txt";
+    if (fs.existsSync(cached)) {
+        response = fs.readFileSync(cached, "utf8");
     } else {
-        response = await request.post("http://sandbox.jsweet.org/transpile", { form: { javaCode: java, tsout: true } });
-        fs.writeFileSync("cachedresponse.txt", response, "utf8");
+        response = await request.post("http://sandbox.jsweet.org/transpile", { form: { javaCode: transpilableJava, tsout: true } });
+        fs.writeFileSync(cached, response, "utf8");
     }
 
     const transpilation = JSON.parse(response);
     if (transpilation.success) {
         const ts = cleanUpTranspiledTypeScript(transpilation.tsout);
-        const tsPath = javaGamePath.replace("original-java/", "generated-ts/").replace(".java", ".ts");
-        if (!fs.existsSync(path.dirname(tsPath))) {
-            fs.mkdirSync(path.dirname(tsPath));
-        }
         fs.writeFileSync(tsPath, ts, "utf8");
     } else {
-        if (transpilation.tsout) fs.writeFileSync("generated-ts/failure.ts", transpilation.tsout, "utf8");
-        else fs.writeFileSync("generated-ts/failure.java", java, "utf8");
+        if (transpilation.tsout) fs.writeFileSync(tsPath.replace(/\.ts$/, ".fail.ts"), transpilation.tsout, "utf8");
+        else fs.writeFileSync(tsPath.replace(/\.ts$/, ".fail.java"), transpilableJava, "utf8");
         throw new Error(transpilation.errors.join("\r\n"));
     }
 }
