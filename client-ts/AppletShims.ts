@@ -253,7 +253,6 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
         }, 0);
     }
 }
-
 export class ShimmedThread {
     constructor(private runnable: ShimmedRunnable) {
     }
@@ -266,11 +265,9 @@ export class ShimmedThread {
     public stop() {
     }
 }
-
 export interface ShimmedRunnable {
     run();
 }
-
 export class ShimmedSystem {
     public static out = {
         println: console.log
