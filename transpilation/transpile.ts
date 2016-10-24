@@ -88,7 +88,8 @@ function asyncify(ts: string) {
     const replacements = { };
 
     function asyncifyMethod(m) {
-        const expression = new RegExp("this\\." + m + "\\(.*\\)", "g");
+        const pattern = escapeRegExp(`this.${m}(`) + ".*?" + escapeRegExp(")");
+        const expression = new RegExp(pattern, "g");
         awaitableExpressions.push(expression);
         
         handledMethods.add(m);
@@ -99,15 +100,22 @@ function asyncify(ts: string) {
         }
     }
 
-    asyncifyMethod("handleEvent");
+    function escapeRegExp(str) {
+       return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+    }
+    
+
+    ts.indexOf("handleEvent") > -1 && asyncifyMethod("handleEvent");
 
     while (awaitableExpressions.length > 0) {
         const regexp = awaitableExpressions.pop();
         
-        methods.filter(m => regexp.test(getBody(m)) && !handledMethods.has(m)).forEach(asyncifyMethod);
+        const affectedMethods = methods.filter(m => regexp.test(getBody(m)) && !handledMethods.has(m));
+        affectedMethods.forEach(asyncifyMethod);
 
         ts = ts.replace(regexp, m => "await " + m);
         ts = ts.replace("await await", "await");
+        ts = ts.replace(/(<\S+>)await /g, (m, g1) => "await " + g1);
     }
 
     for (let declaration in replacements) {
