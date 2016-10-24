@@ -3,26 +3,11 @@ import fs = require("fs");
 import path = require("path");
 import webpack = require("webpack");
 
-// const sillyname = require("sillyname");
-// function c() {
-//     let n = sillyname();
-//     n = n.split(" ").join("");
-//     return n;
-// }
-// function m() {
-//     const n = c();
-//     return n[0].toLowerCase() + n.substring(1);
-// }
-// var names = new Array<string>();
-// for (let i = 0; i < 1000; i++) {
-//     console.log(c());
-// }
-// process.exit();
-
 (async function() {
-    const javaGames = "original-java/tennis".split(" ")
+    const javaGames = "original-java/volleyball original-java/tennis original-java/cricket original-java/soccer".split(" ")
     for (const gamePath of javaGames) {
-        await transpileJavaGame(gamePath);
+        const tsPath = await transpileJavaGame(gamePath);
+        console.log("Wrote " + tsPath);
     }
     console.log("Success.");
     process.exit(0);
@@ -31,12 +16,12 @@ import webpack = require("webpack");
 async function transpileJavaGame(javaGamePath: string) {
     const originalJava = fs
         .readdirSync(javaGamePath)
+        .filter(f => f.endsWith(".java"))
         .map(j => fs.readFileSync(path.join(javaGamePath, j), "utf8"))
         .sort((leftCode, rightCode) => leftCode.indexOf(" extends ") - rightCode.indexOf(" extends "))
         .join("\r\n\r\n");
 
     const transpilableJava = getTranspilableJava(originalJava);
-    const lines = transpilableJava.split("\n").length;
     
     const tsPath = path.join("generated-ts", javaGamePath.replace("original-java/", "") + ".ts");
     if (!fs.existsSync(path.dirname(tsPath))) {
@@ -67,6 +52,8 @@ async function transpileJavaGame(javaGamePath: string) {
         console.error(e + "\r\n" + errors);
         throw new Error(e + "\r\n" + errors);
     }
+
+    return tsPath;
 }
 
 function getTranspilableJava(java: string) {
