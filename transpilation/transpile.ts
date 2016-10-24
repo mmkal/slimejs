@@ -67,7 +67,7 @@ function getTranspilableJava(java: string) {
 
     java = java.replace(/\w+\.sleep\b/g, "ShimmedThread.sleep"); // nasty. Java can call static methods from instances, but the transpiler doesn't like it.
 
-    java = java.replace(/(new int\b ?)\[\w+\](?!(\[))/g, (m, g1) => `${g1}[0]`); // char/int auto-conversion in Java doesn't work in TS. But we also don't need to give arrays an initial size.
+    java = java.replace(/(new int\b ?)\[\w+\](?!(\[))/g, (m, g1) => `${g1}[0]`); // char/int auto-conversion in Java doesn't work in TS. But we also don't need to give int arrays an initial size.
 
     java = java.replace(/(\w+).toCharArray\(\)/g, (m, g1) => `ShimmedChars.charCodeArray(${g1})`);
     java = java.replace(/\bchar\b([^\n]+ = ShimmedChars.charCodeArray)/g, (m, g1) => `int${g1}`);
