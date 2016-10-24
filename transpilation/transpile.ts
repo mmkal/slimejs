@@ -23,6 +23,11 @@ function getTranspilableJava(java: string) {
 
     java = java.replace(/\w+\.sleep\b/g, "ShimmedThread.sleep"); // nasty. Java can call static methods from instances, but the transpiler doesn't like it.
 
+    java = java.replace(/(new \w+\b ?)\[\w+\]/g, (m, g1) => `${g1}[0]`); // char/int auto-conversion in Java doesn't work in TS. But we also don't need to give arrays an initial size.
+
+    java = java.replace(/(\w+).toCharArray\(\)/g, (m, g1) => `ShimmedChars.charCodeArray(${g1})`);
+    java = java.replace(/\bchar\b([^\n]+ = ShimmedChars.charCodeArray)/g, (m, g1) => `int${g1}`);
+
     java = java.replace(/import .*;/g, "");
 
     java = appletShims + "\r\n\r\n" + "public class EndOfShimDeclarations{}" + "\r\n" + java;
@@ -89,7 +94,9 @@ function asyncify(ts: string) {
         handledMethods.add(m);
         
         const declaration = declarations[m];
-        replacements[declaration] = declaration.replace("public", "public async"); 
+        if (declaration) {
+            replacements[declaration] = declaration.replace("public", "public async"); 
+        }
     }
 
     asyncifyMethod("handleEvent");
@@ -115,20 +122,28 @@ function asyncify(ts: string) {
 function cleanUpTranspiledTypeScript(ts: string) {
     const marker = "class EndOfShimDeclarations {}";
     const markerStart = ts.indexOf(marker);
-    if (markerStart === -1) throw new Error("Marker code not found");
-    ts = ts.substring(markerStart + marker.length, ts.length).trim();
+    if (markerStart > -1) ts = ts.substring(markerStart + marker.length, ts.length).trim();
 
-    ts = ts.replace(/\bprivate\b/g, "public");
+    const parts = ts.split(/\bclass\b/g);
+    for (let i = 0; i < parts.length; i++) {
+        let ps = parts[i];
 
-    ts = asyncify(ts);
+        ps = ps.replace(/\bprivate\b/g, "public");
 
-    ts = ts.replace(/Color\.(\w+)/g, (m, g1) => `Color.fromString("${g1}")`);
+        ps = asyncify(ps);
+
+        ps = ps.replace(/Color\.(\w+)/g, (m, g1) => `Color.fromString("${g1}")`);
+
+        parts[i] = ps;
+    }
+
+    ts = parts.join("class");
 
     const imports = Array.from(new Set(allMatches(ts, /Shimmed\w+\b/g).map(m => m.toString()))).join(", ");
 
     ts = `import { ${imports} } from "../client-ts/AppletShims"\r\n\r\n${ts}`;
 
-    ts = ts.replace(/\bclass\b/, "export default class");
+    ts = ts.replace(/\bclass (\w+ extends)\b/, (m, g1) => "export default class " + g1);
 
     return ts;
 }
@@ -158,7 +173,7 @@ async function transpileJavaGame(javaGamePath: string) {
 
     const transpilation = JSON.parse(response);
     try {
-        if (!transpilation.success) throw new Error("Transiplation failed");
+        if (!transpilation.tsout) throw new Error("Transiplation failed");
         const ts = cleanUpTranspiledTypeScript(transpilation.tsout);
         fs.writeFileSync(tsPath, ts, "utf8");
     } catch (e) {

@@ -280,6 +280,7 @@ export interface ShimmedRunnable {
 }
 export class ShimmedSystem {
     public static out = {
+        print: console.log,
         println: console.log
     }
     public static currentTimeMillis() {

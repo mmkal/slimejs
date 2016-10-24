@@ -149,3 +149,13 @@ public class GridLayout {
 public class Long {
 	public static long parseLong(String s) { return 0L; }
 }
+public class Chars {
+	public static int[] charCodeArray(String s) {
+		char[] chars = s.toCharArray(/*comment to stop this being modified*/);
+		int[] arr = new  int  [chars.length];
+		for (int i = 0; i < chars.length; i++) {
+			arr[i] = chars[i] - 'a' + 'a';
+		}
+		return arr;
+	}
+}
