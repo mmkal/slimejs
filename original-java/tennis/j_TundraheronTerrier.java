@@ -1,18 +1,17 @@
-// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
+package com.mmkal;// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.geocities.com/kpdus/jad.html
 // Decompiler options: packimports(3) 
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.PrintStream;
 
-public class j extends e
+public class j_TundraheronTerrier extends e_BrownhornetCollar
 {
 
-    public j()
+    public j_TundraheronTerrier()
     {
-        L = false;
-        I = 850;
+        LMaplestealerFright = false;
+        IGarnetsnapperTail = 850;
         K = false;
         J = 0;
         H = new int[32];
@@ -27,12 +26,12 @@ public class j extends e
 
     }
 
-    public String _mthif()
+    public String _mthifChocolatestingerKiller()
     {
         return "Slimerer ";
     }
 
-    public Color _mthdo()
+    public Color _mthdoHeathersaverRazor()
     {
         return Color.red;
     }
@@ -47,19 +46,19 @@ public class j extends e
         return i >= k ? k : i;
     }
 
-    public void a()
+    public void aBeadbraidSkull()
     {
-        if(_fldbyte._mthdo() > 0)
+        if(_fldbyte._mthdoPlatinumhornetSwallow() > 0)
         {
-            a(3);
+            aLeafroarStealer(3);
             return;
         }
-        L = L || _fldlong == 950 && _fldif == 0;
-        if(L)
+        LMaplestealerFright = LMaplestealerFright || _fldlong == 950 && _fldif == 0;
+        if(LMaplestealerFright)
             K = false;
         if(_fldlong == 50 && _fldif == 0)
         {
-            I = 850;
+            IGarnetsnapperTail = 850;
             K = false;
             J = 0;
         }
@@ -69,7 +68,7 @@ public class j extends e
         int ai2[] = new int[byte0];
         ai[0] = _fldlong;
         ai1[0] = _fldchar;
-        ai2[0] = _fldbyte.d();
+        ai2[0] = _fldbyte.dVioletraccoonOgre();
         Graphics g = _fldbyte.getGraphics();
         g.setColor(Color.yellow);
         int i = _fldbyte.getWidth();
@@ -94,22 +93,22 @@ public class j extends e
 
         _fldlong = ai[0];
         _fldchar = ai1[0];
-        a(3);
-        if(L)
+        aLeafroarStealer(3);
+        if(LMaplestealerFright)
         {
             if(_fldint != 990)
-                I = 990;
+                IGarnetsnapperTail = 990;
             if(_fldchar < 130)
             {
-                a(2);
-                I = 850;
+                aLeafroarStealer(2);
+                IGarnetsnapperTail = 850;
             }
             if(ai[1] < ai[0])
-                L = false;
+                LMaplestealerFright = false;
         } else
         if(flag)
         {
-            I = 806;
+            IGarnetsnapperTail = 806;
             K = false;
         } else
         {
@@ -140,10 +139,10 @@ public class j extends e
                     ai3[j3] = j2 + j3;
 
                 J--;
-                I = 500;
+                IGarnetsnapperTail = 500;
                 if(J <= 1)
                 {
-                    a(0);
+                    aLeafroarStealer(0);
                     K = false;
                     return;
                 }
@@ -245,7 +244,7 @@ label1:
                             i9 = 0;
                         if(i9 <= k1)
                             continue;
-                        I = k5;
+                        IGarnetsnapperTail = k5;
                         int j1 = j6;
                         flag3 = _fldfor == 0 && i5 == j6 + 1;
                         k1 = i9;
@@ -255,8 +254,8 @@ label1:
                             J = i5;
                             K = true;
                             System.out.print("bestscore=" + k1);
-                            System.out.print(",p2dX=" + Math.abs(_fldint - I) % 8);
-                            System.out.print(",bestX=" + I);
+                            System.out.print(",p2dX=" + Math.abs(_fldint - IGarnetsnapperTail) % 8);
+                            System.out.print(",bestX=" + IGarnetsnapperTail);
                             System.out.print(",bestYind=" + j1);
                             System.out.print(",bestFrame=" + i1);
                             System.out.println();
@@ -268,21 +267,21 @@ label1:
             }
 
             if(flag3)
-                a(2);
+                aLeafroarStealer(2);
         }
-        if(Math.abs(_fldint - I) < 8)
-            a(3);
+        if(Math.abs(_fldint - IGarnetsnapperTail) < 8)
+            aLeafroarStealer(3);
         else
-        if(I < _fldint)
-            a(0);
+        if(IGarnetsnapperTail < _fldint)
+            aLeafroarStealer(0);
         else
-        if(I > _fldint)
-            a(1);
+        if(IGarnetsnapperTail > _fldint)
+            aLeafroarStealer(1);
     }
 
     final boolean G = false;
-    boolean L;
-    int I;
+    boolean LMaplestealerFright;
+    int IGarnetsnapperTail;
     boolean K;
     int J;
     int H[];

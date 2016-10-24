@@ -1,12 +1,12 @@
-// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
+package com.mmkal;// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.geocities.com/kpdus/jad.html
 // Decompiler options: packimports(3) 
 
 
-public class f extends e
+public class f_BevelfoxFin extends e_BrownhornetCollar
 {
 
-    public f()
+    public f_BevelfoxFin()
     {
         v = -1;
     }
@@ -50,7 +50,7 @@ public class f extends e
         return k;
     }
 
-    public void a()
+    public void aBeadbraidSkull()
     {
         if(_fldlong < 500 && v != -1)
             v = -1;
@@ -80,16 +80,16 @@ public class f extends e
             case 0: // '\0'
                 if(_fldchar < 300 && _fldif < -3)
                 {
-                    a(1);
-                    a(2);
+                    aLeafroarStealer(1);
+                    aLeafroarStealer(2);
                 }
                 break;
 
             case 1: // '\001'
                 if(_fldchar < 300 && _fldif < 0)
                 {
-                    a(0);
-                    a(2);
+                    aLeafroarStealer(0);
+                    aLeafroarStealer(2);
                 }
                 break;
             }
@@ -98,13 +98,13 @@ public class f extends e
         if(i < 500)
         {
             if(Math.abs(_fldint - 666) < 20)
-                a(3);
+                aLeafroarStealer(3);
             else
             if(_fldint > 666)
-                a(0);
+                aLeafroarStealer(0);
             else
             if(_fldint < 666)
-                a(1);
+                aLeafroarStealer(1);
             return;
         }
         if(Math.abs(_fldint - i) < k)
@@ -126,13 +126,13 @@ public class f extends e
         if(_fldfor == 0 && v == -1)
         {
             if(Math.abs(_fldint - i) < k)
-                a(3);
+                aLeafroarStealer(3);
             else
             if(i + k < _fldint)
-                a(0);
+                aLeafroarStealer(0);
             else
             if(i + k > _fldint)
-                a(1);
+                aLeafroarStealer(1);
         } else
         if(v == -1)
         {
@@ -140,24 +140,24 @@ public class f extends e
                 return;
             if(_fldint > 900)
             {
-                a(1);
+                aLeafroarStealer(1);
                 return;
             }
             if(Math.abs(_fldint - _fldlong) < k)
-                a(3);
+                aLeafroarStealer(3);
             else
             if(_fldlong < _fldint)
-                a(0);
+                aLeafroarStealer(0);
             else
             if(_fldlong > _fldint)
-                a(1);
+                aLeafroarStealer(1);
         }
     }
 
     private void _mthfor()
     {
         if(Math.random() < 0.84999999999999998D)
-            a(2);
+            aLeafroarStealer(2);
     }
 
     private final double u = 0.84999999999999998D;

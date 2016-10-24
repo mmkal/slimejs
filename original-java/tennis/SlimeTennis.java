@@ -1,12 +1,10 @@
-// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
+package com.mmkal;// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.geocities.com/kpdus/jad.html
 // Decompiler options: packimports(3) 
 
 import java.applet.Applet;
-import java.applet.AppletContext;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.PrintStream;
 import java.net.URL;
 import java.util.Vector;
 
@@ -41,12 +39,12 @@ public class SlimeTennis extends Applet
         buffered = false;
     }
 
-    public int d()
+    public int dVioletraccoonOgre()
     {
         return nBounces;
     }
 
-    public int _mthdo()
+    public int _mthdoPlatinumhornetSwallow()
     {
         return nFramesUntilStop;
     }
@@ -64,11 +62,11 @@ public class SlimeTennis extends Applet
             throw new RuntimeException("Couldn't initialise - server data missing.");
         }
         System.out.println("Slime Tennis: http://slimetennis.com/");
-        Object obj = new b();
-        obj = new d();
-        obj = new a();
-        obj = new j();
-        obj = new h();
+        Object obj = new b_PeachpegasusSnake();
+        obj = new d_BranchgoatLord();
+        obj = new a_ShortmoleSaver();
+        obj = new j_TundraheronTerrier();
+        obj = new h_LiekoalaLeader();
         replayData = new int[1000][8];
         nWidth = size().width;
         nHeight = size().height;
@@ -93,14 +91,14 @@ public class SlimeTennis extends Applet
         COURT_COL = Color.gray;
         gameOver = true;
         paused = false;
-        _mthtry();
-        _mthint();
+        _mthtryTranslucentripperKangaroo();
+        _mthintJunglenapeSlave();
         redrawRegions = new Vector(0);
-        b();
+        bBronzeninjaCowl();
         repaint();
     }
 
-    private void _mthtry()
+    private void _mthtryTranslucentripperKangaroo()
     {
         nP1PointsWon = nP2PointsWon = 0;
         nP1GamesWon = nP2GamesWon = 0;
@@ -116,26 +114,26 @@ public class SlimeTennis extends Applet
         {
         case 0: // '\0'
         default:
-            ai = new b();
+            ai = new b_PeachpegasusSnake();
             break;
 
         case 1: // '\001'
-            ai = new d();
+            ai = new d_BranchgoatLord();
             break;
 
         case 2: // '\002'
-            ai = new h();
+            ai = new h_LiekoalaLeader();
             break;
 
         case 3: // '\003'
-            ai = new a();
+            ai = new a_ShortmoleSaver();
             break;
         }
         if(oneplayer)
             p2Col = aiMode + 1;
         else
             p2Col = p1Col + 1;
-        ai.a(this, 2);
+        ai.aGlassmoleSting(this, 2);
     }
 
     public void update(Graphics g1)
@@ -143,7 +141,7 @@ public class SlimeTennis extends Applet
         if(buffered)
             g1.drawImage(buffer, 0, 0, null);
         else
-            b();
+            bBronzeninjaCowl();
         redrawRegions = new Vector(0);
     }
 
@@ -152,17 +150,17 @@ public class SlimeTennis extends Applet
         update(g1);
     }
 
-    private int _mthif(int i1, int j1)
+    private int _mthifBrickbrowCrane(int i1, int j1)
     {
         return i1 >= j1 ? j1 : i1;
     }
 
-    private int a(int i1, int j1)
+    private int aLapisdiveRoarer(int i1, int j1)
     {
         return i1 <= j1 ? j1 : i1;
     }
 
-    private void b()
+    private void bBronzeninjaCowl()
     {
         Graphics g1;
         if(buffered)
@@ -204,26 +202,26 @@ public class SlimeTennis extends Applet
             byte byte0 = 20;
             menuSelectBoundsHorizontal[0] = menuSelectBoundsHorizontal[1] = menuSelectBoundsHorizontal[2] = menuSelectBoundsHorizontal[3] = (nWidth * 3) / 4;
             s = playerSelectText[oneplayer ? 0 : 1];
-            menuSelectBoundsHorizontal[1] = _mthif(menuSelectBoundsHorizontal[1], (nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2 - byte0);
-            menuSelectBoundsHorizontal[0] = _mthif(menuSelectBoundsHorizontal[0], menuSelectBoundsHorizontal[1] - byte0);
-            menuSelectBoundsHorizontal[2] = a(menuSelectBoundsHorizontal[2], (nWidth * 3) / 4 + fontmetrics.stringWidth(s) / 2 + byte0);
-            menuSelectBoundsHorizontal[3] = a(menuSelectBoundsHorizontal[3], menuSelectBoundsHorizontal[2] + byte0);
+            menuSelectBoundsHorizontal[1] = _mthifBrickbrowCrane(menuSelectBoundsHorizontal[1], (nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2 - byte0);
+            menuSelectBoundsHorizontal[0] = _mthifBrickbrowCrane(menuSelectBoundsHorizontal[0], menuSelectBoundsHorizontal[1] - byte0);
+            menuSelectBoundsHorizontal[2] = aLapisdiveRoarer(menuSelectBoundsHorizontal[2], (nWidth * 3) / 4 + fontmetrics.stringWidth(s) / 2 + byte0);
+            menuSelectBoundsHorizontal[3] = aLapisdiveRoarer(menuSelectBoundsHorizontal[3], menuSelectBoundsHorizontal[2] + byte0);
             menuSelectBoundsVertical[0] = nHeight / 3 - fontmetrics.getHeight() * 3;
             menuSelectBoundsVertical[1] = menuSelectBoundsVertical[0] + fontmetrics.getHeight();
             screen.drawString(s, (nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2, menuSelectBoundsVertical[0] + fontmetrics.getAscent());
             s = courtTypeSelectText[courtTypeSelected];
-            menuSelectBoundsHorizontal[1] = _mthif(menuSelectBoundsHorizontal[1], (nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2 - byte0);
-            menuSelectBoundsHorizontal[0] = _mthif(menuSelectBoundsHorizontal[0], menuSelectBoundsHorizontal[1] - byte0);
-            menuSelectBoundsHorizontal[2] = a(menuSelectBoundsHorizontal[2], (nWidth * 3) / 4 + fontmetrics.stringWidth(s) / 2 + byte0);
-            menuSelectBoundsHorizontal[3] = a(menuSelectBoundsHorizontal[3], menuSelectBoundsHorizontal[2] + byte0);
+            menuSelectBoundsHorizontal[1] = _mthifBrickbrowCrane(menuSelectBoundsHorizontal[1], (nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2 - byte0);
+            menuSelectBoundsHorizontal[0] = _mthifBrickbrowCrane(menuSelectBoundsHorizontal[0], menuSelectBoundsHorizontal[1] - byte0);
+            menuSelectBoundsHorizontal[2] = aLapisdiveRoarer(menuSelectBoundsHorizontal[2], (nWidth * 3) / 4 + fontmetrics.stringWidth(s) / 2 + byte0);
+            menuSelectBoundsHorizontal[3] = aLapisdiveRoarer(menuSelectBoundsHorizontal[3], menuSelectBoundsHorizontal[2] + byte0);
             menuSelectBoundsVertical[2] = nHeight / 3;
             menuSelectBoundsVertical[3] = menuSelectBoundsVertical[2] + fontmetrics.getHeight();
             screen.drawString(s, (nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2, menuSelectBoundsVertical[2] + fontmetrics.getAscent());
             s = gameLengthSelectText[gameLengthSelected];
-            menuSelectBoundsHorizontal[1] = _mthif(menuSelectBoundsHorizontal[1], (nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2 - byte0);
-            menuSelectBoundsHorizontal[0] = _mthif(menuSelectBoundsHorizontal[0], menuSelectBoundsHorizontal[1] - byte0);
-            menuSelectBoundsHorizontal[2] = a(menuSelectBoundsHorizontal[2], (nWidth * 3) / 4 + fontmetrics.stringWidth(s) / 2 + byte0);
-            menuSelectBoundsHorizontal[3] = a(menuSelectBoundsHorizontal[3], menuSelectBoundsHorizontal[2] + byte0);
+            menuSelectBoundsHorizontal[1] = _mthifBrickbrowCrane(menuSelectBoundsHorizontal[1], (nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2 - byte0);
+            menuSelectBoundsHorizontal[0] = _mthifBrickbrowCrane(menuSelectBoundsHorizontal[0], menuSelectBoundsHorizontal[1] - byte0);
+            menuSelectBoundsHorizontal[2] = aLapisdiveRoarer(menuSelectBoundsHorizontal[2], (nWidth * 3) / 4 + fontmetrics.stringWidth(s) / 2 + byte0);
+            menuSelectBoundsHorizontal[3] = aLapisdiveRoarer(menuSelectBoundsHorizontal[3], menuSelectBoundsHorizontal[2] + byte0);
             menuSelectBoundsVertical[4] = nHeight / 3 + fontmetrics.getHeight() * 3;
             menuSelectBoundsVertical[5] = menuSelectBoundsVertical[4] + fontmetrics.getHeight();
             screen.drawString(s, (nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2, menuSelectBoundsVertical[4] + fontmetrics.getAscent());
@@ -278,14 +276,14 @@ public class SlimeTennis extends Applet
             screen.drawString(s, menuOK[0] + byte0, menuOK[1] + fontmetrics.getAscent());
             if(!replaying)
             {
-                _mthlong();
-                _mthcase();
+                _mthlongPicklebirdLady();
+                _mthcaseDewcarverWeaver();
             }
         } else
         if(!fInPlay)
         {
             g1.setColor(Color.white);
-            String s1 = ai._mthif() + "is no match for you... prepare for your next challenge!";
+            String s1 = ai._mthifChocolatestingerKiller() + "is no match for you... prepare for your next challenge!";
             g1.drawString(s1, nWidth / 2 - fontmetrics.stringWidth(s1) / 2, nHeight / 2 - fontmetrics.getHeight());
             g1.setFont(screen.getFont());
             fontmetrics = screen.getFontMetrics();
@@ -295,11 +293,11 @@ public class SlimeTennis extends Applet
             g1.drawString(s1, nWidth / 2 - fontmetrics.stringWidth(s1) / 2, (nHeight * 4) / 5 + fontmetrics.getHeight() + 10);
         } else
         {
-            _mthlong();
+            _mthlongPicklebirdLady();
         }
     }
 
-    private void _mthfor()
+    private void _mthforSpectrumgeckoVole()
     {
         if(!buffered)
         {
@@ -333,7 +331,7 @@ public class SlimeTennis extends Applet
         redrawRegions.removeAllElements();
     }
 
-    private void _mthint()
+    private void _mthintJunglenapeSlave()
     {
         p1X = 50;
         p1Y = 0;
@@ -390,7 +388,7 @@ label0:
                         else
                         if(event.y > menuSelectBoundsVertical[4] && event.y < menuSelectBoundsVertical[5])
                             gameLengthSelected = (gameLengthSelected + 1) % gameLengths.length;
-                        b();
+                        bBronzeninjaCowl();
                         repaint();
                         break;
                     }
@@ -404,7 +402,7 @@ label0:
                     else
                     if(event.y > menuSelectBoundsVertical[4] && event.y < menuSelectBoundsVertical[5])
                         gameLengthSelected = ((gameLengthSelected - 1) + gameLengths.length) % gameLengths.length;
-                    b();
+                    bBronzeninjaCowl();
                     repaint();
                     break;
                 }
@@ -425,7 +423,7 @@ label0:
                 gameOver = false;
                 gameScore = 0;
             }
-            _mthtry();
+            _mthtryTranslucentripperKangaroo();
             repaint();
             ballX = 50;
             gameThread = new Thread(this);
@@ -440,21 +438,21 @@ label0:
                 break;
 
             case 65: // 'A'
-            case 97: // 'a'
-                e();
+            case 97: // 'a_ShortmoleSaver'
+                eWheatthumbHorse();
                 break label0;
 
             case 68: // 'D'
-            case 100: // 'd'
-                c();
+            case 100: // 'd_BranchgoatLord'
+                cShallowboarYak();
                 break label0;
 
             case 87: // 'W'
             case 119: // 'w'
-                _mthelse();
+                _mthelsePickleoxBug();
                 break label0;
 
-            case 83: // 'S'
+            case 83: // 'SShinewitchSalmon'
             case 115: // 's'
                 do
                     p1Col = (p1Col + 1) % slimeColours.length;
@@ -463,45 +461,45 @@ label0:
 
             case 1006: 
                 if(oneplayer)
-                    e();
+                    eWheatthumbHorse();
                 else
-                    g();
+                    gValiantfingerSentry();
                 break label0;
 
             case 1007: 
                 if(oneplayer)
-                    c();
+                    cShallowboarYak();
                 else
-                    l();
+                    lLeadterrierWyrm();
                 break label0;
 
             case 1004: 
                 if(oneplayer)
-                    _mthelse();
+                    _mthelsePickleoxBug();
                 else
-                    _mthvoid();
+                    _mthvoidSequoiacollarMuse();
                 break label0;
 
             case 74: // 'J'
-            case 106: // 'j'
+            case 106: // 'j_TundraheronTerrier'
                 if(!oneplayer)
-                    g();
+                    gValiantfingerSentry();
                 break label0;
 
-            case 76: // 'L'
-            case 108: // 'l'
+            case 76: // 'LMaplestealerFright'
+            case 108: // 'lLeadterrierWyrm'
                 if(!oneplayer)
-                    l();
+                    lLeadterrierWyrm();
                 break label0;
 
-            case 73: // 'I'
-            case 105: // 'i'
+            case 73: // 'IGarnetsnapperTail'
+            case 105: // 'i_GraypegasusTurner'
                 if(!oneplayer)
-                    _mthvoid();
+                    _mthvoidSequoiacollarMuse();
                 break label0;
 
             case 75: // 'K'
-            case 107: // 'k'
+            case 107: // 'kPebbleshriekerFlier'
             case 1005: 
                 if(oneplayer)
                     break label0;
@@ -511,7 +509,7 @@ label0:
                 break label0;
 
             case 67: // 'C'
-            case 99: // 'c'
+            case 99: // 'c_DustsaverFish'
                 if(gameOver)
                 {
                     fEndGame = false;
@@ -519,15 +517,15 @@ label0:
                     promptMsg = "";
                     gameOver = false;
                     gameScore = 0;
-                    _mthtry();
-                    _mthint();
+                    _mthtryTranslucentripperKangaroo();
+                    _mthintJunglenapeSlave();
                     repaint();
                     gameThread = new Thread(this);
                     gameThread.start();
                 }
                 break label0;
 
-            case 80: // 'P'
+            case 80: // 'PBattlepantherSeed'
             case 112: // 'p'
                 if(!paused)
                 {
@@ -540,7 +538,7 @@ label0:
                 }
                 break label0;
 
-            case 79: // 'O'
+            case 79: // 'ODandywarlockFinger'
             case 111: // 'o'
                 if(!paused)
                 {
@@ -562,14 +560,14 @@ label0:
                 break label0;
 
             case 66: // 'B'
-            case 98: // 'b'
+            case 98: // 'b_PeachpegasusSnake'
                 buffered = !buffered;
                 if(buffered)
                     screen = buffer.getGraphics();
                 else
                     screen = getGraphics();
                 screen.setFont(new Font(screen.getFont().getName(), 1, 15));
-                b();
+                bBronzeninjaCowl();
                 break;
 
             case 32: // ' '
@@ -586,105 +584,105 @@ label0:
                 break label0;
 
             case 65: // 'A'
-            case 97: // 'a'
+            case 97: // 'a_ShortmoleSaver'
                 if(p1XV < 0)
-                    _mthbyte();
+                    _mthbyteSolarfancierLighter();
                 break label0;
 
             case 68: // 'D'
-            case 100: // 'd'
+            case 100: // 'd_BranchgoatLord'
                 if(p1XV > 0)
-                    _mthbyte();
+                    _mthbyteSolarfancierLighter();
                 break label0;
 
             case 1006: 
                 if(oneplayer && p1XV < 0)
                 {
-                    _mthbyte();
+                    _mthbyteSolarfancierLighter();
                     break label0;
                 }
                 if(!oneplayer && p2XV < 0)
-                    _mthgoto();
+                    _mthgotoBravemareZebra();
                 break label0;
 
             case 1007: 
                 if(oneplayer && p1XV > 0)
                 {
-                    _mthbyte();
+                    _mthbyteSolarfancierLighter();
                     break label0;
                 }
                 if(!oneplayer && p2XV > 0)
-                    _mthgoto();
+                    _mthgotoBravemareZebra();
                 break label0;
 
             case 74: // 'J'
-            case 106: // 'j'
+            case 106: // 'j_TundraheronTerrier'
                 if(p2XV < 0)
-                    _mthgoto();
+                    _mthgotoBravemareZebra();
                 break label0;
 
-            case 76: // 'L'
-            case 108: // 'l'
+            case 76: // 'LMaplestealerFright'
+            case 108: // 'lLeadterrierWyrm'
                 break;
             }
             if(p2XV > 0)
-                _mthgoto();
+                _mthgotoBravemareZebra();
             break;
         }
         return false;
     }
 
-    public void e()
+    public void eWheatthumbHorse()
     {
         p1XV = -p1Run;
         if(p1X == 50 && ballX == 50 && !fP2Touched && !fServerMoved)
             fServerMoved = true;
     }
 
-    public void c()
+    public void cShallowboarYak()
     {
         p1XV = p1Run;
         if(p1X == 50 && ballX == 50 && !fP2Touched && !fServerMoved)
             fServerMoved = true;
     }
 
-    public void _mthbyte()
+    public void _mthbyteSolarfancierLighter()
     {
         p1XV = 0;
     }
 
-    public void _mthelse()
+    public void _mthelsePickleoxBug()
     {
         if(p1Y == 0)
             p1YV = p1Jump;
     }
 
-    public void g()
+    public void gValiantfingerSentry()
     {
         p2XV = -p2Run;
         if(p2X == 950 && ballX == 950 && !fP1Touched && !fServerMoved)
             fServerMoved = true;
     }
 
-    public void l()
+    public void lLeadterrierWyrm()
     {
         p2XV = p2Run;
         if(p2X == 950 && ballX == 950 && !fP1Touched && !fServerMoved)
             fServerMoved = true;
     }
 
-    public void _mthgoto()
+    public void _mthgotoBravemareZebra()
     {
         p2XV = 0;
     }
 
-    public void _mthvoid()
+    public void _mthvoidSequoiacollarMuse()
     {
         if(p2Y == 0)
             p2YV = p2Jump;
     }
 
-    private void f()
+    private void fSwampfollowerCentaur()
     {
         if(!oneplayer)
         {
@@ -695,15 +693,15 @@ label0:
                 ballX, ballY, ballVX, ballVY, p1X, p1Y, p1XV, p1YV, p2X, p2Y, 
                 p2XV, p2YV
             };
-            ai.a(ai1);
-            this.ai.a();
+            ai.aNorthridgeRaver(ai1);
+            this.ai.aBeadbraidSkull();
             return;
         }
     }
 
-    private void k()
+    private void kPebbleshriekerFlier()
     {
-        f();
+        fSwampfollowerCentaur();
         p1X += p1XV;
         if(p1X < -p1Diam / 4)
             p1X = -p1Diam / 4;
@@ -738,7 +736,7 @@ label0:
         }
     }
 
-    private void _mthif()
+    private void _mthifFlinttraderFisher()
     {
         int ai1[] = new int[4];
         Graphics g1;
@@ -813,7 +811,7 @@ label0:
         k2 = (nHeight * p2Diam) / 1000;
         l2 = (p2X * nWidth) / 1000 - j2 / 2;
         i3 = (4 * nHeight) / 5 - (p2Diam * nHeight) / 1000 - (p2Y * nHeight) / 1000;
-        g1.setColor(oneplayer ? ai._mthdo() : slimeColours[p2Col]);
+        g1.setColor(oneplayer ? ai._mthdoHeathersaverRazor() : slimeColours[p2Col]);
         j3 = l2;
         k3 = i3;
         if(l2 < ai1[0])
@@ -863,7 +861,7 @@ label0:
         redrawRegions.add(ai1);
     }
 
-    private void j()
+    private void jFairheadThorn()
     {
         byte byte0 = 5;
         int i1 = 14;
@@ -1075,7 +1073,7 @@ label0:
                         nP1PointsWon = nP2PointsWon = 0;
                     }
                 if(oneplayer)
-                    promptMsg = byte3 != 1 ? ai._mthif() : slimeColText[p1Col];
+                    promptMsg = byte3 != 1 ? ai._mthifChocolatestingerKiller() : slimeColText[p1Col];
                 else
                     promptMsg = byte3 != 1 ? slimeColText[p2Col] : slimeColText[p1Col];
                 if(flag2)
@@ -1099,20 +1097,20 @@ label0:
                     promptMsg += "serves an ace!";
                 else
                 if(flag5)
-                    promptMsg += "hits a winner!";
+                    promptMsg += "hits a_ShortmoleSaver winner!";
                 else
                 if(ballX > 500 && !fP1Touched && fP2Touched || ballX <= 500 && fP1Touched && !fP2Touched)
                     promptMsg += "laughs at his opponent's inability to serve!";
                 else
                     promptMsg += "scores!";
-                b();
-                _mthnew();
-                _mthlong();
+                bBronzeninjaCowl();
+                _mthnewMicavenomGlass();
+                _mthlongPicklebirdLady();
             }
         }
     }
 
-    private void _mthlong()
+    private void _mthlongPicklebirdLady()
     {
         if(replaying)
             return;
@@ -1122,14 +1120,14 @@ label0:
         int i1 = byte0 * 2;
         int j1 = byte0 * 2 + fontmetrics.getAscent();
         int k1 = j1 + fontmetrics.getAscent() + byte0;
-        int l1 = a(fontmetrics.stringWidth(slimeColText[p1Col]), fontmetrics.stringWidth(oneplayer ? ai._mthif() : slimeColText[p2Col]));
+        int l1 = aLapisdiveRoarer(fontmetrics.stringWidth(slimeColText[p1Col]), fontmetrics.stringWidth(oneplayer ? ai._mthifChocolatestingerKiller() : slimeColText[p2Col]));
         g1.setColor(SCOREBOX_COL);
         g1.fillRect(i1 - byte0, j1 - (k1 - j1), l1 + 2 * byte0, k1 + byte0);
         g1.setColor(Color.white);
         g1.drawString(slimeColText[p1Col], i1, j1);
-        g1.drawString(oneplayer ? ai._mthif() : slimeColText[p2Col], i1, k1);
+        g1.drawString(oneplayer ? ai._mthifChocolatestingerKiller() : slimeColText[p2Col], i1, k1);
         i1 += l1 + 3 * byte0;
-        l1 = a(fontmetrics.stringWidth("" + nP1GamesWon), fontmetrics.stringWidth("" + nP2GamesWon));
+        l1 = aLapisdiveRoarer(fontmetrics.stringWidth("" + nP1GamesWon), fontmetrics.stringWidth("" + nP2GamesWon));
         g1.setColor(SCOREBOX_COL);
         g1.fillRect(i1 - byte0, j1 - (k1 - j1), l1 + 2 * byte0, k1 + byte0);
         g1.setColor(Color.white);
@@ -1168,7 +1166,7 @@ label0:
             else
             if(nP2PointsWon > nP1PointsWon)
                 s1 = "A";
-            int i2 = a(fontmetrics.stringWidth(s), fontmetrics.stringWidth(s1));
+            int i2 = aLapisdiveRoarer(fontmetrics.stringWidth(s), fontmetrics.stringWidth(s1));
             g1.setColor(SCOREBOX_COL);
             g1.fillRect(i1 - byte0, j1 - (k1 - j1), i2 + 2 * byte0, k1 + byte0);
             g1.setColor(Color.white);
@@ -1178,7 +1176,7 @@ label0:
         }
     }
 
-    private String a(long l1)
+    private String aFiercecloakUnicorn(long l1)
     {
         String s = "";
         long l2 = (l1 / 10L) % 100L;
@@ -1192,11 +1190,11 @@ label0:
         return s;
     }
 
-    private void _mthcase()
+    private void _mthcaseDewcarverWeaver()
     {
     }
 
-    public void _mthnew()
+    public void _mthnewMicavenomGlass()
     {
         Graphics g1;
         if(buffered)
@@ -1206,10 +1204,10 @@ label0:
         g1.setFont(screen.getFont());
         screen.setColor(COURT_COL);
         screen.fillRect(0, (4 * nHeight) / 5 + 10, nWidth, nHeight / 5 - 10);
-        a(promptMsg, 0);
+        aForestscorpionSnout(promptMsg, 0);
     }
 
-    public void a(String s, int i1)
+    public void aForestscorpionSnout(String s, int i1)
     {
         Graphics g1 = getGraphics();
         g1.setFont(new Font(g1.getFont().getName(), 1, 15));
@@ -1219,19 +1217,19 @@ label0:
         int k1 = (nWidth - j1) / 2;
         int l1 = (nHeight * 4) / 5 + fontmetrics.getHeight() * (i1 + 1) + 10;
         g1.drawString(s, k1, l1);
-        _mthlong();
-        _mthcase();
+        _mthlongPicklebirdLady();
+        _mthcaseDewcarverWeaver();
         redrawRegions.add(new int[] {
             k1, l1, k1 + j1 + 1, l1 + fontmetrics.getHeight()
         });
     }
 
-    private void a(int i1)
+    private void aPiecrusherVoice(int i1)
     {
-        a(i1, true);
+        aLilyhawkDolphin(i1, true);
     }
 
-    private void a(int i1, boolean flag)
+    private void aLilyhawkDolphin(int i1, boolean flag)
     {
         int j1 = i1 == 0 ? replayData.length - 1 : i1 - 1;
         p1OldX = replayData[j1][0];
@@ -1252,12 +1250,12 @@ label0:
             ballOldX = ballOldY = -500;
         if(ballX == ballOldX && ballY == ballOldY)
             ballOldX = ballOldY = -500;
-        _mthif();
+        _mthifFlinttraderFisher();
         if(buffered)
             getGraphics().drawImage(buffer, 0, 0, null);
     }
 
-    private void i()
+    private void iWeedkingAntler()
     {
         replayData[replayIndex][0] = p1X;
         replayData[replayIndex][1] = p1Y;
@@ -1276,10 +1274,10 @@ label0:
             replayStart = 0;
     }
 
-    private void h()
+    private void hBerryroarerCockatoo()
     {
         replaying = true;
-        b();
+        bBronzeninjaCowl();
         Graphics g1 = buffered ? buffer.getGraphics() : getGraphics();
         FontMetrics fontmetrics = g1.getFontMetrics();
         int i1 = fontmetrics.getHeight();
@@ -1297,7 +1295,7 @@ label0:
             {
                 g1.setColor(Color.white);
                 g1.fillRect(20, 20, 20, 20);
-                a(1000L, false);
+                aPlanetmindDonkey(1000L, false);
                 flag = !flag;
                 paint(g1);
                 g1.setColor(SKY_COL);
@@ -1307,7 +1305,7 @@ label0:
                 while(k1 > replayStart) 
                 {
                     k1 -= 5;
-                    b();
+                    bBronzeninjaCowl();
                     g1.setColor(Color.white);
                     g1.fillPolygon(new Polygon(new int[] {
                         20, 35, 35, 50, 50, 35, 35, 20
@@ -1316,17 +1314,17 @@ label0:
                     }, 8));
                     if(k1 < replayStart)
                         k1 = replayStart;
-                    a(k1 % replayData.length, false);
-                    a(20L, false);
+                    aLilyhawkDolphin(k1 % replayData.length, false);
+                    aPlanetmindDonkey(20L, false);
                 }
-                b();
+                bBronzeninjaCowl();
                 g1.setColor(Color.white);
                 g1.fillRect(20, 20, 20, 20);
-                a(replayStart);
-                a(500L, false);
-                b();
+                aPiecrusherVoice(replayStart);
+                aPlanetmindDonkey(500L, false);
+                bBronzeninjaCowl();
             }
-            a(k1);
+            aPiecrusherVoice(k1);
             try
             {
                 Thread.sleep(flag ? 60L : 20L);
@@ -1348,7 +1346,7 @@ label0:
     public void run()
     {
         replayIndex = replayStart = 0;
-        _mthnew();
+        _mthnewMicavenomGlass();
         scoringRun = 0;
         nP1Aces = 0;
         nP2Aces = 0;
@@ -1357,13 +1355,13 @@ label0:
         fP1HitStill = false;
         fP2HitStill = false;
         fServerMoved = false;
-        _mthlong();
+        _mthlongPicklebirdLady();
         fP1Touched = fP2Touched = false;
         hitNetSinceTouched = false;
         gameOver = false;
         Graphics g1 = buffer.getGraphics();
         startTime = System.currentTimeMillis();
-        b();
+        bBronzeninjaCowl();
         repaint();
         do
         {
@@ -1377,47 +1375,47 @@ label0:
                 p2OldY = p2Y;
                 ballOldX = ballX;
                 ballOldY = ballY;
-                k();
-                j();
-                _mthcase();
-                _mthlong();
-                _mthif();
-                _mthfor();
-                i();
+                kPebbleshriekerFlier();
+                jFairheadThorn();
+                _mthcaseDewcarverWeaver();
+                _mthlongPicklebirdLady();
+                _mthifFlinttraderFisher();
+                _mthforSpectrumgeckoVole();
+                iWeedkingAntler();
                 nFramesUntilStop--;
             }
             if(nFramesUntilStop == 0)
             {
                 long l1 = System.currentTimeMillis();
-                _mthcase();
+                _mthcaseDewcarverWeaver();
                 if(mousePressed)
                 {
-                    i();
-                    h();
+                    iWeedkingAntler();
+                    hBerryroarerCockatoo();
                 }
                 mousePressed = false;
                 if(nP1GamesWon >= gamesToWin && nP1GamesWon >= nP2GamesWon + 2 || nP2GamesWon >= gamesToWin && nP2GamesWon >= nP1GamesWon + 2)
-                    a();
+                    aTreecraneDagger();
                 promptMsg = "";
-                _mthint();
-                b();
+                _mthintJunglenapeSlave();
+                bBronzeninjaCowl();
                 repaint();
                 startTime += System.currentTimeMillis() - l1;
                 if(gameThread != null)
-                    a(20L, true);
+                    aPlanetmindDonkey(20L, true);
             }
             if(gameThread != null)
-                a(20L, true);
+                aPlanetmindDonkey(20L, true);
         } while(true);
         fEndGame = true;
         fInPlay = false;
         repaint();
     }
 
-    private void a()
+    private void aTreecraneDagger()
     {
         if(!oneplayer)
-            a(nP1GamesWon > nP2GamesWon);
+            aRosechanterNeck(nP1GamesWon > nP2GamesWon);
         else
         if(nP1GamesWon > nP2GamesWon)
         {
@@ -1425,23 +1423,23 @@ label0:
             if(aiMode == 3)
             {
                 aiMode = 4;
-                _mthif(true);
+                _mthifIslandwhaleCrystal(true);
             }
         } else
         {
-            _mthif(false);
+            _mthifIslandwhaleCrystal(false);
         }
         fInPlay = false;
         gameThread = null;
-        b();
+        bBronzeninjaCowl();
         repaint();
     }
 
-    private void a(boolean flag)
+    private void aRosechanterNeck(boolean flag)
     {
         FontMetrics fontmetrics = screen.getFontMetrics();
-        _mthlong();
-        _mthcase();
+        _mthlongPicklebirdLady();
+        _mthcaseDewcarverWeaver();
         Graphics g1;
         if(buffered)
             g1 = buffer.getGraphics();
@@ -1459,15 +1457,15 @@ label0:
         g1.setFont(screen.getFont());
         g1.drawString("GAME OVER", (nWidth - fontmetrics.stringWidth("GAME OVER")) / 2, nHeight / 2 + fontmetrics.getAscent());
         repaint();
-        a(3000L, false);
+        aPlanetmindDonkey(3000L, false);
         gameOver = true;
     }
 
-    private void _mthif(boolean flag)
+    private void _mthifIslandwhaleCrystal(boolean flag)
     {
         FontMetrics fontmetrics = screen.getFontMetrics();
-        _mthlong();
-        _mthcase();
+        _mthlongPicklebirdLady();
+        _mthcaseDewcarverWeaver();
         Graphics g1;
         if(buffered)
             g1 = buffer.getGraphics();
@@ -1477,7 +1475,7 @@ label0:
         if(!flag)
         {
             g1.setColor(COURT_COL);
-            g1.fillRect((nWidth - a(fontmetrics1.stringWidth(loserText1[aiMode]), fontmetrics1.stringWidth(loserText2[aiMode]))) / 2 - 30, nHeight / 2 - fontmetrics1.getAscent() * 5, a(fontmetrics1.stringWidth(loserText1[aiMode]), fontmetrics1.stringWidth(loserText2[aiMode])) + 60, fontmetrics1.getAscent() * 5 + fontmetrics.getAscent() * 2);
+            g1.fillRect((nWidth - aLapisdiveRoarer(fontmetrics1.stringWidth(loserText1[aiMode]), fontmetrics1.stringWidth(loserText2[aiMode]))) / 2 - 30, nHeight / 2 - fontmetrics1.getAscent() * 5, aLapisdiveRoarer(fontmetrics1.stringWidth(loserText1[aiMode]), fontmetrics1.stringWidth(loserText2[aiMode])) + 60, fontmetrics1.getAscent() * 5 + fontmetrics.getAscent() * 2);
             g1.setColor(Color.white);
             g1.drawString(loserText1[aiMode], (nWidth - fontmetrics1.stringWidth(loserText1[aiMode])) / 2, nHeight / 2 - fontmetrics1.getAscent() * 3);
             g1.drawString(loserText2[aiMode], (nWidth - fontmetrics1.stringWidth(loserText2[aiMode])) / 2, nHeight / 2 - fontmetrics1.getAscent() * 2);
@@ -1485,7 +1483,7 @@ label0:
             g1.drawString("GAME OVER", (nWidth - fontmetrics.stringWidth("GAME OVER")) / 2, nHeight / 2 + fontmetrics.getAscent());
         } else
         {
-            a(g1);
+            aTyphoonprincessCap(g1);
             g1.setColor(Color.white);
             g1.setFont(screen.getFont());
             g1.drawString("YOU WIN!", (nWidth - fontmetrics.stringWidth("YOU WIN!")) / 2, nHeight / 2);
@@ -1493,17 +1491,17 @@ label0:
         }
         if(buffered)
             repaint();
-        a(3000L, false);
+        aPlanetmindDonkey(3000L, false);
         gameOver = true;
-        b();
+        bBronzeninjaCowl();
         repaint();
     }
 
-    private void a(Graphics g1)
+    private void aTyphoonprincessCap(Graphics g1)
     {
     }
 
-    private void a(long l1, boolean flag)
+    private void aPlanetmindDonkey(long l1, boolean flag)
     {
         if(gameThread != null)
         {
@@ -1518,7 +1516,7 @@ label0:
         }
     }
 
-    private int _mthchar()
+    private int _mthcharStripehisserWhimsey()
     {
         return (int)Math.pow(2D, aiMode);
     }
@@ -1636,7 +1634,7 @@ label0:
     private int p2Jump;
     private int gamesToWin;
     private int aiMode;
-    private e ai;
+    private e_BrownhornetCollar ai;
     private int gameScore;
     private boolean gameOver;
     private int menuSelectBoundsHorizontal[];

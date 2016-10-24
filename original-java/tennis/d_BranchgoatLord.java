@@ -1,15 +1,14 @@
-// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
+package com.mmkal;// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.geocities.com/kpdus/jad.html
 // Decompiler options: packimports(3) 
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.PrintStream;
 
-public class d extends e
+public class d_BranchgoatLord extends e_BrownhornetCollar
 {
 
-    public d()
+    public d_BranchgoatLord()
     {
         r = false;
         q = 850;
@@ -27,12 +26,12 @@ public class d extends e
 
     }
 
-    public String _mthif()
+    public String _mthifChocolatestingerKiller()
     {
         return "\"C'mon!\" Slime ";
     }
 
-    public Color _mthdo()
+    public Color _mthdoHeathersaverRazor()
     {
         return Color.yellow;
     }
@@ -47,11 +46,11 @@ public class d extends e
         return i >= j ? j : i;
     }
 
-    public void a()
+    public void aBeadbraidSkull()
     {
-        if(_fldbyte._mthdo() > 0)
+        if(_fldbyte._mthdoPlatinumhornetSwallow() > 0)
         {
-            a(3);
+            aLeafroarStealer(3);
             return;
         }
         r = r || _fldlong == 950 && _fldif == 0;
@@ -63,7 +62,7 @@ public class d extends e
         int ai2[] = new int[byte0];
         ai[0] = _fldlong;
         ai1[0] = _fldchar;
-        ai2[0] = _fldbyte.d();
+        ai2[0] = _fldbyte.dVioletraccoonOgre();
         Graphics g = _fldbyte.getGraphics();
         g.setColor(Color.yellow);
         int i = _fldbyte.getWidth();
@@ -88,7 +87,7 @@ public class d extends e
 
         _fldlong = ai[0];
         _fldchar = ai1[0];
-        a(3);
+        aLeafroarStealer(3);
         q = 850;
         if(r)
         {
@@ -96,7 +95,7 @@ public class d extends e
                 q = 994;
             if(_fldchar < 130)
             {
-                a(2);
+                aLeafroarStealer(2);
                 q = 850;
             }
             if(ai[1] < ai[0])
@@ -109,7 +108,7 @@ public class d extends e
         {
             System.out.println("" + s);
             if(s-- <= 0)
-                a(2);
+                aLeafroarStealer(2);
         } else
         {
             byte byte1 = -1;
@@ -132,7 +131,7 @@ public class d extends e
                         {
                             int l = j1 - l1 - 2;
                             if(l == 0)
-                                a(2);
+                                aLeafroarStealer(2);
                             break;
                         }
                         int i1 = j1 - ai1.length - 1;
@@ -144,13 +143,13 @@ public class d extends e
             } while(true);
         }
         if(Math.abs(_fldint - q) < 8)
-            a(3);
+            aLeafroarStealer(3);
         else
         if(q < _fldint)
-            a(0);
+            aLeafroarStealer(0);
         else
         if(q > _fldint)
-            a(1);
+            aLeafroarStealer(1);
     }
 
     final boolean n = false;

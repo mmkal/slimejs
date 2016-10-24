@@ -28,6 +28,8 @@ export class ShimmedEvent {
     x: number;
     y: number;
 
+    target: ShimmedButton;
+
     // todo: check the right values for these on java Event
     static LEFT = 74;
     static RIGHT = 76;
@@ -80,7 +82,22 @@ export class ShimmedGraphics {
         this.ctx.fill();
     }
 
-    fillPolygon(pointsX: number[], pointsY: number[], v: number): void {
+    fillPolygon(polygon: ShimmedPolygon); 
+    fillPolygon(pointsX: number[], pointsY: number[], v: number);
+    fillPolygon(): void {
+        let pointsX: number[];
+        let pointsY: number[];
+        let v: number;
+        if (arguments.length === 3) {
+            pointsX = arguments[0];
+            pointsY = arguments[1];
+            v = arguments[2];
+        } else {
+            const polygon: ShimmedPolygon = arguments[0];
+            pointsX = polygon.xs;
+            pointsY = polygon.ys;
+            v = polygon.n;
+        }
         this.ctx.beginPath();
         this.ctx.moveTo(pointsX[0], pointsY[0]);
         for (var i = 1; i < v; i++) {
@@ -89,6 +106,10 @@ export class ShimmedGraphics {
         this.ctx.closePath();
         this.ctx.fill();
     }
+
+    // {
+    //     this.fillPolygon(polygon.xs, polygon.ys, polygon.n);
+    // }
 
     fillOval(x: number, y: number, width: number, height: number): void {
         this.fillArc(x, y, width, height, 0, 360);
@@ -142,8 +163,8 @@ export class ShimmedFontMetrics {
     }
 }
 export class ShimmedSize {
-    height: number = 0;
-    width: number = 0;
+    constructor(public width: number, public height: number) {
+    }
 }
 class ShimmedAppletCore {
     canvasEl: HTMLCanvasElement = null;
@@ -151,10 +172,13 @@ class ShimmedAppletCore {
         this.canvasEl = document.querySelector("canvas");
     }
     size(): ShimmedSize {
-        var size = new ShimmedSize();
-        size.width = this.canvasEl.width;
-        size.height = this.canvasEl.height;
-        return size;
+        return new ShimmedSize(this.getWidth(), this.getHeight());
+    }
+    getWidth() {
+        return this.canvasEl.width;
+    }
+    getHeight() {
+        return this.canvasEl.height;
     }
     showStatus(text: string): void {
         var screen = this.getGraphics();
@@ -185,6 +209,15 @@ class ShimmedAppletCore {
         _this.DrawGoals && _this.DrawGoals();
         _this.DrawStatus && _this.DrawStatus();
     }
+    public getCodeBase() {
+        return window.location.href + "?";
+    }
+    public getDocumentBase() {
+        return new ShimmedDocumentBase();
+    }
+    public getAppletContext() {
+        return new ShimmedAppletContext();
+    }
 }
 export abstract class ShimmedApplet extends ShimmedAppletCore {
     guestSendTask: any = null;
@@ -195,7 +228,7 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
 
     public abstract handleEvent(wevent: ShimmedEvent) : Promise<boolean>;
     
-    restoreFromRemote(game: ShimmedApplet) {
+    public restoreFromRemote(game: ShimmedApplet) {
         Object.getOwnPropertyNames(this).forEach(propName => {
             var propType = typeof(this[propName]);
             if (propType === "number" || propType === "boolean" || propType === "string" || propName === "pointsX" || propName === "pointsY" || propName === "replayData") {
@@ -211,7 +244,7 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
         this.run();
         window["activeGame"] = this;
     }
-    registerEventListeners() {
+    private registerEventListeners() {
         const game = this;
         document.body.onmousedown = ev => {
             var wevent = new ShimmedEvent();
@@ -278,12 +311,132 @@ export class ShimmedThread {
 export interface ShimmedRunnable {
     run();
 }
+export class ShimmedPrintStream {
+    public print(s: any) { console.log(s); }    
+    public println(s?: any) { console.log(s); }    
+}
 export class ShimmedSystem {
-    public static out = {
-        print: console.log,
-        println: console.log
-    }
+    public static out = new ShimmedPrintStream();
     public static currentTimeMillis() {
         return Date.now();
+    }
+}
+export class ShimmedAppletContext {
+    showDocument(url: ShimmedURL, str: string) {
+        console.error("not implemented");
+    }
+}
+export class ShimmedDocumentBase {
+    public getHost() {
+        return "slimetennis.com";
+    }
+}
+export class ShimmedURL {
+    constructor(public location: string) {
+    }
+    public openStream() {
+        return new ShimmedInputStream();
+    }
+}
+export class ShimmedBufferedImage extends ShimmedImage {
+    constructor(public x: number, public y: number, public z: number) {
+        super(null);
+    }
+    public getSubimage(x: number, y: number, w: number, h: number): ShimmedBufferedImage {
+        return this;
+    }
+} 
+export class ShimmedVector {
+    private arr = new Array<number[]>();
+    constructor(n: number) {
+    }
+    public get(i: number) {
+        return this.arr[i];
+    }
+    public size() {
+        return this.arr.length;
+    }
+    public add(numbers: number[]) { // todo check why adding numbers not just one number?
+        this.arr.push(numbers);
+    }
+    public removeAllElements() {
+        this.arr = [];
+    }
+}
+export class ShimmedElement {
+    public add(el: ShimmedElement) {
+        console.error("not implemented");
+    }
+}
+export class ShimmedFrame extends ShimmedElement {
+    public setTitle(s: string) {
+        console.error("not implemented");
+    }
+    public pack() {
+        console.error("not implemented");
+    }
+    public show() {
+        console.error("not implemented");        
+    }
+    public dispose() {
+        console.error("not implemented");        
+    }
+    public setLayout(layout: ShimmedGridLayout) {
+        console.error("not implemented");        
+    }
+}
+export class ShimmedTextField extends ShimmedElement {
+    constructor(size: number) {
+        super();
+    }
+    public getText(): string {
+        console.error("not implemented");
+        return "?????????????";    
+    }
+}
+export class ShimmedButton extends ShimmedElement {
+    constructor(public label: string) {
+        super();
+    }
+}
+export class ShimmedPolygon {
+    constructor(public xs: number[], public ys: number[], public n: number) {
+    }
+}
+export class ShimmedInputStream {
+    public close() {}
+}
+export class ShimmedBufferedReader {
+    constructor(public reader: ShimmedInputStreamReader) {
+    }
+    public readLine(): string {
+        return null;
+    }
+    public close() {
+    }
+}
+export class ShimmedInputStreamReader {
+    constructor(public stream: ShimmedInputStream) {
+    }
+}
+export class ShimmedPanel extends ShimmedElement {
+}
+export class ShimmedLabel extends ShimmedElement {
+    constructor(public text: string) {
+        super();
+    }
+}
+export class ShimmedGridLayout {
+    constructor(public x: number, public y: number) {
+    }
+}
+export class ShimmedLong {
+    public static parseLong(s: string) {
+        return Number(s);
+    }
+}
+export class ShimmedChars {
+    public static charCodeArray(s: string) {
+        return s.split("").map(c => c.charCodeAt(0));
     }
 }

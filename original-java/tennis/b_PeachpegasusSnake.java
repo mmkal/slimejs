@@ -1,25 +1,25 @@
-// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
+package com.mmkal;// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.geocities.com/kpdus/jad.html
 // Decompiler options: packimports(3) 
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class b extends e
+public class b_PeachpegasusSnake extends e_BrownhornetCollar
 {
 
-    public b()
+    public b_PeachpegasusSnake()
     {
         h = false;
         g = 850;
     }
 
-    public String _mthif()
+    public String _mthifChocolatestingerKiller()
     {
         return "Silly Slime ";
     }
 
-    public Color _mthdo()
+    public Color _mthdoHeathersaverRazor()
     {
         return Color.green;
     }
@@ -29,11 +29,11 @@ public class b extends e
         return i * i;
     }
 
-    public void a()
+    public void aBeadbraidSkull()
     {
-        if(_fldbyte._mthdo() > 0)
+        if(_fldbyte._mthdoPlatinumhornetSwallow() > 0)
         {
-            a(3);
+            aLeafroarStealer(3);
             return;
         }
         h = h || _fldlong == 950 && _fldif == 0;
@@ -45,7 +45,7 @@ public class b extends e
         int ai2[] = new int[byte0];
         ai[0] = _fldlong;
         ai1[0] = _fldchar;
-        ai2[0] = _fldbyte.d();
+        ai2[0] = _fldbyte.dVioletraccoonOgre();
         Graphics g1 = _fldbyte.getGraphics();
         g1.setColor(Color.yellow);
         int i = _fldbyte.getWidth();
@@ -68,7 +68,7 @@ public class b extends e
         _fldlong = ai[0];
         _fldchar = ai1[0];
         byte byte1 = 25;
-        a(3);
+        aLeafroarStealer(3);
         boolean flag = false;
         if(h)
         {
@@ -76,7 +76,7 @@ public class b extends e
                 g = 990;
             if(_fldchar < 130)
             {
-                a(2);
+                aLeafroarStealer(2);
                 g = 850;
             }
             if(ai[1] < ai[0])
@@ -113,7 +113,7 @@ public class b extends e
                     if(Math.abs(_fldint - i3) >= j2 * 8 || Math.abs(ai[j2] - _fldint) >= j2 * 8)
                         continue;
 label0:
-                    for(int j3 = 1; j3 < a(j2, ai4.length); j3++)
+                    for(int j3 = 1; j3 < aApricotsharkCougar(j2, ai4.length); j3++)
                     {
                         if(_fldfor > 0 && _fldfor != ai4[j3])
                             continue;
@@ -177,16 +177,16 @@ label0:
             }
 
             if(flag2)
-                a(2);
+                aLeafroarStealer(2);
         }
         if(g < _fldint)
-            a(0);
+            aLeafroarStealer(0);
         else
         if(g > _fldint)
-            a(1);
+            aLeafroarStealer(1);
     }
 
-    private int a(int i, int j)
+    private int aApricotsharkCougar(int i, int j)
     {
         return i >= j ? j : i;
     }

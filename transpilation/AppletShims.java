@@ -15,16 +15,6 @@ public class Applet {
 	public AppletContext getAppletContext() { return null; }
 	public String getCodeBase() { return null; }
 }
-public class AppletContext {
-	public void showDocument(URL u, String s) {}
-}
-public class DocumentBase {
-	public String getHost() { return null; }
-}
-public class URL { 
-	public URL(String s) {}
-	public InputStream openStream() { return null; }
-}
 public class Color {
 	public static Color yellow = null;
 	public static Color black = null;
@@ -87,6 +77,16 @@ public class Thread {
 }
 public interface Runnable {}
 
+public class AppletContext {
+	public void showDocument(URL u, String s) {}
+}
+public class DocumentBase {
+	public String getHost() { return null; }
+}
+public class URL { 
+	public URL(String s) {}
+	public InputStream openStream() { return null; }
+}
 public class PrintStream {
 	public Object print(Object s) { return null; }
 	public Object println() { return null; }

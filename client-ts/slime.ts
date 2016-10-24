@@ -1,4 +1,4 @@
-import Game from "../generated-ts/tennis"
+import Game from "../generated-ts/mmkal"
 
 setTimeout(() => {
     new Game().start();

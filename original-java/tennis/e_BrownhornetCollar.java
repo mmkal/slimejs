@@ -1,23 +1,23 @@
-// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
+package com.mmkal;// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.geocities.com/kpdus/jad.html
 // Decompiler options: packimports(3) 
 
 import java.awt.Color;
 
-public abstract class e
+public abstract class e_BrownhornetCollar
 {
 
-    public e()
+    public e_BrownhornetCollar()
     {
     }
 
-    public final void a(SlimeTennis slimetennis, int i)
+    public final void aGlassmoleSting(SlimeTennis slimetennis, int i)
     {
         _fldbyte = slimetennis;
         b = i;
     }
 
-    public final void a(int ai[])
+    public final void aNorthridgeRaver(int ai[])
     {
         _fldlong = b != 2 ? 1000 - ai[0] : ai[0];
         _fldchar = ai[1];
@@ -33,37 +33,37 @@ public abstract class e
         _fldvoid = b != 2 ? ai[7] : ai[11];
     }
 
-    public abstract void a();
+    public abstract void aBeadbraidSkull();
 
-    public String _mthif()
+    public String _mthifChocolatestingerKiller()
     {
         return "AI ";
     }
 
-    public Color _mthdo()
+    public Color _mthdoHeathersaverRazor()
     {
         return Color.black;
     }
 
-    protected final void a(int i)
+    protected final void aLeafroarStealer(int i)
     {
         if(b == 1)
             switch(i)
             {
             case 0: // '\0'
-                _fldbyte.c();
+                _fldbyte.cShallowboarYak();
                 break;
 
             case 1: // '\001'
-                _fldbyte.e();
+                _fldbyte.eWheatthumbHorse();
                 break;
 
             case 2: // '\002'
-                _fldbyte._mthelse();
+                _fldbyte._mthelsePickleoxBug();
                 break;
 
             case 3: // '\003'
-                _fldbyte._mthbyte();
+                _fldbyte._mthbyteSolarfancierLighter();
                 break;
             }
         else
@@ -71,19 +71,19 @@ public abstract class e
             switch(i)
             {
             case 0: // '\0'
-                _fldbyte.g();
+                _fldbyte.gValiantfingerSentry();
                 break;
 
             case 1: // '\001'
-                _fldbyte.l();
+                _fldbyte.lLeadterrierWyrm();
                 break;
 
             case 2: // '\002'
-                _fldbyte._mthvoid();
+                _fldbyte._mthvoidSequoiacollarMuse();
                 break;
 
             case 3: // '\003'
-                _fldbyte._mthgoto();
+                _fldbyte._mthgotoBravemareZebra();
                 break;
             }
     }

@@ -1,12 +1,12 @@
-// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
+package com.mmkal;// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.geocities.com/kpdus/jad.html
 // Decompiler options: packimports(3) 
 
 
-public class g extends e
+public class g_AlpinepuppyPython extends e_BrownhornetCollar
 {
 
-    public g()
+    public g_AlpinepuppyPython()
     {
         x = false;
         w = 850;
@@ -17,11 +17,11 @@ public class g extends e
         return i * i;
     }
 
-    public void a()
+    public void aBeadbraidSkull()
     {
-        if(_fldbyte._mthdo() > 0)
+        if(_fldbyte._mthdoPlatinumhornetSwallow() > 0)
         {
-            a(3);
+            aLeafroarStealer(3);
             return;
         }
         x = x || _fldlong == 950 && _fldif == 0;
@@ -31,7 +31,7 @@ public class g extends e
         int ai2[] = new int[c];
         ai[0] = _fldlong;
         ai1[0] = _fldchar;
-        ai2[0] = _fldbyte.d();
+        ai2[0] = _fldbyte.dVioletraccoonOgre();
         for(int i = 1; i < c; i++)
         {
             _fldlong += _flddo;
@@ -51,13 +51,13 @@ public class g extends e
         _fldlong = ai[0];
         _fldchar = ai1[0];
         byte byte0 = 25;
-        a(3);
+        aLeafroarStealer(3);
         if(x)
         {
             if(w != 970)
                 w = 970;
             if(_fldchar < 200)
-                a(2);
+                aLeafroarStealer(2);
             if(ai[1] < ai[0])
                 x = false;
         } else
@@ -80,15 +80,15 @@ public class g extends e
 
             if(ai[0] < ai[1] && _fldint - ai[0] < 100 && !flag)
             {
-                a(2);
+                aLeafroarStealer(2);
                 w = ai[0];
             }
         }
         if(w < _fldint)
-            a(0);
+            aLeafroarStealer(0);
         else
         if(w > _fldint)
-            a(1);
+            aLeafroarStealer(1);
     }
 
     boolean x;

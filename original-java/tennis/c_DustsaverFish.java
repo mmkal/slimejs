@@ -1,14 +1,14 @@
-// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
+package com.mmkal;// Decompiled by Jad v1.5.8e. Copyright 2001 Pavel Kouznetsov.
 // Jad home page: http://www.geocities.com/kpdus/jad.html
 // Decompiler options: packimports(3) 
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class c extends e
+public class c_DustsaverFish extends e_BrownhornetCollar
 {
 
-    public c()
+    public c_DustsaverFish()
     {
         l = false;
         k = 850;
@@ -24,12 +24,12 @@ public class c extends e
 
     }
 
-    public String _mthif()
+    public String _mthifChocolatestingerKiller()
     {
         return "Mr Slime ";
     }
 
-    public Color _mthdo()
+    public Color _mthdoHeathersaverRazor()
     {
         return Color.red;
     }
@@ -44,11 +44,11 @@ public class c extends e
         return i1 >= j1 ? j1 : i1;
     }
 
-    public void a()
+    public void aBeadbraidSkull()
     {
-        if(_fldbyte._mthdo() > 0)
+        if(_fldbyte._mthdoPlatinumhornetSwallow() > 0)
         {
-            a(3);
+            aLeafroarStealer(3);
             return;
         }
         l = l || _fldlong == 950 && _fldif == 0;
@@ -60,7 +60,7 @@ public class c extends e
         int ai2[] = new int[byte0];
         ai[0] = _fldlong;
         ai1[0] = _fldchar;
-        ai2[0] = _fldbyte.d();
+        ai2[0] = _fldbyte.dVioletraccoonOgre();
         Graphics g = _fldbyte.getGraphics();
         g.setColor(Color.yellow);
         int i1 = _fldbyte.getWidth();
@@ -85,14 +85,14 @@ public class c extends e
 
         _fldlong = ai[0];
         _fldchar = ai1[0];
-        a(3);
+        aLeafroarStealer(3);
         if(l)
         {
             if(_fldint != 990)
                 k = 990;
             if(_fldchar < 130)
             {
-                a(2);
+                aLeafroarStealer(2);
                 k = 850;
             }
             if(ai[1] < ai[0])
@@ -197,16 +197,16 @@ label1:
             }
 
             if(flag3)
-                a(2);
+                aLeafroarStealer(2);
         }
         if(Math.abs(_fldint - k) < 8)
-            a(3);
+            aLeafroarStealer(3);
         else
         if(k < _fldint)
-            a(0);
+            aLeafroarStealer(0);
         else
         if(k > _fldint)
-            a(1);
+            aLeafroarStealer(1);
     }
 
     final boolean i = false;
