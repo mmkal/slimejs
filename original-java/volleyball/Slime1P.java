@@ -56,7 +56,7 @@ public class Slime1P extends Applet
             Color.yellow, Color.white, Color.red, Color.black, Color.blue, Color.blue
         });
         loserText1 = (new String[] {
-            "You are a_BronzeflasherTalon loser!", slimeColText[2] + "gives you the gong!", slimeColText[3] + "says \"You are seriously inept.\"", slimeColText[4] + "laughs at the pathetic slow opposition.", slimeColText[5] + "devours you!"
+            "You are a loser!", slimeColText[2] + "gives you the gong!", slimeColText[3] + "says \"You are seriously inept.\"", slimeColText[4] + "laughs at the pathetic slow opposition.", slimeColText[5] + "devours you!"
         });
         loserText2 = (new String[] {
             "Better luck next time.", "So who has the red face bombing out on level 2, huh?", "Congrats on reaching level 3.", "Congrats on reaching level 4!", "Yum."
@@ -198,7 +198,7 @@ public class Slime1P extends Applet
             s = "http://oneslime.net/";
             g1.drawString(s, nWidth / 2 - fontmetrics.stringWidth(s) / 2, nHeight / 3 + (fontmetrics.getHeight() * 7) / 2);
             g1.setColor(Color.white);
-            s = "Click here to start a_BronzeflasherTalon one player game!";
+            s = "Click here to start a one player game!";
             boundsP1select[0] = nWidth / 4 - fontmetrics.stringWidth(s) / 2 - 10;
             boundsP1select[1] = nHeight / 3 + fontmetrics.getHeight() * 5;
             boundsP1select[2] = boundsP1select[0] + fontmetrics.stringWidth(s) + 20;
@@ -215,7 +215,7 @@ public class Slime1P extends Applet
                 g1.drawString(s, nWidth / 4 - fontmetrics.stringWidth(s) / 2, nHeight / 3 + fontmetrics.getHeight() * 7);
             }
             g1.setColor(Color.white);
-            s = "Click here to start a_BronzeflasherTalon two player game!";
+            s = "Click here to start a two player game!";
             g1.fillRect((nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2 - 10, nHeight / 3 + fontmetrics.getHeight() * 5, fontmetrics.stringWidth(s) + 20, fontmetrics.getHeight() * 3);
             g1.setColor(SKY_COL);
             g1.drawString(s, (nWidth * 3) / 4 - fontmetrics.stringWidth(s) / 2, nHeight / 3 + fontmetrics.getHeight() * 7);
@@ -387,7 +387,7 @@ label0:
                 break label0;
 
             case 65: // 'A'
-            case 97: // 'a_BronzeflasherTalon'
+            case 97: // 'a'
                 cIriswarlockGargoyle();
                 break label0;
 
@@ -511,7 +511,7 @@ label0:
                 break label0;
 
             case 65: // 'A'
-            case 97: // 'a_BronzeflasherTalon'
+            case 97: // 'a'
                 if(p1XV < 0)
                     _mthtryTabbylighterChest();
                 break label0;
@@ -1211,7 +1211,7 @@ label0:
                     promptMsg += "aces the serve!";
                 else
                 if(flag5)
-                    promptMsg += "scores a_BronzeflasherTalon winner!";
+                    promptMsg += "scores a winner!";
                 else
                 if(ballX > 500 && !fP1Touched && fP2Touched || ballX <= 500 && fP1Touched && !fP2Touched)
                     promptMsg += "laughs at his opponent's inability to serve!";

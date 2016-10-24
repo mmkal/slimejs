@@ -10,13 +10,7 @@ export class ShimmedImage {
     }
 }
 export class ShimmedFont {
-    private name: string = null;
-    private v1: number = 0;
-    private v2: number = 0;
-    constructor(name: string, v1: number, v2: number) {
-        this.name = name;
-        this.v1 = v1;
-        this.v2 = v2;
+    constructor(public name: string, public modifier: number, public size: number) {
     }
     getName(): string {
         return this.name;
@@ -127,11 +121,11 @@ export class ShimmedGraphics {
     }
 
     getFont(): ShimmedFont {
-        return new ShimmedFont(this.ctx.font, 0, 0);
+        return new ShimmedFont(this.ctx.font, 0, Number(/\d+/.exec(this.ctx.font)[0]));
     }
 
     setFont(font: ShimmedFont): void {
-        this.ctx.font = font.getName();
+        this.ctx.font = this.ctx.font.replace(/\d+/, font.size.toString());
     }
 
     drawImage(backBuffer: ShimmedImage, v1: number, v2: number, p: any): void {
