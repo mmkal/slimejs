@@ -8,17 +8,17 @@ public class a_BronzeflasherTalon extends c_ForesthuggerCrest
 
     public a_BronzeflasherTalon()
     {
-        o = -1;
+        oSagepiperLizard = -1;
     }
 
     public void aVeildiveChiller()
     {
-        if(o != -1 || _fldvoid == 800 && _flddo == 0)
+        if(oSagepiperLizard != -1 || _fldvoidBoneladyMind == 800 && _flddoPatchlightningSword == 0)
         {
             _mthcaseBallisticflyRipper();
             return;
         }
-        int i = _mthvoid(_fldfor + b + 30);
+        int i = _mthvoidMadgorillaHyena(_fldforAlmondsingerBrow + bRustsnagglefootFin + 30);
         byte byte0;
         if(i < 600)
             byte0 = 0;
@@ -29,181 +29,181 @@ public class a_BronzeflasherTalon extends c_ForesthuggerCrest
             byte0 = 20;
         if(i < 450)
         {
-            if(Math.abs(_fldint - 666) < 10)
+            if(Math.abs(_fldintDestinybearLeopard - 666) < 10)
                 aLapisgazelleVulture(3);
             else
-            if(666 < _fldint)
+            if(666 < _fldintDestinybearLeopard)
                 aLapisgazelleVulture(0);
             else
-            if(666 > _fldint)
+            if(666 > _fldintDestinybearLeopard)
                 aLapisgazelleVulture(1);
         } else
-        if(Math.abs(_fldint - i - byte0) < 10)
+        if(Math.abs(_fldintDestinybearLeopard - i - byte0) < 10)
             aLapisgazelleVulture(3);
         else
-        if(i + byte0 < _fldint)
+        if(i + byte0 < _fldintDestinybearLeopard)
             aLapisgazelleVulture(0);
         else
-        if(i + byte0 > _fldint)
+        if(i + byte0 > _fldintDestinybearLeopard)
             aLapisgazelleVulture(1);
-        if((_fldint <= 900 || Math.random() >= 0.40000000000000002D) && i >= 720 && (_fldelse >= 150 || _fldif <= -3))
-            if((_fldint >= 900 && _fldvoid > 830 || _fldint <= 580 && _fldvoid < 530) && Math.abs(_fldvoid - _fldint) < 100)
+        if((_fldintDestinybearLeopard <= 900 || Math.random() >= 0.40000000000000002D) && i >= 720 && (_fldelseEmberdonkeySpirit >= 150 || _fldifGlenrayLantern <= -3))
+            if((_fldintDestinybearLeopard >= 900 && _fldvoidBoneladyMind > 830 || _fldintDestinybearLeopard <= 580 && _fldvoidBoneladyMind < 530) && Math.abs(_fldvoidBoneladyMind - _fldintDestinybearLeopard) < 100)
                 aLapisgazelleVulture(2);
             else
-            if(c(_fldvoid - _fldint) * 2 + c(_fldelse - _fldfor) < c(185) && _fldvoid != _fldint)
+            if(cPalmrazorDiver(_fldvoidBoneladyMind - _fldintDestinybearLeopard) * 2 + cPalmrazorDiver(_fldelseEmberdonkeySpirit - _fldforAlmondsingerBrow) < cPalmrazorDiver(185) && _fldvoidBoneladyMind != _fldintDestinybearLeopard)
                 aLapisgazelleVulture(2);
             else
-            if(_flddo * _flddo + _fldif * _fldif < 20 && _fldvoid - _fldint < 30 && _fldvoid != _fldint)
+            if(_flddoPatchlightningSword * _flddoPatchlightningSword + _fldifGlenrayLantern * _fldifGlenrayLantern < 20 && _fldvoidBoneladyMind - _fldintDestinybearLeopard < 30 && _fldvoidBoneladyMind != _fldintDestinybearLeopard)
                 aLapisgazelleVulture(2);
             else
-            if(Math.abs(_fldvoid - _fldint) < 150 && _fldelse > 50 && _fldelse < 250)
+            if(Math.abs(_fldvoidBoneladyMind - _fldintDestinybearLeopard) < 150 && _fldelseEmberdonkeySpirit > 50 && _fldelseEmberdonkeySpirit < 250)
                 aLapisgazelleVulture(2);
     }
 
-    private int c(int i)
+    private int cPalmrazorDiver(int i)
     {
         return i * i;
     }
 
-    private int b(int i)
+    private int bDarkdiverPegasus(int i)
     {
         int j = 0;
-        int k = _fldelse;
-        int l = _fldif;
+        int k = _fldelseEmberdonkeySpirit;
+        int l = _fldifGlenrayLantern;
         while((k += --l) > 0) 
             j++;
         return j;
     }
 
-    private int _mthvoid(int i)
+    private int _mthvoidMadgorillaHyena(int i)
     {
-        int j = _fldvoid;
-        int k = _fldelse;
-        int l = _fldif;
+        int j = _fldvoidBoneladyMind;
+        int k = _fldelseEmberdonkeySpirit;
+        int l = _fldifGlenrayLantern;
         do
         {
             if((k += --l) <= i)
                 break;
-            j += _flddo;
+            j += _flddoPatchlightningSword;
             if(j <= 0)
             {
                 j = 0;
-                _flddo = -_flddo;
+                _flddoPatchlightningSword = -_flddoPatchlightningSword;
             } else
             if(j >= 1000)
             {
                 j = 1000;
-                _flddo = -_flddo;
+                _flddoPatchlightningSword = -_flddoPatchlightningSword;
             }
         } while(true);
         return j;
     }
 
-    private int _mthchar()
+    private int _mthcharBallisticboarRaven()
     {
-        int i = _fldint - _fldvoid;
-        int j = _fldfor - _fldelse;
+        int i = _fldintDestinybearLeopard - _fldvoidBoneladyMind;
+        int j = _fldforAlmondsingerBrow - _fldelseEmberdonkeySpirit;
         return (int)Math.sqrt(i * i + j * j);
     }
 
     private void _mthcaseBallisticflyRipper()
     {
-        if(o == -1)
+        if(oSagepiperLizard == -1)
         {
             if(Math.random() < 0.29999999999999999D)
             {
-                if(g < 300)
-                    o = 0;
+                if(gGlimmerfishGem < 300)
+                    oSagepiperLizard = 0;
                 else
-                if(g > 200)
-                    o = 1;
+                if(gGlimmerfishGem > 200)
+                    oSagepiperLizard = 1;
                 else
-                    o = 2;
+                    oSagepiperLizard = 2;
             } else
             {
-                o = 2;
+                oSagepiperLizard = 2;
             }
-            if(o == -1 || Math.random() < 0.29999999999999999D)
-                o = (int)(Math.random() * 3D);
+            if(oSagepiperLizard == -1 || Math.random() < 0.29999999999999999D)
+                oSagepiperLizard = (int)(Math.random() * 3D);
         }
-        switch(o)
+        switch(oSagepiperLizard)
         {
         default:
             break;
 
         case 0: // '\0'
         case 1: // '\001'
-            char c4 = o != 0 ? '\u0348' : '\u035C';
-            if(_fldif > 12 && _fldint < c4)
+            char c4 = oSagepiperLizard != 0 ? '\u0348' : '\u035C';
+            if(_fldifGlenrayLantern > 12 && _fldintDestinybearLeopard < c4)
                 aLapisgazelleVulture(1);
-            if(_fldint >= c4)
+            if(_fldintDestinybearLeopard >= c4)
                 aLapisgazelleVulture(3);
-            if(_fldif == -3 && _fldint != 800)
+            if(_fldifGlenrayLantern == -3 && _fldintDestinybearLeopard != 800)
                 aLapisgazelleVulture(2);
-            if(_fldif < -12 && _fldfor != 0 && _fldint >= c4 - 15 && o == 0)
+            if(_fldifGlenrayLantern < -12 && _fldforAlmondsingerBrow != 0 && _fldintDestinybearLeopard >= c4 - 15 && oSagepiperLizard == 0)
                 aLapisgazelleVulture(0);
-            if(_fldvoid < 700)
-                o = -1;
+            if(_fldvoidBoneladyMind < 700)
+                oSagepiperLizard = -1;
             break;
 
         case 2: // '\002'
             char c1 = '\u0302';
-            if(_fldif > 12 && _fldint > c1)
+            if(_fldifGlenrayLantern > 12 && _fldintDestinybearLeopard > c1)
                 aLapisgazelleVulture(0);
-            if(_fldint <= c1)
+            if(_fldintDestinybearLeopard <= c1)
                 aLapisgazelleVulture(3);
-            if(_fldif == -2 && _fldint != 800)
+            if(_fldifGlenrayLantern == -2 && _fldintDestinybearLeopard != 800)
                 aLapisgazelleVulture(2);
-            if(_fldfor != 0 && _fldvoid > 800)
-                o = 3 + _mthbyte();
+            if(_fldforAlmondsingerBrow != 0 && _fldvoidBoneladyMind > 800)
+                oSagepiperLizard = 3 + _mthbyteLightrazorCat();
             break;
 
         case 3: // '\003'
             char c2 = '\u0249';
-            if(_fldint > c2)
+            if(_fldintDestinybearLeopard > c2)
                 aLapisgazelleVulture(0);
-            if(_fldint <= c2)
+            if(_fldintDestinybearLeopard <= c2)
                 aLapisgazelleVulture(3);
-            if(_fldvoid <= 730)
+            if(_fldvoidBoneladyMind <= 730)
                 aLapisgazelleVulture(2);
-            if(_fldvoid < 600)
+            if(_fldvoidBoneladyMind < 600)
                 aLapisgazelleVulture(1);
-            if(_fldvoid < 580)
+            if(_fldvoidBoneladyMind < 580)
                 aLapisgazelleVulture(3);
-            if(_fldvoid < 540)
-                o = -1;
+            if(_fldvoidBoneladyMind < 540)
+                oSagepiperLizard = -1;
             // fall through
 
         case 4: // '\004'
             char c3 = '\u0249';
-            if(_fldint > c3)
+            if(_fldintDestinybearLeopard > c3)
                 aLapisgazelleVulture(0);
-            if(_fldint <= c3)
+            if(_fldintDestinybearLeopard <= c3)
                 aLapisgazelleVulture(3);
-            if(_fldvoid <= 755)
+            if(_fldvoidBoneladyMind <= 755)
                 aLapisgazelleVulture(2);
-            if(_fldvoid < 600)
+            if(_fldvoidBoneladyMind < 600)
                 aLapisgazelleVulture(1);
-            if(_fldvoid < 580)
+            if(_fldvoidBoneladyMind < 580)
                 aLapisgazelleVulture(3);
-            if(_fldvoid < 540)
-                o = -1;
+            if(_fldvoidBoneladyMind < 540)
+                oSagepiperLizard = -1;
             break;
         }
     }
 
-    private int _mthbyte()
+    private int _mthbyteLightrazorCat()
     {
         int i = 0;
-        if(g < 200)
+        if(gGlimmerfishGem < 200)
             i = 1;
         else
-        if(g > 300)
+        if(gGlimmerfishGem > 300)
             i = 0;
         if(Math.random() < 0.34999999999999998D)
             i = 1 - i;
         return i;
     }
 
-    private int o;
+    private int oSagepiperLizard;
 }

@@ -84,7 +84,7 @@ export class ShimmedGraphics {
 
     fillPolygon(polygon: ShimmedPolygon); 
     fillPolygon(pointsX: number[], pointsY: number[], v: number);
-    fillPolygon(): void {
+    fillPolygon() {
         let pointsX: number[];
         let pointsY: number[];
         let v: number;
@@ -107,9 +107,9 @@ export class ShimmedGraphics {
         this.ctx.fill();
     }
 
-    // {
-    //     this.fillPolygon(polygon.xs, polygon.ys, polygon.n);
-    // }
+    drawOval(x: number, y: number, width: number, height: number) {
+        this.drawArc(x, y, width, height, 0, 360);
+    }
 
     fillOval(x: number, y: number, width: number, height: number): void {
         this.fillArc(x, y, width, height, 0, 360);
@@ -167,6 +167,7 @@ export class ShimmedSize {
     }
 }
 class ShimmedAppletCore {
+    protected isInitialised = false;
     canvasEl: HTMLCanvasElement = null;
     constructor() {
         this.canvasEl = document.querySelector("canvas");
@@ -203,6 +204,7 @@ class ShimmedAppletCore {
         return new ShimmedImage(div);
     }
     repaint() {
+        if (!this.isInitialised) return;
         const _this: any = this;
         _this.paint && _this.paint(_this.getGraphics());
         _this.DrawSlimers && _this.DrawSlimers();
@@ -210,7 +212,7 @@ class ShimmedAppletCore {
         _this.DrawStatus && _this.DrawStatus();
     }
     public getCodeBase() {
-        return window.location.href + "?";
+        return new ShimmedURL(window.location.href + "?");
     }
     public getDocumentBase() {
         return new ShimmedDocumentBase();
@@ -240,10 +242,12 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
 
     public start() {
         this.init();
+        this.isInitialised = true;
         this.registerEventListeners();
         this.run();
         window["activeGame"] = this;
     }
+
     private registerEventListeners() {
         const game = this;
         document.body.onmousedown = ev => {
@@ -322,9 +326,7 @@ export class ShimmedSystem {
     }
 }
 export class ShimmedAppletContext {
-    showDocument(url: ShimmedURL, str: string) {
-        console.error("not implemented");
-    }
+    showDocument(url: ShimmedURL, str: string) { }
 }
 export class ShimmedDocumentBase {
     public getHost() {
@@ -336,6 +338,9 @@ export class ShimmedURL {
     }
     public openStream() {
         return new ShimmedInputStream();
+    }
+    public toString() {
+        return this.location;
     }
 }
 export class ShimmedBufferedImage extends ShimmedImage {
@@ -356,7 +361,7 @@ export class ShimmedVector {
     public size() {
         return this.arr.length;
     }
-    public add(numbers: number[]) { // todo check why adding numbers not just one number?
+    public add(numbers: number[]) {
         this.arr.push(numbers);
     }
     public removeAllElements() {
@@ -365,24 +370,18 @@ export class ShimmedVector {
 }
 export class ShimmedElement {
     public add(el: ShimmedElement) {
-        console.error("not implemented");
     }
 }
 export class ShimmedFrame extends ShimmedElement {
     public setTitle(s: string) {
-        console.error("not implemented");
     }
     public pack() {
-        console.error("not implemented");
     }
     public show() {
-        console.error("not implemented");        
     }
     public dispose() {
-        console.error("not implemented");        
     }
     public setLayout(layout: ShimmedGridLayout) {
-        console.error("not implemented");        
     }
 }
 export class ShimmedTextField extends ShimmedElement {

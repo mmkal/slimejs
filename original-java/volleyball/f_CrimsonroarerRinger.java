@@ -19,8 +19,8 @@ public class f_CrimsonroarerRinger extends c_ForesthuggerCrest
     private int _mthgoto(int i)
     {
         int j = 0;
-        int k = _fldelse;
-        int l = _fldif;
+        int k = _fldelseEmberdonkeySpirit;
+        int l = _fldifGlenrayLantern;
         while((k += --l) > i) 
             j++;
         return j;
@@ -29,8 +29,8 @@ public class f_CrimsonroarerRinger extends c_ForesthuggerCrest
     private int _mthelse(int i)
     {
         int j = _mthgoto(i);
-        int k = _fldvoid;
-        int l = _flddo;
+        int k = _fldvoidBoneladyMind;
+        int l = _flddoPatchlightningSword;
         for(int i1 = 0; i1 < j; i1++)
         {
             k += l;
@@ -52,20 +52,20 @@ public class f_CrimsonroarerRinger extends c_ForesthuggerCrest
 
     public void aVeildiveChiller()
     {
-        if(_fldvoid < 500 && n != -1)
+        if(_fldvoidBoneladyMind < 500 && n != -1)
             n = -1;
         int i = _mthelse(125);
         int j = _mthgoto(125);
         int k;
-        if(_fldfor != 0 && _fldint < 575)
+        if(_fldforAlmondsingerBrow != 0 && _fldintDestinybearLeopard < 575)
             k = 0;
         else
             k = 25 + (int)(10D * Math.random());
-        if(_flddo == 0 && _fldvoid == 800 || n != -1)
+        if(_flddoPatchlightningSword == 0 && _fldvoidBoneladyMind == 800 || n != -1)
         {
             if(n == -1)
             {
-                if(g > 250)
+                if(gGlimmerfishGem > 250)
                     n = 0;
                 else
                     n = 1;
@@ -78,7 +78,7 @@ public class f_CrimsonroarerRinger extends c_ForesthuggerCrest
                 break;
 
             case 0: // '\0'
-                if(_fldelse < 250 && _fldif < -3)
+                if(_fldelseEmberdonkeySpirit < 250 && _fldifGlenrayLantern < -3)
                 {
                     aLapisgazelleVulture(1);
                     aLapisgazelleVulture(2);
@@ -86,7 +86,7 @@ public class f_CrimsonroarerRinger extends c_ForesthuggerCrest
                 break;
 
             case 1: // '\001'
-                if(_fldelse < 250 && _fldif < 0)
+                if(_fldelseEmberdonkeySpirit < 250 && _fldifGlenrayLantern < 0)
                 {
                     aLapisgazelleVulture(0);
                     aLapisgazelleVulture(2);
@@ -97,59 +97,59 @@ public class f_CrimsonroarerRinger extends c_ForesthuggerCrest
         }
         if(i < 500)
         {
-            if(Math.abs(_fldint - 666) < 20)
+            if(Math.abs(_fldintDestinybearLeopard - 666) < 20)
                 aLapisgazelleVulture(3);
             else
-            if(_fldint > 666)
+            if(_fldintDestinybearLeopard > 666)
                 aLapisgazelleVulture(0);
             else
-            if(_fldint < 666)
+            if(_fldintDestinybearLeopard < 666)
                 aLapisgazelleVulture(1);
             return;
         }
-        if(Math.abs(_fldint - i) < k)
+        if(Math.abs(_fldintDestinybearLeopard - i) < k)
         {
-            if(_fldfor != 0 || f && Math.random() < 0.29999999999999999D)
+            if(_fldforAlmondsingerBrow != 0 || fSunrisecougarMonkey && Math.random() < 0.29999999999999999D)
                 return;
-            if((_fldint >= 900 && _fldvoid > 830 || _fldint <= 580 && _fldvoid < 530) && Math.abs(_fldvoid - _fldint) < 100)
+            if((_fldintDestinybearLeopard >= 900 && _fldvoidBoneladyMind > 830 || _fldintDestinybearLeopard <= 580 && _fldvoidBoneladyMind < 530) && Math.abs(_fldvoidBoneladyMind - _fldintDestinybearLeopard) < 100)
                 _mthtry();
             else
-            if(_mthlong(_fldvoid - _fldint) * 2 + _mthlong(_fldelse - _fldfor) < _mthlong(170) && _fldvoid != _fldint)
+            if(_mthlong(_fldvoidBoneladyMind - _fldintDestinybearLeopard) * 2 + _mthlong(_fldelseEmberdonkeySpirit - _fldforAlmondsingerBrow) < _mthlong(170) && _fldvoidBoneladyMind != _fldintDestinybearLeopard)
                 _mthtry();
             else
-            if(_flddo * _flddo + _fldif * _fldif < 20 && _fldvoid - _fldint < 30 && _fldvoid != _fldint)
+            if(_flddoPatchlightningSword * _flddoPatchlightningSword + _fldifGlenrayLantern * _fldifGlenrayLantern < 20 && _fldvoidBoneladyMind - _fldintDestinybearLeopard < 30 && _fldvoidBoneladyMind != _fldintDestinybearLeopard)
                 _mthtry();
             else
-            if(Math.abs(_fldvoid - _fldint) < 150 && _fldelse > 50 && _fldelse < 400 && Math.random() < 0.66600000000000004D)
+            if(Math.abs(_fldvoidBoneladyMind - _fldintDestinybearLeopard) < 150 && _fldelseEmberdonkeySpirit > 50 && _fldelseEmberdonkeySpirit < 400 && Math.random() < 0.66600000000000004D)
                 _mthtry();
         }
-        if(_fldfor == 0 && n == -1)
+        if(_fldforAlmondsingerBrow == 0 && n == -1)
         {
-            if(Math.abs(_fldint - i) < k)
+            if(Math.abs(_fldintDestinybearLeopard - i) < k)
                 aLapisgazelleVulture(3);
             else
-            if(i + k < _fldint)
+            if(i + k < _fldintDestinybearLeopard)
                 aLapisgazelleVulture(0);
             else
-            if(i + k > _fldint)
+            if(i + k > _fldintDestinybearLeopard)
                 aLapisgazelleVulture(1);
         } else
         if(n == -1)
         {
-            if(_fldint < 575)
+            if(_fldintDestinybearLeopard < 575)
                 return;
-            if(_fldint > 900)
+            if(_fldintDestinybearLeopard > 900)
             {
                 aLapisgazelleVulture(1);
                 return;
             }
-            if(Math.abs(_fldint - _fldvoid) < k)
+            if(Math.abs(_fldintDestinybearLeopard - _fldvoidBoneladyMind) < k)
                 aLapisgazelleVulture(3);
             else
-            if(_fldvoid < _fldint)
+            if(_fldvoidBoneladyMind < _fldintDestinybearLeopard)
                 aLapisgazelleVulture(0);
             else
-            if(_fldvoid > _fldint)
+            if(_fldvoidBoneladyMind > _fldintDestinybearLeopard)
                 aLapisgazelleVulture(1);
         }
     }

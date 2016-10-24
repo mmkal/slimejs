@@ -184,6 +184,13 @@ function cleanUpTranspiledTypeScript(ts: string) {
 
         ps = ps.replace(/\bprivate\b/g, "public");
 
+        // horribly nasty thing. TypeScript and Java think very different things about "char"s.
+        // This attempts to find chars that are likely to be used like ints, and turns them into ints.
+        // then it finds ternaries that try to get charCodeAt(0) from what TypeScript calls a "string | number".
+        ps = ps.replace(/'\\u[0-9A-Za-z]{4}'/g, m => "String(" + eval(m + ".charCodeAt(0)") + ")"); 
+        ps = ps.replace(/(\d+)(:String\(\d+\).{1,3}\.charCodeAt\(0\))/g, (m, g1, g2) => `String(${g1})${g2}`);
+        ps = ps.replace(/(String\(\d+\):)(\d+)(.{1,3}\.charCodeAt\(0\))/g, (m, g1, g2, g3) => `${g1}String(${g2})${g3}`);
+
         ps = asyncify(ps);
 
         ps = ps.replace(/Color\.(\w+)/g, (m, g1) => `Color.fromString("${g1}")`);
@@ -198,6 +205,8 @@ function cleanUpTranspiledTypeScript(ts: string) {
     ts = `import { ${imports} } from "../client-ts/AppletShims"\r\n\r\n${ts}`;
 
     ts = ts.replace(/\bclass (\w+ extends ShimmedApplet)\b/, (m, g1) => "export default class " + g1);
+
+    ts = ts.replace(/throw new Error[^\n]*server[^\n]*/g, "// Don't worry about it.");
 
     return ts;
 }

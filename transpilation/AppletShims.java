@@ -13,7 +13,7 @@ public class Applet {
 	public int getHeight() { return 0; }
 	public DocumentBase getDocumentBase() { return null; }
 	public AppletContext getAppletContext() { return null; }
-	public String getCodeBase() { return null; }
+	public URL getCodeBase() { return null; }
 }
 public class Color {
 	public static Color yellow = null;
@@ -37,6 +37,7 @@ public class Graphics {
 	public FontMetrics getFontMetrics() { return null; }
 	public void drawString(String s, int x, int y) {}
 	public void drawImage(Image i, int x, int y, Object o) {}
+	public void drawOval(int x, int y, int w, int h) {}
 	public void fillOval(int x, int y, int w, int h) {}
 	public void fillArc(int x, int y, int w, int h, int s, int e) {}
 	public void drawLine(int x, int y, int w, int h) {}

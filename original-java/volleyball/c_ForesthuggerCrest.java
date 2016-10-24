@@ -12,91 +12,91 @@ public abstract class c_ForesthuggerCrest
 
     public final void aNeonscribeFace(Slime1P slime1p, int i)
     {
-        _fldcase = slime1p;
-        c = i;
+        _fldcaseShortwhaleWanderer = slime1p;
+        cCheckerneckBraid = i;
     }
 
     public final void aThunderiguanaLion(int ai[], boolean flag, boolean flag1)
     {
-        _fldvoid = c != 2 ? 1000 - ai[0] : ai[0];
-        _fldelse = ai[1];
-        _flddo = c != 2 ? -ai[2] : ai[2];
-        _fldif = ai[3];
-        g = c != 2 ? 1000 - ai[8] : ai[4];
-        e = c != 2 ? ai[9] : ai[5];
-        _fldbyte = c != 2 ? -ai[10] : ai[6];
-        _fldtry = c != 2 ? ai[11] : ai[7];
-        _fldint = c != 2 ? 1000 - ai[4] : ai[8];
-        _fldfor = c != 2 ? ai[5] : ai[9];
-        d = c != 2 ? -ai[6] : ai[10];
-        b = c != 2 ? ai[7] : ai[11];
-        _fldnew = c != 2 ? flag1 : flag;
-        f = c != 2 ? flag : flag1;
+        _fldvoidBoneladyMind = cCheckerneckBraid != 2 ? 1000 - ai[0] : ai[0];
+        _fldelseEmberdonkeySpirit = ai[1];
+        _flddoPatchlightningSword = cCheckerneckBraid != 2 ? -ai[2] : ai[2];
+        _fldifGlenrayLantern = ai[3];
+        gGlimmerfishGem = cCheckerneckBraid != 2 ? 1000 - ai[8] : ai[4];
+        eGlowfairyOcelot = cCheckerneckBraid != 2 ? ai[9] : ai[5];
+        _fldbytePrismcoyoteArrow = cCheckerneckBraid != 2 ? -ai[10] : ai[6];
+        _fldtryLovenapeKicker = cCheckerneckBraid != 2 ? ai[11] : ai[7];
+        _fldintDestinybearLeopard = cCheckerneckBraid != 2 ? 1000 - ai[4] : ai[8];
+        _fldforAlmondsingerBrow = cCheckerneckBraid != 2 ? ai[5] : ai[9];
+        dAbalonewatcherPiper = cCheckerneckBraid != 2 ? -ai[6] : ai[10];
+        bRustsnagglefootFin = cCheckerneckBraid != 2 ? ai[7] : ai[11];
+        _fldnewSharpripperUnicorn = cCheckerneckBraid != 2 ? flag1 : flag;
+        fSunrisecougarMonkey = cCheckerneckBraid != 2 ? flag : flag1;
     }
 
     public abstract void aVeildiveChiller();
 
     protected final void aLapisgazelleVulture(int i)
     {
-        if(c == 1)
+        if(cCheckerneckBraid == 1)
             switch(i)
             {
             case 0: // '\0'
-                _fldcase.bChromemouseBelly();
+                _fldcaseShortwhaleWanderer.bChromemouseBelly();
                 break;
 
             case 1: // '\001'
-                _fldcase.cIriswarlockGargoyle();
+                _fldcaseShortwhaleWanderer.cIriswarlockGargoyle();
                 break;
 
             case 2: // '\002'
-                _fldcase._mthcharBravedeathTiger();
+                _fldcaseShortwhaleWanderer._mthcharBravedeathTiger();
                 break;
 
             case 3: // '\003'
-                _fldcase._mthtryTabbylighterChest();
+                _fldcaseShortwhaleWanderer._mthtryTabbylighterChest();
                 break;
             }
         else
-        if(c == 2)
+        if(cCheckerneckBraid == 2)
             switch(i)
             {
             case 0: // '\0'
-                _fldcase.eDullsalmonSinger();
+                _fldcaseShortwhaleWanderer.eDullsalmonSinger();
                 break;
 
             case 1: // '\001'
-                _fldcase.jChiplighterBone();
+                _fldcaseShortwhaleWanderer.jChiplighterBone();
                 break;
 
             case 2: // '\002'
-                _fldcase._mthlongTranslucenttakerChopper();
+                _fldcaseShortwhaleWanderer._mthlongTranslucenttakerChopper();
                 break;
 
             case 3: // '\003'
-                _fldcase._mthelseTabbyhawkFace();
+                _fldcaseShortwhaleWanderer._mthelseTabbyhawkFace();
                 break;
             }
     }
 
-    protected int _fldvoid;
-    protected int _fldelse;
-    protected int _flddo;
-    protected int _fldif;
-    protected int g;
-    protected int e;
-    protected int _fldbyte;
-    protected int _fldtry;
-    protected int _fldint;
-    protected int _fldfor;
-    protected int d;
-    protected int b;
-    protected boolean _fldnew;
-    protected boolean f;
-    private int c;
-    private Slime1P _fldcase;
-    public static final int _fldgoto = 0;
-    public static final int _fldchar = 1;
-    public static final int _fldlong = 2;
-    public static final int a = 3;
+    protected int _fldvoidBoneladyMind;
+    protected int _fldelseEmberdonkeySpirit;
+    protected int _flddoPatchlightningSword;
+    protected int _fldifGlenrayLantern;
+    protected int gGlimmerfishGem;
+    protected int eGlowfairyOcelot;
+    protected int _fldbytePrismcoyoteArrow;
+    protected int _fldtryLovenapeKicker;
+    protected int _fldintDestinybearLeopard;
+    protected int _fldforAlmondsingerBrow;
+    protected int dAbalonewatcherPiper;
+    protected int bRustsnagglefootFin;
+    protected boolean _fldnewSharpripperUnicorn;
+    protected boolean fSunrisecougarMonkey;
+    private int cCheckerneckBraid;
+    private Slime1P _fldcaseShortwhaleWanderer;
+    public static final int _fldgotoLinenswoopSpear = 0;
+    public static final int _fldcharHotflyGrin = 1;
+    public static final int _fldlongGemsparrowFrill = 2;
+    public static final int aRogueweaverSnout = 3;
 }

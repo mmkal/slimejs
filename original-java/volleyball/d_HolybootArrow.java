@@ -19,8 +19,8 @@ public class d_HolybootArrow extends c_ForesthuggerCrest
     private int _mthnew(int k)
     {
         int l = 0;
-        int i1 = _fldelse;
-        int j1 = _fldif;
+        int i1 = _fldelseEmberdonkeySpirit;
+        int j1 = _fldifGlenrayLantern;
         while((i1 += --j1) > k) 
             l++;
         return l;
@@ -29,8 +29,8 @@ public class d_HolybootArrow extends c_ForesthuggerCrest
     private int _mthint(int k)
     {
         int l = _mthnew(k);
-        int i1 = _fldvoid;
-        int j1 = _flddo;
+        int i1 = _fldvoidBoneladyMind;
+        int j1 = _flddoPatchlightningSword;
         for(int k1 = 0; k1 < l; k1++)
         {
             i1 += j1;
@@ -52,20 +52,20 @@ public class d_HolybootArrow extends c_ForesthuggerCrest
 
     public void aVeildiveChiller()
     {
-        if(_fldvoid < 500 && j != -1)
+        if(_fldvoidBoneladyMind < 500 && j != -1)
             j = -1;
         int k = _mthint(125);
         int l = _mthnew(125);
         int i1;
-        if(_fldfor != 0 && _fldint < 575)
+        if(_fldforAlmondsingerBrow != 0 && _fldintDestinybearLeopard < 575)
             i1 = 0;
         else
             i1 = 25 + (int)(10D * Math.random());
-        if(_flddo == 0 && _fldvoid == 800 || j != -1)
+        if(_flddoPatchlightningSword == 0 && _fldvoidBoneladyMind == 800 || j != -1)
         {
             if(j == -1)
             {
-                if(g > 250)
+                if(gGlimmerfishGem > 250)
                     j = 0;
                 else
                     j = 1;
@@ -78,7 +78,7 @@ public class d_HolybootArrow extends c_ForesthuggerCrest
                 break;
 
             case 0: // '\0'
-                if(_fldelse < 300 && _fldif < -3)
+                if(_fldelseEmberdonkeySpirit < 300 && _fldifGlenrayLantern < -3)
                 {
                     aLapisgazelleVulture(1);
                     aLapisgazelleVulture(2);
@@ -86,7 +86,7 @@ public class d_HolybootArrow extends c_ForesthuggerCrest
                 break;
 
             case 1: // '\001'
-                if(_fldelse < 300 && _fldif < 0)
+                if(_fldelseEmberdonkeySpirit < 300 && _fldifGlenrayLantern < 0)
                 {
                     aLapisgazelleVulture(0);
                     aLapisgazelleVulture(2);
@@ -97,59 +97,59 @@ public class d_HolybootArrow extends c_ForesthuggerCrest
         }
         if(k < 500)
         {
-            if(Math.abs(_fldint - 666) < 20)
+            if(Math.abs(_fldintDestinybearLeopard - 666) < 20)
                 aLapisgazelleVulture(3);
             else
-            if(_fldint > 666)
+            if(_fldintDestinybearLeopard > 666)
                 aLapisgazelleVulture(0);
             else
-            if(_fldint < 666)
+            if(_fldintDestinybearLeopard < 666)
                 aLapisgazelleVulture(1);
             return;
         }
-        if(Math.abs(_fldint - k) < i1)
+        if(Math.abs(_fldintDestinybearLeopard - k) < i1)
         {
-            if(_fldfor != 0 || f && Math.random() < 0.29999999999999999D)
+            if(_fldforAlmondsingerBrow != 0 || fSunrisecougarMonkey && Math.random() < 0.29999999999999999D)
                 return;
-            if((_fldint >= 900 && _fldvoid > 830 || _fldint <= 580 && _fldvoid < 530) && Math.abs(_fldvoid - _fldint) < 100)
+            if((_fldintDestinybearLeopard >= 900 && _fldvoidBoneladyMind > 830 || _fldintDestinybearLeopard <= 580 && _fldvoidBoneladyMind < 530) && Math.abs(_fldvoidBoneladyMind - _fldintDestinybearLeopard) < 100)
                 _mthint();
             else
-            if(_mthtry(_fldvoid - _fldint) * 2 + _mthtry(_fldelse - _fldfor) < _mthtry(170) && _fldvoid != _fldint)
+            if(_mthtry(_fldvoidBoneladyMind - _fldintDestinybearLeopard) * 2 + _mthtry(_fldelseEmberdonkeySpirit - _fldforAlmondsingerBrow) < _mthtry(170) && _fldvoidBoneladyMind != _fldintDestinybearLeopard)
                 _mthint();
             else
-            if(_flddo * _flddo + _fldif * _fldif < 20 && _fldvoid - _fldint < 30 && _fldvoid != _fldint)
+            if(_flddoPatchlightningSword * _flddoPatchlightningSword + _fldifGlenrayLantern * _fldifGlenrayLantern < 20 && _fldvoidBoneladyMind - _fldintDestinybearLeopard < 30 && _fldvoidBoneladyMind != _fldintDestinybearLeopard)
                 _mthint();
             else
-            if(Math.abs(_fldvoid - _fldint) < 150 && _fldelse > 50 && _fldelse < 400 && Math.random() < 0.66600000000000004D)
+            if(Math.abs(_fldvoidBoneladyMind - _fldintDestinybearLeopard) < 150 && _fldelseEmberdonkeySpirit > 50 && _fldelseEmberdonkeySpirit < 400 && Math.random() < 0.66600000000000004D)
                 _mthint();
         }
-        if(_fldfor == 0 && j == -1)
+        if(_fldforAlmondsingerBrow == 0 && j == -1)
         {
-            if(Math.abs(_fldint - k) < i1)
+            if(Math.abs(_fldintDestinybearLeopard - k) < i1)
                 aLapisgazelleVulture(3);
             else
-            if(k + i1 < _fldint)
+            if(k + i1 < _fldintDestinybearLeopard)
                 aLapisgazelleVulture(0);
             else
-            if(k + i1 > _fldint)
+            if(k + i1 > _fldintDestinybearLeopard)
                 aLapisgazelleVulture(1);
         } else
         if(j == -1)
         {
-            if(_fldint < 575)
+            if(_fldintDestinybearLeopard < 575)
                 return;
-            if(_fldint > 900)
+            if(_fldintDestinybearLeopard > 900)
             {
                 aLapisgazelleVulture(1);
                 return;
             }
-            if(Math.abs(_fldint - _fldvoid) < i1)
+            if(Math.abs(_fldintDestinybearLeopard - _fldvoidBoneladyMind) < i1)
                 aLapisgazelleVulture(3);
             else
-            if(_fldvoid < _fldint)
+            if(_fldvoidBoneladyMind < _fldintDestinybearLeopard)
                 aLapisgazelleVulture(0);
             else
-            if(_fldvoid > _fldint)
+            if(_fldvoidBoneladyMind > _fldintDestinybearLeopard)
                 aLapisgazelleVulture(1);
         }
     }

@@ -19,8 +19,8 @@ public class e_LeafstormWeasel extends c_ForesthuggerCrest
     private int _mthcase(int i)
     {
         int j = 0;
-        int i1 = _fldelse;
-        int j1 = _fldif;
+        int i1 = _fldelseEmberdonkeySpirit;
+        int j1 = _fldifGlenrayLantern;
         while((i1 += --j1) > i) 
             j++;
         return j;
@@ -29,8 +29,8 @@ public class e_LeafstormWeasel extends c_ForesthuggerCrest
     private int _mthbyte(int i)
     {
         int j = _mthcase(i);
-        int i1 = _fldvoid;
-        int j1 = _flddo;
+        int i1 = _fldvoidBoneladyMind;
+        int j1 = _flddoPatchlightningSword;
         for(int k1 = 0; k1 < j; k1++)
         {
             i1 += j1;
@@ -52,26 +52,26 @@ public class e_LeafstormWeasel extends c_ForesthuggerCrest
 
     public void aVeildiveChiller()
     {
-        if(_fldvoid < 500 && l != -1)
+        if(_fldvoidBoneladyMind < 500 && l != -1)
             l = -1;
         int i = _mthbyte(125);
         int j = _mthcase(125);
         int i1;
-        if(_fldfor != 0 && _fldint < 575)
+        if(_fldforAlmondsingerBrow != 0 && _fldintDestinybearLeopard < 575)
             i1 = 0;
         else
             i1 = 23 + (int)(15D * Math.random());
-        if(_flddo == 0 && _fldvoid == 800 || l != -1)
+        if(_flddoPatchlightningSword == 0 && _fldvoidBoneladyMind == 800 || l != -1)
         {
             if(l == -1)
             {
-                if(g > 250)
+                if(gGlimmerfishGem > 250)
                     l = 0;
                 else
-                if(g < 200)
+                if(gGlimmerfishGem < 200)
                     l = 1;
                 else
-                if(g < 250)
+                if(gGlimmerfishGem < 250)
                     l = 2;
                 if(Math.random() < 0.34999999999999998D)
                     l = (int)(3D * Math.random());
@@ -82,7 +82,7 @@ public class e_LeafstormWeasel extends c_ForesthuggerCrest
                 break;
 
             case 0: // '\0'
-                if(_fldelse < 300 && _fldif < -3)
+                if(_fldelseEmberdonkeySpirit < 300 && _fldifGlenrayLantern < -3)
                 {
                     aLapisgazelleVulture(1);
                     aLapisgazelleVulture(2);
@@ -90,7 +90,7 @@ public class e_LeafstormWeasel extends c_ForesthuggerCrest
                 break;
 
             case 1: // '\001'
-                if(_fldelse < 300 && _fldif < 0)
+                if(_fldelseEmberdonkeySpirit < 300 && _fldifGlenrayLantern < 0)
                 {
                     aLapisgazelleVulture(0);
                     aLapisgazelleVulture(2);
@@ -99,13 +99,13 @@ public class e_LeafstormWeasel extends c_ForesthuggerCrest
 
             case 2: // '\002'
                 char c1 = '\u035C';
-                if(_fldif > 12 && _fldint < c1)
+                if(_fldifGlenrayLantern > 12 && _fldintDestinybearLeopard < c1)
                     aLapisgazelleVulture(1);
-                if(_fldint >= c1)
+                if(_fldintDestinybearLeopard >= c1)
                     aLapisgazelleVulture(3);
-                if(_fldif == -3 && _fldint != 800)
+                if(_fldifGlenrayLantern == -3 && _fldintDestinybearLeopard != 800)
                     aLapisgazelleVulture(2);
-                if(_fldif < -12 && _fldfor != 0 && _fldint >= c1 - 15)
+                if(_fldifGlenrayLantern < -12 && _fldforAlmondsingerBrow != 0 && _fldintDestinybearLeopard >= c1 - 15)
                     aLapisgazelleVulture(0);
                 break;
             }
@@ -113,59 +113,59 @@ public class e_LeafstormWeasel extends c_ForesthuggerCrest
         }
         if(i < 500)
         {
-            if(Math.abs(_fldint - 800) < 20)
+            if(Math.abs(_fldintDestinybearLeopard - 800) < 20)
                 aLapisgazelleVulture(3);
             else
-            if(_fldint > 800)
+            if(_fldintDestinybearLeopard > 800)
                 aLapisgazelleVulture(0);
             else
-            if(_fldint < 800)
+            if(_fldintDestinybearLeopard < 800)
                 aLapisgazelleVulture(1);
             return;
         }
-        if(Math.abs(_fldint - i) < i1)
+        if(Math.abs(_fldintDestinybearLeopard - i) < i1)
         {
-            if(_fldfor != 0 || f && Math.random() < 0.29999999999999999D)
+            if(_fldforAlmondsingerBrow != 0 || fSunrisecougarMonkey && Math.random() < 0.29999999999999999D)
                 return;
-            if((_fldint >= 900 && _fldvoid > 830 || _fldint <= 580 && _fldvoid < 530) && Math.abs(_fldvoid - _fldint) < 100)
+            if((_fldintDestinybearLeopard >= 900 && _fldvoidBoneladyMind > 830 || _fldintDestinybearLeopard <= 580 && _fldvoidBoneladyMind < 530) && Math.abs(_fldvoidBoneladyMind - _fldintDestinybearLeopard) < 100)
                 _mthnew();
             else
-            if(_mthchar(_fldvoid - _fldint) * 2 + _mthchar(_fldelse - _fldfor) < _mthchar(170) && _fldvoid != _fldint)
+            if(_mthchar(_fldvoidBoneladyMind - _fldintDestinybearLeopard) * 2 + _mthchar(_fldelseEmberdonkeySpirit - _fldforAlmondsingerBrow) < _mthchar(170) && _fldvoidBoneladyMind != _fldintDestinybearLeopard)
                 _mthnew();
             else
-            if(_flddo * _flddo + _fldif * _fldif < 20 && _fldvoid - _fldint < 30 && _fldvoid != _fldint)
+            if(_flddoPatchlightningSword * _flddoPatchlightningSword + _fldifGlenrayLantern * _fldifGlenrayLantern < 20 && _fldvoidBoneladyMind - _fldintDestinybearLeopard < 30 && _fldvoidBoneladyMind != _fldintDestinybearLeopard)
                 _mthnew();
             else
-            if(Math.abs(_fldvoid - _fldint) < 150 && _fldelse > 50 && _fldelse < 400 && Math.random() < 0.5D)
+            if(Math.abs(_fldvoidBoneladyMind - _fldintDestinybearLeopard) < 150 && _fldelseEmberdonkeySpirit > 50 && _fldelseEmberdonkeySpirit < 400 && Math.random() < 0.5D)
                 _mthnew();
         }
-        if(_fldfor == 0 && l == -1)
+        if(_fldforAlmondsingerBrow == 0 && l == -1)
         {
-            if(Math.abs(_fldint - i) < i1)
+            if(Math.abs(_fldintDestinybearLeopard - i) < i1)
                 aLapisgazelleVulture(3);
             else
-            if(i + i1 < _fldint)
+            if(i + i1 < _fldintDestinybearLeopard)
                 aLapisgazelleVulture(0);
             else
-            if(i + i1 > _fldint)
+            if(i + i1 > _fldintDestinybearLeopard)
                 aLapisgazelleVulture(1);
         } else
         if(l == -1)
         {
-            if(_fldint < 575)
+            if(_fldintDestinybearLeopard < 575)
                 return;
-            if(_fldint > 900)
+            if(_fldintDestinybearLeopard > 900)
             {
                 aLapisgazelleVulture(1);
                 return;
             }
-            if(Math.abs(_fldint - _fldvoid) < i1)
+            if(Math.abs(_fldintDestinybearLeopard - _fldvoidBoneladyMind) < i1)
                 aLapisgazelleVulture(3);
             else
-            if(_fldvoid < _fldint)
+            if(_fldvoidBoneladyMind < _fldintDestinybearLeopard)
                 aLapisgazelleVulture(0);
             else
-            if(_fldvoid > _fldint)
+            if(_fldvoidBoneladyMind > _fldintDestinybearLeopard)
                 aLapisgazelleVulture(1);
         }
     }
