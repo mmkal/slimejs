@@ -23,8 +23,7 @@ window.onload = () => {
         oldCanvas.parentNode.insertBefore(newCanvas, oldCanvas);
         oldCanvas.parentNode.removeChild(oldCanvas);
 
-        const game = new games[name]();
-        game.start();
+        new games[name]().start();
     }
 
     Object.keys(games).forEach(name => {
@@ -34,5 +33,5 @@ window.onload = () => {
         button.onclick = () => startGame(name);
         document.getElementById("games").appendChild(button);
     });
-    startGame("Soccer");
+    startGame("Volleyball");
 };
