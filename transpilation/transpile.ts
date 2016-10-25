@@ -11,11 +11,18 @@ const webpackConfig: webpack.Configuration = require(path.join(process.cwd(), "w
 (async function() {
     const javaGames = "original-java/volleyball original-java/tennis original-java/cricket original-java/soccer".split(" ")
     for (const gamePath of javaGames) {
-        process.stdout.write(`Transpiling ${gamePath}...`);
+        process.stdout.write(`Transpiling ${gamePath}... `);
         const tsPath = await transpileJavaGame(gamePath);
         console.log(tsPath + " created.");
     }
-    console.log("Success.");
+    console.log("TypeScript transpilation done.");
+
+    console.log("Running webpack...");
+    await new Promise(resolve => webpack(webpackConfig).run(resolve));
+    console.log("Webpack finished.");
+
+
+    console.log("Exiting.");
     process.exit(0);
 })();
 
