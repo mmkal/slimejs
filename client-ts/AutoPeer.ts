@@ -80,15 +80,7 @@ export default class AutoPeer0 {
 
         conn = await this.validateConnection(conn);
 
-        this.log("#########" + conn.open);
-
         return conn;
-
-        // if (!conn) return null;
-
-        // await new Promise((resolve, reject) => conn.on("open", resolve));
-
-        // return conn;
     }
 
     public async connect(game: ShimmedApplet) {
@@ -99,7 +91,7 @@ export default class AutoPeer0 {
             this.log(connection.peer + " is trying to connect. Opening connection...");
             connection.on("data", d => this.log("Received some data from " + connection.peer + ": " + d));
             connection.on("open", async () => {
-                this.log("Connection with " + connection.peer + " opened...");
+                this.log("Connection with " + connection.peer + " opened.");
                 this.connectionToGuest = await this.validateConnection(connection);
                 if (!this.connectionToGuest) {
                     return this.log(connection.peer + " was bullshit. Maybe you're already connected to someone?");
@@ -120,7 +112,7 @@ export default class AutoPeer0 {
         const connection = await this.connectToOtherHost(otherHostId);
         this.log("Found a connection to " + connection.peer + ". Opening...");
         connection.on("open", async () => {
-            this.log("Connection with " + connection.peer + " opened...");
+            this.log("Connection with " + connection.peer + " opened.");
             connection.on("data", d => this.log("Received some data from " + connection.peer + ": " + d));
             this.connectionToHost = await this.validateConnection(connection);
             if (!this.connectionToHost) {
@@ -128,11 +120,7 @@ export default class AutoPeer0 {
             }
             this.log("Now connected. You are guest");
             connection.send("guest is alive");
-        })
-
-        // this.connectionToHost = await this.connectToOtherHost(otherHostId);
-        
-        // this.log("Now connected. You are guest.");
+        });
     }
 
     public async disconnect() {
