@@ -3,7 +3,7 @@ import Soccer from "../generated-ts/soccer";
 import Cricket from "../generated-ts/cricket";
 import Tennis from "../generated-ts/tennis";
 
-import AutoPeer from "./AutoPeer2";
+import AutoPeer from "./AutoPeer";
 import { ShimmedApplet } from "./AppletShims";
 
 window.onload = () => {

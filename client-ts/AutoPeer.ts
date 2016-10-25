@@ -1,15 +1,10 @@
 import { ShimmedApplet, ShimmedEvent } from "./AppletShims"
 
-export default class AutoPeer0 {
-    public connectionToHost: PeerJs.DataConnection = null;
-    public connectionToGuest: PeerJs.DataConnection = null;
+export default class AutoPeer {
+    public connection: PeerJs.DataConnection = null;
+    public peer: PeerJs.Peer = null;
     public peerOptions: PeerJs.PeerJSOption = null;
-    private localPeers = new Set<string>();
-    public get isAlreadyConnected() {
-        return !!this.connectionToHost || !!this.connectionToGuest;
-    }
 
-    private hostPeer: PeerJs.Peer;
     private readonly server = "https://glen-pine.hyperdev.space/";
 
     private constructor(apiKey: string) {
@@ -21,25 +16,21 @@ export default class AutoPeer0 {
         });
     }
 
-    private static instance: AutoPeer0 = null;
+    private static instance: AutoPeer = null;
     /** Get the AutoPeer0 instance. This will throw if there's no instance, so make sure it's initialised before calling this. */
     public static Get() {
-        if (!AutoPeer0.instance) {
+        if (!AutoPeer.instance) {
             throw new Error("No instance of AutoPeer0 exists");
         }
-        return AutoPeer0.instance;
+        return AutoPeer.instance;
     }
     /** Create and return the AutoPeer0 instance. */
     public static Create(apiKey: string) {
-        if (AutoPeer0.instance) {
+        if (AutoPeer.instance) {
             throw new Error(`There's already an AutoPeer0 instance.`);
         }
 
-        return AutoPeer0.instance = new AutoPeer0(apiKey);
-    }
-
-    private createId(prefix: string) {
-        return prefix + Math.random().toString().substring(2);
+        return AutoPeer.instance = new AutoPeer(apiKey);
     }
 
     private log(text: string) {
@@ -48,22 +39,20 @@ export default class AutoPeer0 {
         if (logEl) logEl.innerText += "\r\n" + text;
     }
 
-    private async validateConnection(connection: PeerJs.DataConnection) {
-        await this.deleteHostId(this.hostPeer.id);
-        if (this.isAlreadyConnected) {
-            connection.close();
-            return null;
-        }
-        connection.on("close", () => {
-            this.log("You've been kicked. Try refreshing.");
-        });
-        return connection;
+    public get isHost() {
+        if (!this.peer || !this.connection) return false;
+        return Number(this.peer.id) < Number(this.connection.peer);
     }
 
-    private async registerAsHost() {
-        const hostPeer = new Peer(this.createId("host"), this.peerOptions);
-        const success = await $.post(this.server + "host?" + $.param({ id: hostPeer.id }));
-        return hostPeer;
+    public get isGuest() {
+        if (!this.peer || !this.connection) return false;
+        return Number(this.peer.id) >= Number(this.connection.peer);
+    }
+
+    private async register() {
+        const peer = new Peer(Date.now().toString(), this.peerOptions);
+        await $.post(this.server + "host?" + $.param({ id: peer.id }));
+        return peer;
     }
 
     private async deleteHostId(id?: string) {
@@ -71,65 +60,51 @@ export default class AutoPeer0 {
     }
 
     private async takeHostId() {
-        return await $.post(this.server + "takehost?" + $.param({ me: this.hostPeer.id }));
+        return await $.post(this.server + "takehost?" + $.param({ me: this.peer.id }));
     }
 
-    private async connectToOtherHost(otherHostId: string) {
-        const peer = new Peer(this.createId("guest"), this.peerOptions);
-        let conn = peer.connect(otherHostId);
-
-        conn = await this.validateConnection(conn);
-
-        return conn;
+    private handleNewConnection(connection: PeerJs.DataConnection) {
+        this.log(`Connection to ${connection.peer} established. Opening...`);
+        connection.on("data", d => this.log("Received some data from " + connection.peer + ": " + d));
+        connection.on("open", async () => {
+            this.log(`Connection to ${connection.peer} opened.`);
+            await this.deleteHostId(this.peer.id);
+            if (this.connection) {
+                this.log(`New connection to ${connection.peer} arrived but we're already connected to ${this.connection.peer}. Closing the new connection.`)
+                connection.close();
+                return;
+            }
+            connection.on("close", () => {
+                this.log(`Connection with ${connection.peer} was closed. Try refreshing.`);
+            });
+            this.log(`Now connected to ${connection.peer}. You are ${this.isHost ? "host" : "guest"}.`);
+            connection.send("Hi I'm " + this.peer.id);
+        });
     }
 
     public async connect(game: ShimmedApplet) {
-        this.log("connecting...");
-        this.hostPeer = await this.registerAsHost();
-        this.log("Registered as " + this.hostPeer.id);
-        this.hostPeer.on("connection", async (connection) => {
-            this.log(connection.peer + " is trying to connect. Opening connection...");
-            connection.on("data", d => this.log("Received some data from " + connection.peer + ": " + d));
-            connection.on("open", async () => {
-                this.log("Connection with " + connection.peer + " opened.");
-                this.connectionToGuest = await this.validateConnection(connection);
-                if (!this.connectionToGuest) {
-                    return this.log(connection.peer + " was bullshit. Maybe you're already connected to someone?");
-                }
-                this.log("Now connected. You are host.");
-                connection.send("host is alive");
-            });
-        });
+        this.log("Connecting...");
+        this.peer = await this.register();
+        this.log("Register as host: " + this.peer.id);
+
+        this.peer.on("connection", conn => this.handleNewConnection(conn));
 
         const otherHostId = await this.takeHostId();
         if (!otherHostId) {
-            this.log("No hosts online. You'll have to wait.");
-            return;
+            return this.log("No hosts online. You'll have to wait.");
         }
-        
-        this.log("Found other host id: " + otherHostId);
 
-        const connection = await this.connectToOtherHost(otherHostId);
-        this.log("Found a connection to " + connection.peer + ". Opening...");
-        connection.on("open", async () => {
-            this.log("Connection with " + connection.peer + " opened.");
-            connection.on("data", d => this.log("Received some data from " + connection.peer + ": " + d));
-            this.connectionToHost = await this.validateConnection(connection);
-            if (!this.connectionToHost) {
-                    return this.log(connection.peer + " was bullshit. Maybe you're already connected to someone?");
-            }
-            this.log("Now connected. You are guest");
-            connection.send("guest is alive");
-        });
+        const connectionToOther = this.peer.connect(otherHostId);
+        this.handleNewConnection(connectionToOther);
     }
 
     public async disconnect() {
-        this.connectionToGuest && this.connectionToGuest.close();
-        this.connectionToHost && this.connectionToHost.close();
-        
-        this.connectionToGuest = null;
-        this.connectionToHost = null;
-
-        this.hostPeer && this.deleteHostId(this.hostPeer.id);
+        if (this.connection) {
+            this.connection.close();
+            this.connection = null;
+        }
+        if (this.peer) {
+            await this.deleteHostId(this.peer.id);
+        }
     }
 }

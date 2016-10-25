@@ -1,4 +1,4 @@
-import AutoPeer from "./AutoPeer2"
+import AutoPeer from "./AutoPeer"
 
 export class ShimmedImage {
     root: HTMLElement = null;
