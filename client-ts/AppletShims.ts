@@ -215,23 +215,13 @@ abstract class ShimmedAppletCore {
     }
 }
 export abstract class ShimmedApplet extends ShimmedAppletCore {
-    guestSendTask: any = null;
-    autoPeer = AutoPeer.Get();
+    private guestSendTask: any = null;
+    private autoPeer = AutoPeer.Get();
 
     abstract init(): void;
     abstract run(): Promise<void>;
 
     public abstract handleEvent(wevent: ShimmedEvent) : Promise<boolean>;
-    
-    public restoreFromRemote(game: ShimmedApplet) {
-        Object.getOwnPropertyNames(this).forEach(propName => {
-            var propType = typeof(this[propName]);
-            if (propType === "number" || propType === "boolean" || propType === "string" || propName === "pointsX" || propName === "pointsY" || propName === "replayData") {
-                this[propName] = game[propName];
-            }
-        });
-        this.repaint();
-    }
 
     public start() {
         this.init();
@@ -242,52 +232,66 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
 
     private registerEventListeners() {
         const game = this;
-        document.body.onmousedown = ev => {
+        this.canvasEl.onmousedown = ev => {
             var wevent = new ShimmedEvent();
             wevent.id = 501;
-            wevent.x = ev.clientX;
-            wevent.y = ev.clientY;
-            game.handleEvent(wevent);
-        }
+            wevent.x = ev.offsetX;
+            wevent.y = ev.offsetY;
+            this.onEvent(wevent);
+        };
         document.body.onkeypress = ev => {
             var wevent = new ShimmedEvent();
             wevent.id = 401;
             wevent.key = ev.keyCode;
-            game.handleEvent(wevent);
-        }
+            this.onEvent(wevent);
+        };
         document.body.onkeyup = ev => {
             var wevent = new ShimmedEvent();
             wevent.id = 402;
             wevent.key = ev.keyCode;
-            game.onEvent(wevent);
-        }
+            this.onEvent(wevent);
+        };
     }
     private _screen: ShimmedGraphics = null;
-    get screen(): ShimmedGraphics {
+    public get screen(): ShimmedGraphics {
         this.updateGuest();
         return this._screen;
     }
-    set screen(value: ShimmedGraphics) {
+    public set screen(value: ShimmedGraphics) {
         this._screen = value; 
     }
 
-    public async onEvent(event0: ShimmedEvent) {
-        //event0.key = this.mapKeyCode(event0.key);
-        if (this.autoPeer.isHost) {
+    public onEvent(event0: ShimmedEvent) {
+        if (this.autoPeer.isGuest) {
             this.autoPeer.connection.send(event0); 
-            return;
+            //return;
         }
-        await this.handleEvent(event0);
+        this.handleEvent(event0);
+    }
+    
+    public restoreFromRemote(state: ShimmedApplet) {
+        Object.keys(state).forEach(k => this[k] = state[k]);
+        this.repaint();
+        this.run();
     }
 
-    updateGuest() {
-        if (!this.autoPeer.isGuest) return;
+    private updateGuest() {
+        if (!this.autoPeer.isHost) return;
         if (this.guestSendTask) return;
 
-        var state = this;
-        this.autoPeer.connection.send(state);
+        function getState(applet: ShimmedApplet) {
+            const state = {};
+            Object.getOwnPropertyNames(applet).forEach(propName => {
+                const propType = typeof(applet[propName]);
+                if (propType === "number" || propType === "boolean" || propType === "string" || propName === "pointsX" || propName === "pointsY" || propName === "replayData") {
+                    state[propName] = applet[propName];
+                }
+            });
+            return state;
+        }
+        this.autoPeer.connection.send(getState(this));
         this.guestSendTask = setTimeout(() => {
-            this.autoPeer.connection.send(this);
+            this.autoPeer.connection.send(getState(this));
             this.guestSendTask = null;
         }, 0);
     }
