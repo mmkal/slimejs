@@ -25,8 +25,6 @@ window.onload = () => {
 
         const game = new games[name]();
         game.start();
-
-        if (name === "Soccer" || name == "Cricket") game.run(); 
     }
 
     Object.keys(games).forEach(name => {

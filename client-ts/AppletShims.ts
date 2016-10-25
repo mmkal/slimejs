@@ -160,12 +160,15 @@ export class ShimmedSize {
     constructor(public width: number, public height: number) {
     }
 }
-class ShimmedAppletCore {
+abstract class ShimmedAppletCore {
     protected isInitialised = false;
     canvasEl: HTMLCanvasElement = null;
     constructor() {
         this.canvasEl = document.querySelector("canvas");
     }
+
+    abstract paint(graphics: ShimmedGraphics): void;
+
     size(): ShimmedSize {
         return new ShimmedSize(this.getWidth(), this.getHeight());
     }
@@ -199,11 +202,7 @@ class ShimmedAppletCore {
     }
     repaint() {
         if (!this.isInitialised) return;
-        const _this: any = this;
-        _this.paint && _this.paint(_this.getGraphics());
-        _this.DrawSlimers && _this.DrawSlimers();
-        _this.DrawGoals && _this.DrawGoals();
-        _this.DrawStatus && _this.DrawStatus();
+        this.paint(this.getGraphics());
     }
     public getCodeBase() {
         return new ShimmedURL(window.location.href + "?");
@@ -238,7 +237,7 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
         this.init();
         this.isInitialised = true;
         this.registerEventListeners();
-        window["activeGame"] = this;
+        this.repaint();
     }
 
     private registerEventListeners() {
