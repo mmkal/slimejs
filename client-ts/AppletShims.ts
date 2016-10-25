@@ -1,4 +1,4 @@
-import AutoPeer from "./AutoPeer"
+import AutoPeer from "./AutoPeer2"
 
 export class ShimmedImage {
     root: HTMLElement = null;
@@ -273,21 +273,21 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
 
     public async onEvent(event0: ShimmedEvent) {
         //event0.key = this.mapKeyCode(event0.key);
-        if (this.autoPeer.connectionToHost) {
-            this.autoPeer.connectionToHost.send(event0); 
+        if (this.autoPeer.isHost) {
+            this.autoPeer.connection.send(event0); 
             return;
         }
         await this.handleEvent(event0);
     }
 
     updateGuest() {
-        if (this.autoPeer.connectionToGuest === null) return;
+        if (!this.autoPeer.isGuest) return;
         if (this.guestSendTask) return;
 
         var state = this;
-        this.autoPeer.connectionToGuest.send(state);
+        this.autoPeer.connection.send(state);
         this.guestSendTask = setTimeout(() => {
-            this.autoPeer.connectionToGuest.send(this);
+            this.autoPeer.connection.send(this);
             this.guestSendTask = null;
         }, 0);
     }

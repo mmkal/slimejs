@@ -3,7 +3,7 @@ import Soccer from "../generated-ts/soccer";
 import Cricket from "../generated-ts/cricket";
 import Tennis from "../generated-ts/tennis";
 
-import AutoPeer from "./AutoPeer";
+import AutoPeer from "./AutoPeer2";
 import { ShimmedApplet } from "./AppletShims";
 
 window.onload = () => {
@@ -24,7 +24,7 @@ window.onload = () => {
 
     function startGame(name: string) {
         Array.from(gamesEl.querySelectorAll("button")).forEach((b: HTMLButtonElement) => b.disabled = (b.textContent === name));
-        autoPeer.disconnect();
+        const disconnection = autoPeer.disconnect();
         
         const oldCanvas = document.querySelector("canvas");
         const newCanvas = document.createElement("canvas");
@@ -32,7 +32,10 @@ window.onload = () => {
         oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
 
         const game = new games[name]();
-        connect.onclick = () => autoPeer.connect(game);
+        connect.onclick = async () => {
+            await disconnection;
+            autoPeer.connect(game);
+        };
         game.start();
     }
 };
