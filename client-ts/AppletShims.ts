@@ -217,7 +217,7 @@ class ShimmedAppletCore {
 }
 export abstract class ShimmedApplet extends ShimmedAppletCore {
     guestSendTask: any = null;
-    autoPeer = new AutoPeer("vxv7ldsv1h71ra4i");
+    autoPeer = AutoPeer.Get();
 
     abstract init(): void;
     abstract run(): Promise<void>;
@@ -238,7 +238,6 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
         this.init();
         this.isInitialised = true;
         this.registerEventListeners();
-        this.run();
         window["activeGame"] = this;
     }
 

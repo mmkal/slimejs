@@ -3,9 +3,7 @@ import { ShimmedApplet, ShimmedEvent } from "./AppletShims"
 export default class AutoPeer {
     public connectionToHost: PeerJs.DataConnection = null;
     public connectionToGuest: PeerJs.DataConnection = null;
-    public peerOptions = null;
-    private connectButton: JQuery;
-    private logDiv: JQuery;
+    public peerOptions: PeerJs.PeerJSOption = null;
     private localPeers = new Set<string>();
     public get isAlreadyConnected() {
         return !!this.connectionToHost || !!this.connectionToGuest;
@@ -13,24 +11,38 @@ export default class AutoPeer {
 
     private hostPrefix = "host1";
 
-    constructor(apiKey: string) {
+    private static instance: AutoPeer = null;
+    /** Get the AutoPeer instance. This will throw if there's no instance, so make sure it's initialised before calling this. */
+    public static Get() {
+        if (!AutoPeer.instance) {
+            throw new Error("No instance of AutoPeer exists");
+        }
+        return AutoPeer.instance;
+    }
+    /** Create and return the AutoPeer instance. */
+    public static Create(apiKey: string) {
+        if (AutoPeer.instance) {
+            throw new Error(`There's already an AutoPeer instance.`);
+        }
+
+        return AutoPeer.instance = new AutoPeer(apiKey);
+    }
+
+    private constructor(apiKey: string) {
         this.peerOptions = {
             key: apiKey
         };
-        this.connectButton = $("<button>connect</button>");
-        this.connectButton.click(ev => {
-            this.connect(window["activeGame"]);
-        })
-        this.logDiv = $("<div></div>");
-        $(document.body).ready(() => {
-            $(document.body).append(this.connectButton);
-            $(document.body).append(this.logDiv);
-        });
     }
 
     private log(text: string) {
         console.log(text);
-        this.logDiv.text(text);
+        document.querySelector(".peerjs-log").textContent = text;
+    }
+
+    public disconnect() {
+        [this.connectionToGuest, this.connectionToHost].filter(conn => !!conn).forEach(conn => conn.close());
+        this.connectionToGuest = null;
+        this.connectionToHost = null;
     }
 
     public async connect(game: ShimmedApplet) {
