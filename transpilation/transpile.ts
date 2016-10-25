@@ -129,7 +129,6 @@ function cleanUpTranspiledTypeScript(ts: string) {
         imports.add(g1);
         return g1;
     });
-    // const imports = Array.from(new Set(allMatches(ts, /Shimmed\w+\b/g).map(m => m.toString()))).join(", ");
 
     ts = `import { ${Array.from(imports).join(", ")} } from "../client-ts/AppletShims"\r\n\r\n${ts}`;
 
