@@ -1,4 +1,4 @@
-import { ShimmedApplet, ShimmedEvent } from "./AppletShims"
+import { Applet } from "./AppletShims"
 
 export default class AutoPeer {
     public connection: PeerJs.DataConnection = null;
@@ -55,7 +55,7 @@ export default class AutoPeer {
         return await $.post(this.server + "takehost?" + $.param({ me: this.peer.id }));
     }
 
-    private handleNewConnection(connection: PeerJs.DataConnection, applet: ShimmedApplet) {
+    private handleNewConnection(connection: PeerJs.DataConnection, applet: Applet) {
         this.log(`Connection to ${connection.peer} established. Opening...`);
         connection["once"]("data", d => this.log("Received some data from " + connection.peer + ": " + d));
         connection.on("open", async () => {
@@ -80,7 +80,7 @@ export default class AutoPeer {
         });
     }
 
-    public async connect(applet: ShimmedApplet) {
+    public async connect(applet: Applet) {
         this.log("Connecting...");
         this.peer = await this.register();
         this.log("Register as host: " + this.peer.id);

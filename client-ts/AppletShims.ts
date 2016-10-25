@@ -1,28 +1,28 @@
 import AutoPeer from "./AutoPeer"
 
-export class ShimmedImage {
+export class Image {
     root: HTMLElement = null;
     constructor(root: HTMLElement) {
         this.root = root;
     } 
-    getGraphics(): ShimmedGraphics {
-        return new ShimmedGraphics(document.querySelector("canvas")["getContext"]("2d"));
+    getGraphics(): Graphics {
+        return new Graphics(document.querySelector("canvas")["getContext"]("2d"));
     }
 }
-export class ShimmedFont {
+export class Font {
     constructor(public name: string, public modifier: number, public size: number) {
     }
     getName(): string {
         return this.name;
     }
 }
-export class ShimmedEvent {
+export class Event {
     id: number;
     key: number;
     x: number;
     y: number;
 
-    target: ShimmedButton;
+    target: Button;
 
     // todo: check the right values for these on java Event
     static LEFT = 74;
@@ -32,17 +32,17 @@ export class ShimmedEvent {
     static KEY_ACTION = 401;
     static KEY_ACTION_RELEASE = 402;
 }
-export class ShimmedGraphics {
+export class Graphics {
     public ctx: CanvasRenderingContext2D = null;
     constructor(ctx: CanvasRenderingContext2D) {
         this.ctx = ctx;
     }
 
-    getFontMetrics(): ShimmedFontMetrics {
-        return new ShimmedFontMetrics();
+    getFontMetrics(): FontMetrics {
+        return new FontMetrics();
     }
     
-    setColor(c: ShimmedColor): void {
+    setColor(c: Color): void {
         this.ctx.strokeStyle = c.stringRepresentation;
         this.ctx.fillStyle = c.stringRepresentation;
     }
@@ -76,7 +76,7 @@ export class ShimmedGraphics {
         this.ctx.fill();
     }
 
-    fillPolygon(polygon: ShimmedPolygon); 
+    fillPolygon(polygon: Polygon); 
     fillPolygon(pointsX: number[], pointsY: number[], v: number);
     fillPolygon() {
         let pointsX: number[];
@@ -87,7 +87,7 @@ export class ShimmedGraphics {
             pointsY = arguments[1];
             v = arguments[2];
         } else {
-            const polygon: ShimmedPolygon = arguments[0];
+            const polygon: Polygon = arguments[0];
             pointsX = polygon.xs;
             pointsY = polygon.ys;
             v = polygon.n;
@@ -120,32 +120,32 @@ export class ShimmedGraphics {
         this.ctx.stroke();
     }
 
-    getFont(): ShimmedFont {
-        return new ShimmedFont(this.ctx.font, 0, Number(/\d+/.exec(this.ctx.font)[0]));
+    getFont(): Font {
+        return new Font(this.ctx.font, 0, Number(/\d+/.exec(this.ctx.font)[0]));
     }
 
-    setFont(font: ShimmedFont): void {
+    setFont(font: Font): void {
         this.ctx.font = this.ctx.font.replace(/\d+/, font.size.toString());
     }
 
-    drawImage(backBuffer: ShimmedImage, v1: number, v2: number, p: any): void {
+    drawImage(backBuffer: Image, v1: number, v2: number, p: any): void {
 
     }
 }
-export class ShimmedColor {
+export class Color {
     public stringRepresentation: string = null;
     constructor(r: number, g: number, b: number)
     {
         this.stringRepresentation = `rgb(${r}, ${g}, ${b})`;
     }
-    static fromString(v: string): ShimmedColor
+    static fromString(v: string): Color
     {
-        var color = new ShimmedColor(0,0,0);
+        var color = new Color(0,0,0);
         color.stringRepresentation = v;
         return color;
     }
 }
-export class ShimmedFontMetrics {
+export class FontMetrics {
     stringWidth(v: string): number {
         return v.length * 10;
     }
@@ -156,21 +156,21 @@ export class ShimmedFontMetrics {
         return 10;
     }
 }
-export class ShimmedSize {
+export class Size {
     constructor(public width: number, public height: number) {
     }
 }
-abstract class ShimmedAppletCore {
+abstract class AppletCore {
     protected isInitialised = false;
     canvasEl: HTMLCanvasElement = null;
     constructor() {
         this.canvasEl = document.querySelector("canvas");
     }
 
-    abstract paint(graphics: ShimmedGraphics): void;
+    abstract paint(graphics: Graphics): void;
 
-    size(): ShimmedSize {
-        return new ShimmedSize(this.getWidth(), this.getHeight());
+    size(): Size {
+        return new Size(this.getWidth(), this.getHeight());
     }
     getWidth() {
         return this.canvasEl.width;
@@ -180,17 +180,17 @@ abstract class ShimmedAppletCore {
     }
     showStatus(text: string): void {
         var screen = this.getGraphics();
-        screen.setColor(ShimmedColor.fromString("Green"));
+        screen.setColor(Color.fromString("Green"));
         screen.drawString(text, 10, 10);
     }
     requestFocus(): void { 
     }
-    getGraphics(): ShimmedGraphics {
-        return new ShimmedGraphics(this.canvasEl.getContext("2d"));
+    getGraphics(): Graphics {
+        return new Graphics(this.canvasEl.getContext("2d"));
     }
-    createImage(nWidth: number, nHeight: number): ShimmedImage {
+    createImage(nWidth: number, nHeight: number): Image {
         if (document.querySelector("canvas")) {
-            return new ShimmedImage(document.body);
+            return new Image(document.body);
         }
         var div = document.createElement("div");
         var canv = document.createElement("canvas");
@@ -198,30 +198,30 @@ abstract class ShimmedAppletCore {
         canv.height = nHeight;
         div.appendChild(canv);
         document.body.appendChild(div);
-        return new ShimmedImage(div);
+        return new Image(div);
     }
     repaint() {
         if (!this.isInitialised) return;
         this.paint(this.getGraphics());
     }
     public getCodeBase() {
-        return new ShimmedURL(window.location.href + "?");
+        return new URL(window.location.href + "?");
     }
     public getDocumentBase() {
-        return new ShimmedDocumentBase();
+        return new DocumentBase();
     }
     public getAppletContext() {
-        return new ShimmedAppletContext();
+        return new AppletContext();
     }
 }
-export abstract class ShimmedApplet extends ShimmedAppletCore {
+export abstract class Applet extends AppletCore {
     private guestSendTask: any = null;
     private autoPeer = AutoPeer.Get();
 
     abstract init(): void;
     abstract run(): Promise<void>;
 
-    public abstract handleEvent(wevent: ShimmedEvent) : Promise<boolean>;
+    public abstract handleEvent(wevent: Event) : Promise<boolean>;
 
     public start() {
         this.init();
@@ -233,35 +233,35 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
     private registerEventListeners() {
         const game = this;
         this.canvasEl.onmousedown = ev => {
-            var wevent = new ShimmedEvent();
+            var wevent = new Event();
             wevent.id = 501;
             wevent.x = ev.offsetX;
             wevent.y = ev.offsetY;
             this.onEvent(wevent);
         };
         document.body.onkeypress = ev => {
-            var wevent = new ShimmedEvent();
+            var wevent = new Event();
             wevent.id = 401;
             wevent.key = ev.keyCode;
             this.onEvent(wevent);
         };
         document.body.onkeyup = ev => {
-            var wevent = new ShimmedEvent();
+            var wevent = new Event();
             wevent.id = 402;
             wevent.key = ev.keyCode;
             this.onEvent(wevent);
         };
     }
-    private _screen: ShimmedGraphics = null;
-    public get screen(): ShimmedGraphics {
+    private _screen: Graphics = null;
+    public get screen(): Graphics {
         this.updateGuest();
         return this._screen;
     }
-    public set screen(value: ShimmedGraphics) {
+    public set screen(value: Graphics) {
         this._screen = value; 
     }
 
-    public onEvent(event0: ShimmedEvent) {
+    public onEvent(event0: Event) {
         if (this.autoPeer.isGuest) {
             this.autoPeer.connection.send(event0); 
             //return;
@@ -269,7 +269,7 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
         this.handleEvent(event0);
     }
     
-    public restoreFromRemote(state: ShimmedApplet) {
+    public restoreFromRemote(state: Applet) {
         Object.keys(state).forEach(k => this[k] = state[k]);
         this.repaint();
         this.run();
@@ -279,7 +279,7 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
         if (!this.autoPeer.isHost) return;
         if (this.guestSendTask) return;
 
-        function getState(applet: ShimmedApplet) {
+        function getState(applet: Applet) {
             const state = {};
             Object.getOwnPropertyNames(applet).forEach(propName => {
                 const propType = typeof(applet[propName]);
@@ -296,8 +296,8 @@ export abstract class ShimmedApplet extends ShimmedAppletCore {
         }, 0);
     }
 }
-export class ShimmedThread {
-    constructor(private runnable: ShimmedRunnable) {
+export class Thread {
+    constructor(private runnable: Runnable) {
     }
     public static sleep(ms: number) {
         return new Promise(res => setTimeout(res, ms));
@@ -308,46 +308,46 @@ export class ShimmedThread {
     public stop() {
     }
 }
-export interface ShimmedRunnable {
+export interface Runnable {
     run();
 }
-export class ShimmedPrintStream {
+export class PrintStream {
     public print(s: any) { console.log(s); }    
     public println(s?: any) { console.log(s); }    
 }
-export class ShimmedSystem {
-    public static out = new ShimmedPrintStream();
+export class System {
+    public static out = new PrintStream();
     public static currentTimeMillis() {
         return Date.now();
     }
 }
-export class ShimmedAppletContext {
-    showDocument(url: ShimmedURL, str: string) { }
+export class AppletContext {
+    showDocument(url: URL, str: string) { }
 }
-export class ShimmedDocumentBase {
+export class DocumentBase {
     public getHost() {
         return "slimetennis.com";
     }
 }
-export class ShimmedURL {
+export class URL {
     constructor(public location: string) {
     }
     public openStream() {
-        return new ShimmedInputStream();
+        return new InputStream();
     }
     public toString() {
         return this.location;
     }
 }
-export class ShimmedBufferedImage extends ShimmedImage {
+export class BufferedImage extends Image {
     constructor(public x: number, public y: number, public z: number) {
         super(null);
     }
-    public getSubimage(x: number, y: number, w: number, h: number): ShimmedBufferedImage {
+    public getSubimage(x: number, y: number, w: number, h: number): BufferedImage {
         return this;
     }
 } 
-export class ShimmedVector {
+export class Vector {
     private arr = new Array<number[]>();
     constructor(n: number) {
     }
@@ -364,11 +364,11 @@ export class ShimmedVector {
         this.arr = [];
     }
 }
-export class ShimmedElement {
-    public add(el: ShimmedElement) {
+export class Element {
+    public add(el: Element) {
     }
 }
-export class ShimmedFrame extends ShimmedElement {
+export class Frame extends Element {
     public setTitle(s: string) {
     }
     public pack() {
@@ -377,10 +377,10 @@ export class ShimmedFrame extends ShimmedElement {
     }
     public dispose() {
     }
-    public setLayout(layout: ShimmedGridLayout) {
+    public setLayout(layout: GridLayout) {
     }
 }
-export class ShimmedTextField extends ShimmedElement {
+export class TextField extends Element {
     constructor(size: number) {
         super();
     }
@@ -389,20 +389,20 @@ export class ShimmedTextField extends ShimmedElement {
         return "?????????????";    
     }
 }
-export class ShimmedButton extends ShimmedElement {
+export class Button extends Element {
     constructor(public label: string) {
         super();
     }
 }
-export class ShimmedPolygon {
+export class Polygon {
     constructor(public xs: number[], public ys: number[], public n: number) {
     }
 }
-export class ShimmedInputStream {
+export class InputStream {
     public close() {}
 }
-export class ShimmedBufferedReader {
-    constructor(public reader: ShimmedInputStreamReader) {
+export class BufferedReader {
+    constructor(public reader: InputStreamReader) {
     }
     public readLine(): string {
         return null;
@@ -410,27 +410,27 @@ export class ShimmedBufferedReader {
     public close() {
     }
 }
-export class ShimmedInputStreamReader {
-    constructor(public stream: ShimmedInputStream) {
+export class InputStreamReader {
+    constructor(public stream: InputStream) {
     }
 }
-export class ShimmedPanel extends ShimmedElement {
+export class Panel extends Element {
 }
-export class ShimmedLabel extends ShimmedElement {
+export class Label extends Element {
     constructor(public text: string) {
         super();
     }
 }
-export class ShimmedGridLayout {
+export class GridLayout {
     constructor(public x: number, public y: number) {
     }
 }
-export class ShimmedLong {
+export class Long {
     public static parseLong(s: string) {
         return Number(s);
     }
 }
-export class ShimmedChars {
+export class Chars {
     public static charCodeArray(s: string) {
         return s.split("").map(c => c.charCodeAt(0));
     }

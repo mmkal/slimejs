@@ -4,7 +4,7 @@ import Cricket from "../generated-ts/cricket";
 import Tennis from "../generated-ts/tennis";
 
 import AutoPeer from "./AutoPeer";
-import { ShimmedApplet } from "./AppletShims";
+import { Applet } from "./AppletShims";
 
 window.onload = () => {
     const autoPeer = AutoPeer.Create("vxv7ldsv1h71ra4i");
@@ -31,7 +31,7 @@ window.onload = () => {
         Array.from(oldCanvas.attributes).forEach(attr => newCanvas.setAttribute(attr.name, attr.value));
         oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
 
-        const game = new games[name]();
+        const game: Applet = new games[name]();
         connect.onclick = async () => {
             await disconnection;
             autoPeer.connect(game);
