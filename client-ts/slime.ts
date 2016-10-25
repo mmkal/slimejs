@@ -9,29 +9,29 @@ import { ShimmedApplet } from "./AppletShims";
 window.onload = () => {
     const autoPeer = AutoPeer.Create("vxv7ldsv1h71ra4i");
     const connect = document.getElementById("connect") as HTMLButtonElement;
+    const gamesEl = document.getElementById("games");
 
     const games: { [key: string]: any } = { Volleyball, Soccer, Cricket, Tennis };
+
+    const gameNames = Object.keys(games);
+    gameNames.forEach(name => {
+        const button = document.createElement("button");
+        button.textContent = name;
+        button.onclick = () => startGame(name);
+        gamesEl.appendChild(button);
+    });
+    startGame(gameNames[0]);
+
     function startGame(name: string) {
-        const buttons = Array.from(document.querySelectorAll("#games button"));
-        buttons.forEach((b: HTMLButtonElement) => b.disabled = (b.textContent === name));
+        Array.from(gamesEl.querySelectorAll("button")).forEach((b: HTMLButtonElement) => b.disabled = (b.textContent === name));
         autoPeer.disconnect();
         connect.onclick = () => autoPeer.connect(games[name]);
         
         const oldCanvas = document.querySelector("canvas");
         const newCanvas = document.createElement("canvas");
         Array.from(oldCanvas.attributes).forEach(attr => newCanvas.setAttribute(attr.name, attr.value));
-        oldCanvas.parentNode.insertBefore(newCanvas, oldCanvas);
-        oldCanvas.parentNode.removeChild(oldCanvas);
+        oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
 
         new games[name]().start();
     }
-
-    Object.keys(games).forEach(name => {
-        const game: ShimmedApplet = games[name];
-        const button = document.createElement("button");
-        button.textContent = name;
-        button.onclick = () => startGame(name);
-        document.getElementById("games").appendChild(button);
-    });
-    startGame("Volleyball");
 };
