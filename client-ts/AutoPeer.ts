@@ -36,7 +36,8 @@ export default class AutoPeer {
 
     private log(text: string) {
         console.log(text);
-        document.querySelector(".peerjs-log").textContent = text;
+        const logEl = document.getElementById("peerjs-log")
+        if (logEl) logEl.textContent = text;
     }
 
     public disconnect() {
@@ -85,6 +86,56 @@ export default class AutoPeer {
                     });
                 });
             }
+        }
+    }
+    
+    private async connectToHost2(id) : Promise<PeerJs.DataConnection> {
+        const hostIdWeAreTryingToConnectTo = this.hostPrefix + id;
+        const ourGuestId = "guest" + Math.random().toString().substring(2);
+
+        this.localPeers.add(ourGuestId);
+
+        const connectionDebugInfo = hostIdWeAreTryingToConnectTo + " as " + ourGuestId;
+
+        const peer = new Peer(ourGuestId, this.peerOptions);
+
+        this.log("Trying to connect to " + connectionDebugInfo);
+
+        const connectionPromise = new Promise<PeerJs.DataConnection>((resolve, reject) => {
+            const connection = peer.connect(hostIdWeAreTryingToConnectTo);
+            
+            let tooLate = false;
+            const tooSlowTimeout = setTimeout(() => {
+                this.log("Too slow to connect to " + connectionDebugInfo);
+                tooLate = true;
+                reject();
+            });
+
+            connection.on("open", () => {
+                if (tooLate) {
+                    this.log("(Connection to " + connectionDebugInfo + " came too late.)");
+                    return;
+                }
+                this.log("Connection opened to " + connectionDebugInfo);
+                connection["once"]("data", (success: boolean) => {
+                    clearTimeout(tooSlowTimeout);
+                    if (!tooLate && success) {
+                        this.log("Connection to " + connectionDebugInfo + " successful.");
+                        resolve(connection);
+                    } else {
+                        this.log("Connection to " + connectionDebugInfo + " rejected/failed.");
+                        reject();
+                    }
+                });
+            })
+        });
+
+        try {
+            return await connectionPromise;
+        } catch (e) {
+            this.log("Destroying peer " + peer.id);
+            peer.destroy();
+            peer.disconnect();
         }
     }
 

@@ -25,13 +25,14 @@ window.onload = () => {
     function startGame(name: string) {
         Array.from(gamesEl.querySelectorAll("button")).forEach((b: HTMLButtonElement) => b.disabled = (b.textContent === name));
         autoPeer.disconnect();
-        connect.onclick = () => autoPeer.connect(games[name]);
         
         const oldCanvas = document.querySelector("canvas");
         const newCanvas = document.createElement("canvas");
         Array.from(oldCanvas.attributes).forEach(attr => newCanvas.setAttribute(attr.name, attr.value));
         oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
 
-        new games[name]().start();
+        const game = new games[name]();
+        connect.onclick = () => autoPeer.connect(game);
+        game.start();
     }
 };
