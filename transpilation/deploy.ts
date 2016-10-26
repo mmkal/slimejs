@@ -25,8 +25,9 @@ toDeploy.forEach(f => {
 
 const lastCommit = cmd("git rev-parse HEAD", { silent: true });
 
-cmd("git branch -f gh-pages");
-cmd("git checkout gh-pages");
+const newBranch = "gh-pages";
+cmd("git branch -f " + newBranch);
+cmd("git checkout " + newBranch);
 
 
 fs.writeFileSync(".gitignore", "*", "utf8");
@@ -40,7 +41,7 @@ toDeploy.forEach(f => cmd(`git add -f ${f}`));
 
 cmd(`git commit -m "Auto-deploy of commit ${lastCommit} on branch ${initialBranch}.`);
 
-cmd("git push");
+cmd(`git push origin ${newBranch} -f`);
 
 console.log("Exiting.");
 process.exit();
