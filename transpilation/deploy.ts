@@ -48,7 +48,7 @@ toRemove.forEach(f => cmd(`git rm -rf ${f}`));
 
 toDeploy.forEach(f => cmd(`git add -f ${f}`));
 
-cmd(`git commit -m "Auto-deploy of commit ${lastCommit} on branch ${initialBranch}. Made at ${new Date().toString()}."`);
+cmd(`git commit -m "Automatic deployment of commit ${lastCommit} on branch ${initialBranch}. Committed ${new Date().toString()}."`);
 
 cmd(`git push origin ${newBranch} -f`);
 
