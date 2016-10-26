@@ -18,16 +18,16 @@ if (changes) {
 cmd("git branch -f gh-pages");
 cmd("git checkout gh-pages");
 
-const toDeploy = [ "index.html", "dist/slime.js", ".gitignore", "transpile/deploy.ts", "dist/transpile/deploy.js" ];
+const toDeploy = [ "index.html", "dist/slime.js", ".gitignore", "transpilation/deploy.ts" ];
 
 const gitignore = ["*"].concat(toDeploy.map(f => "!" + f)).join("\r\n");
 
 fs.writeFileSync(".gitignore", gitignore, "utf8");
 
 const trackedFiles = cmd("git ls-files").split("\n");
-const toRemove = trackedFiles.filter(f => toDeploy.indexOf(f) > -1)
+const toRemove = trackedFiles.filter(f => toDeploy.indexOf(f) === -1)
 
-toRemove.forEach(f => cmd(`git rm -rf ${f} --dry-run`));
+toRemove.forEach(f => cmd(`git rm -rf '${f}' --dry-run`));
 
 // cmd("git rm -rf * --dry-run");
 
