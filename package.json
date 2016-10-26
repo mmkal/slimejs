@@ -17,11 +17,13 @@
     "request-promise": "^4.1.1",
     "shelljs": "^0.7.4",
     "ts-loader": "^0.9.5",
+    "ts-node": "^1.6.0",
     "typescript": "^2.0.3",
     "webpack": "^1.13.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "ts-node transpilation/deploy.ts"
   },
   "repository": {
     "type": "git",
