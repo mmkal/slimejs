@@ -1,17 +1,21 @@
 import fs = require("fs");
 import { exec, ExecOptions } from "shelljs";
 
-console.log(process.env.GH_TOKEN);
-console.dir(process.env);
-
-process.exit();
-
 function cmd(command: string, options?: ExecOptions): string {
     const result: any = exec(command, options);
     if (result.code !== 0) {
         throw new Error(result.stderr);
     }
     return result.stdout.trim().replace("\r\n", "\n");
+}
+
+if (process.env.GH_TOKEN) {
+    console.log("GitHub access token found. Configuring git...");
+    cmd(`git config --global user.email "mmkal@users.noreply.github.com"`);
+    cmd(`git config --global user.name "auto-deployer"`);
+
+    cmd(`git remote rm origin`);
+    cmd(`git remote add origin https://mmkal:${process.env.GH_TOKEN}@github.com/mmkal/slimejs.git`);
 }
 
 const initialBranch = cmd("git rev-parse --abbrev-ref HEAD", { silent: true });
