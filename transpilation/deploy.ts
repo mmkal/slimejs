@@ -19,8 +19,8 @@ if (process.env.GH_TOKEN) {
 }
 
 const initialBranch = cmd("git rev-parse --abbrev-ref HEAD", { silent: true });
-if (initialBranch !== "master") {
-    throw new Error("This script should only be run on master. You're on " + initialBranch);
+if (initialBranch !== "master" && initialBranch !== "HEAD") {
+    throw new Error("This script should only be run on master or HEAD. You're on " + initialBranch);
 }
 const changes = cmd("git status --porcelain", { silent: true });
 if (changes) {
