@@ -2,14 +2,11 @@ import request = require("request-promise");
 import fs = require("fs");
 import path = require("path");
 import webpack = require("webpack");
-import { exec } from "shelljs";
 
 import preprocessJava from "./preprocess-java";
 import postprocessTypeScript from "./postprocess-ts";
 
 const webpackConfig: webpack.Configuration = require(path.join(process.cwd(), "webpack.config.js"));
-
-// const foo = exec("git status");
 
 (async function() {
     const dirname = "original-java";
