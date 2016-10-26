@@ -22,7 +22,8 @@
     "webpack": "^1.13.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "ts-node transpilation/transpile.ts",
+    "test": "echo \"no tests yet...\"",
     "deploy": "ts-node transpilation/deploy.ts"
   },
   "repository": {
