@@ -1,13 +1,13 @@
 import fs = require("fs");
 import { exec } from "shelljs";
 
-function cmd(command: string) {
+function cmd(command: string): string {
     const result: any = exec(command);
-    return result.stdout;
+    return result.stdout.trim().replace("\r\n", "\n");
 }
 
-const porcelain = cmd("git status --porcelain");
-if (porcelain.trim()) {
+const changes = cmd("git status --porcelain");
+if (changes) {
     throw new Error("This script shouldn't be run when you've got working copy changes.");
 }
 
@@ -20,7 +20,9 @@ const gitignore = ["*"].concat(toDeploy.map(f => "!" + f)).join("\r\n");
 
 fs.writeFileSync(".gitignore", gitignore, "utf8");
 
-cmd("git rm -rf *");
+cmd("git ls-files").split("\n").filter(f => toDeploy.indexOf(f) > -1).forEach(f => cmd(`git rm -rf '${f}' --dry-run`));
+
+// cmd("git rm -rf * --dry-run");
 
 toDeploy.forEach(f => cmd(`git add ${f}`));
 
