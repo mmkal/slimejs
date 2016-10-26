@@ -2,7 +2,7 @@ import fs = require("fs");
 import { exec, ExecOptions } from "shelljs";
 
 function cmd(command: string, options?: ExecOptions): string {
-    const result: any = exec(command, { silent: true });
+    const result: any = exec(command, options);
     if (result.code !== 0) {
         throw new Error(result.stderr);
     }
