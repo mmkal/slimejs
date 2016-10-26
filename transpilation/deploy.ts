@@ -20,6 +20,8 @@ const gitignore = ["*"].concat(toDeploy.map(f => "!" + f)).join("\r\n");
 
 fs.writeFileSync(".gitignore", gitignore, "utf8");
 
-cmd("git rm -rf * --dry-run");
+cmd("git rm -rf *");
 
 toDeploy.forEach(f => cmd(`git add cmd{f}`));
+
+console.log(cmd("git status"));
