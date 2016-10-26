@@ -3,6 +3,9 @@ import { exec } from "shelljs";
 
 function cmd(command: string): string {
     const result: any = exec(command);
+    if (result.code !== 0) {
+        throw new Error(result.stderr);
+    }
     return result.stdout.trim().replace("\r\n", "\n");
 }
 
@@ -29,4 +32,5 @@ toRemove.forEach(f => cmd(`git rm -rf ${f}`));
 
 toDeploy.forEach(f => cmd(`git add -f ${f}`));
 
-console.log(cmd("git status"));
+console.log("Exiting.");
+process.exit();
