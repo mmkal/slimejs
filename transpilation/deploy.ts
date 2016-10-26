@@ -27,9 +27,7 @@ fs.writeFileSync(".gitignore", gitignore, "utf8");
 const trackedFiles = cmd("git ls-files").split("\n");
 const toRemove = trackedFiles.filter(f => toDeploy.indexOf(f) === -1)
 
-toRemove.forEach(f => cmd(`git rm -rf ${f} --dry-run`));
-
-// cmd("git rm -rf * --dry-run");
+toRemove.forEach(f => cmd(`git rm -rf ${f}`));
 
 toDeploy.forEach(f => cmd(`git add ${f}`));
 
