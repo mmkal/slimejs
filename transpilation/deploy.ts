@@ -20,15 +20,13 @@ cmd("git checkout gh-pages");
 
 const toDeploy = [ "index.html", "dist/slime.js", ".gitignore", "transpilation/deploy.ts" ];
 
-const gitignore = ["*"].concat(toDeploy.map(f => "!" + f)).join("\r\n");
-
-fs.writeFileSync(".gitignore", gitignore, "utf8");
+fs.writeFileSync(".gitignore", "*", "utf8");
 
 const trackedFiles = cmd("git ls-files").split("\n");
 const toRemove = trackedFiles.filter(f => toDeploy.indexOf(f) === -1)
 
 toRemove.forEach(f => cmd(`git rm -rf ${f}`));
 
-toDeploy.forEach(f => cmd(`git add ${f}`));
+toDeploy.forEach(f => cmd(`git add -f ${f}`));
 
 console.log(cmd("git status"));
