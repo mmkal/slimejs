@@ -36,5 +36,7 @@ toDeploy.forEach(f => cmd(`git add -f ${f}`));
 
 cmd(`git commit -m "Auto-deploy of commit ${lastCommit} on branch ${initialBranch}.`);
 
+cmd("git push");
+
 console.log("Exiting.");
 process.exit();
