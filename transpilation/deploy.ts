@@ -1,33 +1,37 @@
 import fs = require("fs");
-import { exec } from "shelljs";
+import { exec, ExecOptions } from "shelljs";
 
-function cmd(command: string): string {
-    const result: any = exec(command);
+function cmd(command: string, options?: ExecOptions): string {
+    const result: any = exec(command, { silent: true });
     if (result.code !== 0) {
         throw new Error(result.stderr);
     }
     return result.stdout.trim().replace("\r\n", "\n");
 }
 
-const initialBranch = cmd("git rev-parse --abbrev-ref HEAD");
+const initialBranch = cmd("git rev-parse --abbrev-ref HEAD", { silent: true });
 if (initialBranch !== "master") {
     throw new Error("This script should only be run on master. You're on " + initialBranch);
 }
-const changes = cmd("git status --porcelain");
+const changes = cmd("git status --porcelain", { silent: true });
 if (changes) {
-    throw new Error("This script shouldn't be run when you've got working copy changes.");
+    throw new Error("This script shouldn't be run when you've got working copy changes. Your changes: " + changes);
 }
+const toDeploy = [ "index.html", "dist/slime.js", ".gitignore" ];
 
-const lastCommit = cmd("git rev-parse HEAD");
+toDeploy.forEach(f => {
+    if (!fs.existsSync(f)) throw new Error(`File ${f} is missing.`)
+});
+
+const lastCommit = cmd("git rev-parse HEAD", { silent: true });
 
 cmd("git branch -f gh-pages");
 cmd("git checkout gh-pages");
 
-const toDeploy = [ "index.html", "dist/slime.js", ".gitignore" ];
 
 fs.writeFileSync(".gitignore", "*", "utf8");
 
-const trackedFiles = cmd("git ls-files").split("\n");
+const trackedFiles = cmd("git ls-files", { silent: true }).split("\n");
 const toRemove = trackedFiles.filter(f => toDeploy.indexOf(f) === -1)
 
 toRemove.forEach(f => cmd(`git rm -rf ${f}`));
