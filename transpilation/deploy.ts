@@ -22,6 +22,6 @@ fs.writeFileSync(".gitignore", gitignore, "utf8");
 
 cmd("git rm -rf *");
 
-toDeploy.forEach(f => cmd(`git add cmd{f}`));
+toDeploy.forEach(f => cmd(`git add ${f}`));
 
 console.log(cmd("git status"));
