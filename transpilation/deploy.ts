@@ -1,6 +1,11 @@
 import fs = require("fs");
 import { exec, ExecOptions } from "shelljs";
 
+console.log(process.env.GH_TOKEN);
+console.dir(process.env);
+
+process.exit();
+
 function cmd(command: string, options?: ExecOptions): string {
     const result: any = exec(command, options);
     if (result.code !== 0) {

@@ -1,8 +1,11 @@
 language: node_js
 node_js:
-  - "6"
+- '6'
 deploy:
   provider: script
   script: npm run deploy
   on:
-    branch: prod
+    branch: master
+env:
+  global:
+    secure: snx86xBOBOEvoQmPcGmvPUfibSv5qpBGGnCymDL7PHtEdB78uTp6QAF4WFwV7eS7427an+u9zjzD66OJYqh0qi/GAKcZTDq5/QzsH+BTOruIip6FOkIsyvIB86rGfMAVwSgVrJyuBJh6fKaKwIEAhrXG0/zTYDvaQwdu12epLfMiJJSaH1GCUEqiOfWTdOD9nFOYCTORmwCgJ1jIny/q69w7ktGparoDBEeiN/g1JTy4oiafxIYLyjJnP5CHt8AazBoLSQr3bdfleuh87JM7E01iR2y9R3BGcMmNpQRuDSlkMPvXm/S/i5len/z6zx3egwR95zm0Cgj9Dyk2iaSehKB9OMdxUWXPQHIHZFMbj//8VEW1nAADg4C1aihG5y1s4OOG72oKSToM4RhKWGJDb5cLAU0m4CnM79bp1EJO+AWG8LEAcYdsVxeOS7UknGpUzXAneHPjjHq3VXcd6JjCpRo9ofWiImLW+5dhkPfqSc9fP+EKVPDPvzGQ4M3U268fUsZyld6a8wt0mGEeD/Qly2x5muL2vtxMu4GmmeDBjs2VY1lHJKFyV1Z/Q6Pn3j3s+GMsbLPMqti1y0T2O2YvJhPEKae79FokhnJ1UPDLnU2RNi6TaLeqpvW7iFYUd8qzyCtAamDNBAnQ+cKVaz/Oj0C0bzHMF9Dvbbs1WjV+rEg=
