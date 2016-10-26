@@ -11,9 +11,11 @@
     "@types/peerjs": "0.0.28",
     "@types/request": "0.0.32",
     "@types/request-promise": "^3.0.32",
+    "@types/shelljs": "^0.3.32",
     "@types/webpack": "^1.12.35",
     "request": "^2.75.0",
     "request-promise": "^4.1.1",
+    "shelljs": "^0.7.4",
     "ts-loader": "^0.9.5",
     "typescript": "^2.0.3",
     "webpack": "^1.13.2"
@@ -26,7 +28,12 @@
     "url": "git+https://github.com/mmkal/slimejs.git"
   },
   "keywords": [
-    "slime"
+    "slime",
+    "volleyball",
+    "soccer",
+    "tennis",
+    "cricket",
+    "basketball"
   ],
   "author": "mmkal",
   "license": "MIT",

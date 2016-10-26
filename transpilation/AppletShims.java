@@ -14,6 +14,7 @@ public class Applet {
 	public DocumentBase getDocumentBase() { return null; }
 	public AppletContext getAppletContext() { return null; }
 	public URL getCodeBase() { return null; }
+	public Image getImage(URL u, String s) { return null; }
 }
 public class Color {
 	public static Color yellow = null;
@@ -27,6 +28,7 @@ public class Color {
 	public static Color cyan = null;
 	public static Color lightGray = null;
 	public static Color darkGray = null;
+	public static Color orange = null;
 	public Color(int r, int g, int b) {}
 }
 public class Graphics {
@@ -47,6 +49,7 @@ public class Graphics {
 }
 public class Image {
 	public Graphics getGraphics() { return null; }
+	public int getHeight(Applet a) { return 0; }
 }
 public class Event {
 	public int id;

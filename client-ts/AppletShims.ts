@@ -8,6 +8,8 @@ export class Image {
     getGraphics(): Graphics {
         return new Graphics(document.querySelector("canvas")["getContext"]("2d"));
     }
+    getHeight(applet: Applet) {
+    }
 }
 export class Font {
     constructor(public name: string, public modifier: number, public size: number) {
@@ -129,7 +131,6 @@ export class Graphics {
     }
 
     drawImage(backBuffer: Image, v1: number, v2: number, p: any): void {
-
     }
 }
 export class Color {
@@ -171,6 +172,10 @@ abstract class AppletCore {
 
     size(): Size {
         return new Size(this.getWidth(), this.getHeight());
+    }
+    getImage(url: URL, path: string);
+    getImage() {
+        return new Image(document.body);
     }
     getWidth() {
         return this.canvasEl.width;

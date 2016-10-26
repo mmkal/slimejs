@@ -2,20 +2,28 @@ import request = require("request-promise");
 import fs = require("fs");
 import path = require("path");
 import webpack = require("webpack");
+import { exec } from "shelljs";
 
 import preprocessJava from "./preprocess-java";
 import postprocessTypeScript from "./postprocess-ts";
 
 const webpackConfig: webpack.Configuration = require(path.join(process.cwd(), "webpack.config.js"));
 
+// const foo = exec("git status");
+
 (async function() {
-    const javaGames = "original-java/volleyball original-java/tennis original-java/cricket original-java/soccer".split(" ")
-    for (const gamePath of javaGames) {
+    const dirname = "original-java";
+    const games = fs.readdirSync(dirname);
+    for (const gamePath of games) {
         process.stdout.write(`Transpiling ${gamePath}... `);
-        const tsPath = await transpileJavaGame(gamePath);
+        const tsPath = await transpileJavaGame(gamePath, dirname);
         console.log(tsPath + " created.");
     }
-    console.log("TypeScript transpilation done.");
+    const indexPath = "generated-ts/games.ts";
+    console.log(`TypeScript transpilation done. Creating index file ${indexPath}...`);
+    const indexModule = games.map(g => `import ${g} from "./${g}";`).join("\r\n") + `\r\nexport default { ${games.join(", ")} };`;
+    fs.writeFileSync("generated-ts/games.ts", indexModule, "utf8");
+    console.log(indexPath + " created.");
 
     console.log("Running webpack...");
     await new Promise(resolve => webpack(webpackConfig).run(resolve));
@@ -26,7 +34,8 @@ const webpackConfig: webpack.Configuration = require(path.join(process.cwd(), "w
     process.exit(0);
 })();
 
-async function transpileJavaGame(javaGamePath: string) {
+async function transpileJavaGame(filename: string, dirname?: string) {
+    const javaGamePath = dirname ? path.join(dirname, filename) : filename;
     const originalJava = fs
         .readdirSync(javaGamePath)
         .filter(f => f.endsWith(".java"))
@@ -36,13 +45,13 @@ async function transpileJavaGame(javaGamePath: string) {
 
     const transpilableJava = preprocessJava(originalJava);
     
-    const tsPath = path.join("generated-ts", javaGamePath.replace("original-java/", "") + ".ts");
+    const tsPath = path.join("generated-ts", filename + ".ts");
     if (!fs.existsSync(path.dirname(tsPath))) {
         fs.mkdirSync(path.dirname(tsPath));
     }
 
     let response: string = null;
-    const cached = tsPath + ".cachedresponse.txt";
+    const cached = tsPath.replace(/\.ts$/, ".cachedresponse.txt");
     if (fs.existsSync(cached)) {
         response = fs.readFileSync(cached, "utf8");
     } else {

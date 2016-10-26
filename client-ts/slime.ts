@@ -1,7 +1,4 @@
-import Volleyball from "../generated-ts/volleyball";
-import Soccer from "../generated-ts/soccer";
-import Cricket from "../generated-ts/cricket";
-import Tennis from "../generated-ts/tennis";
+import games from "../generated-ts/games";
 
 import AutoPeer from "./AutoPeer";
 import { Applet } from "./AppletShims";
@@ -10,8 +7,6 @@ window.onload = () => {
     const autoPeer = AutoPeer.Create("vxv7ldsv1h71ra4i");
     const connect = document.getElementById("connect") as HTMLButtonElement;
     const gamesEl = document.getElementById("games");
-
-    const games: { [key: string]: any } = { Volleyball, Soccer, Cricket, Tennis };
 
     const gameNames = Object.keys(games);
     gameNames.forEach(name => {
