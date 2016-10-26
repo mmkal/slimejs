@@ -32,5 +32,6 @@ window.onload = () => {
             autoPeer.connect(game);
         };
         game.start();
+        document.title = name;
     }
 };
