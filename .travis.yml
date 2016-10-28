@@ -1,6 +1,7 @@
 language: node_js
 node_js:
 - '6'
+before_install: fiddle.sh
 deploy:
   skip_cleanup: true
   provider: script
