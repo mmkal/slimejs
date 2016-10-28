@@ -35,7 +35,8 @@ function decompile() {
         return path.join(paths.compiledDir, g, files[0]);
     }).filter(f => f);
 
-    const sudo = (process.platform !== "win32");
+    const unix = (process.platform !== "win32");
+    const separator = unix ? ":" : ";"; 
     
     classes.forEach(input => {
         const inputDir = path.dirname(input);
@@ -49,8 +50,8 @@ function decompile() {
 
         const mainClass = "org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler";
 
-        const javaCommand = `java -classpath ${fernflower};${renamerClassPath} ${mainClass} -ren=1 -urc=${customRenamer} ${input} ${outputDir}`;
-        cmd(sudo ? "sudo " + javaCommand : javaCommand);
+        const javaCommand = `java -classpath ${fernflower}${separator}${renamerClassPath} ${mainClass} -ren=1 -urc=${customRenamer} ${input} ${outputDir}`;
+        cmd(unix ? "sudo " + javaCommand : javaCommand);
 
 
         if (attributes.archive) {
