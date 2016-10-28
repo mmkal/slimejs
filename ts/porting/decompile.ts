@@ -51,13 +51,13 @@ function decompile() {
         const mainClass = "org.jetbrains.java.decompiler.main.decompiler.ConsoleDecompiler";
 
         const javaCommand = `java -classpath ${fernflower}${separator}${renamerClassPath} ${mainClass} -ren=1 -urc=${customRenamer} ${input} ${outputDir}`;
-        cmd(unix ? "sudo " + javaCommand : javaCommand);
+        cmd(javaCommand);
 
 
         if (attributes.archive) {
             const archive = path.join(outputDir, attributes.archive);
             const sevenZip = require("7zip")["7z"];
-            cmd(`${sevenZip} e ${archive} -o${outputDir} *.java -y > NUL:`);
+            cmd(`${sevenZip} e ${archive} -o${outputDir} *.java -y ${unix ? "": "> NUL:"}`);
             fs.unlinkSync(archive);
         }
     });
