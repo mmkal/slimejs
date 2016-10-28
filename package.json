@@ -22,7 +22,7 @@
     "webpack": "^1.13.2"
   },
   "scripts": {
-    "test": "java -version"
+    "test": "javac -version"
   },
   "repository": {
     "type": "git",
