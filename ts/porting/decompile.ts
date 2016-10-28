@@ -2,15 +2,19 @@ import fs = require("fs");
 import path = require("path");
 
 import shell = require("shelljs");
+const extract = require("extract-zip");
+
 import cmd from "../util/cmd";
 import paths from "./paths"
 
 if (require.main === module) {
-    decompile();
-    process.exit();
+    (async function() {
+        await decompile();
+        process.exit();
+    })();
 }
 
-function decompile() {
+async function decompile() {
     const customRenamer = "LosslessRenamer";
     const renamerSourceFile = path.join("java", customRenamer + ".java");
     const renamerClassPath = path.resolve(path.join(paths.compiledDir, "renamer"));
@@ -38,7 +42,8 @@ function decompile() {
     const unix = (process.platform !== "win32");
     const separator = unix ? ":" : ";"; 
     
-    classes.forEach(input => {
+    for (let i = 0; i < classes.length; i++) {
+        const input = classes[i];
         const inputDir = path.dirname(input);
         const outputDir = path.join(paths.decompiledDir, path.basename(inputDir)); //path.resolve(inputDir.replace(path.resolve(paths.compiledDir), paths.decompiledDir));
         if (inputDir === outputDir) throw new Error("Input dir should be different from output dir. Both are: " + inputDir);
@@ -56,11 +61,21 @@ function decompile() {
 
         if (attributes.archive) {
             const archive = path.join(outputDir, attributes.archive);
-            const sevenZip = unix && cmd("which 7z") ? "7z" : require("7zip")["7z"];
-            cmd(`${sevenZip} e ${archive} -o${outputDir} *.java -y ${unix ? "": "> NUL:"}`);
+            if (!fs.existsSync(archive)) throw new Error("Expected to find an archive at " + archive);
+            
+            process.stdout.write(`Extracting ${archive} to ${outputDir}... `);
+            await new Promise((resolve, reject) => {
+                extract(archive, { dir: outputDir }, err => {
+                    err ? reject(err) : resolve();
+                });
+            });
+
+            // const sevenZip = unix && cmd("which 7z") ? "7z" : require("7zip")["7z"];
+            // cmd(`${sevenZip} e ${archive} -o${outputDir} *.java -y ${unix ? "": "> NUL:"}`);
             fs.unlinkSync(archive);
+            console.log(`Extracted, and ${archive} deleted.`);
         }
-    });
+    }
 
     console.log("Decompiling done.");
 }
