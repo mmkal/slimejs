@@ -56,7 +56,7 @@ function decompile() {
 
         if (attributes.archive) {
             const archive = path.join(outputDir, attributes.archive);
-            const sevenZip = require("7zip")["7z"];
+            const sevenZip = unix && cmd("which 7z") ? "7z" : require("7zip")["7z"];
             cmd(`${sevenZip} e ${archive} -o${outputDir} *.java -y ${unix ? "": "> NUL:"}`);
             fs.unlinkSync(archive);
         }

@@ -4,6 +4,7 @@ node_js:
 sudo: required
 before_install: 
   - sudo apt-get install oracle-java8-set-default
+  - sudo apt-get install p7zip-full
 deploy:
   skip_cleanup: true
   provider: script

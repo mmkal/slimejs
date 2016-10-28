@@ -9,5 +9,6 @@ export default function cmd(command: string, options?: ExecOptions): string {
     if (result.code !== 0) {
         throw new Error(result.stderr);
     }
+    console.log(chalk.green("Command success: " + command));
     return result.stdout.trim().replace("\r\n", "\n");
 }
