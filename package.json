@@ -22,9 +22,7 @@
     "webpack": "^1.13.2"
   },
   "scripts": {
-    "prepublish": "ts-node transpilation/transpile.ts",
-    "test": "java -version",
-    "deploy": "ts-node transpilation/deploy.ts"
+    "test": "java -version"
   },
   "repository": {
     "type": "git",
