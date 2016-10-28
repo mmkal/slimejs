@@ -13,9 +13,9 @@ if (require.main === module) {
 function decompile() {
     const customRenamer = "LosslessRenamer";
     const renamerSourceFile = path.join("java", customRenamer + ".java");
-    const renamerClassPath = path.join(paths.compiledDir, "renamer");
+    const renamerClassPath = path.resolve(path.join(paths.compiledDir, "renamer"));
 
-    const fernflower = "node_modules/fernflower/fernflower.jar";
+    const fernflower = path.resolve("node_modules/fernflower/fernflower.jar");
 
     shell.mkdir("-p", renamerClassPath);
     cmd(`javac -classpath ${fernflower} ${renamerSourceFile} -d ${renamerClassPath}`);
