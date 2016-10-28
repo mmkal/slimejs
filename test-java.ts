@@ -10,3 +10,5 @@ function cmd(command: string, options?: ExecOptions): string {
 mkdir("dist");
 const result = cmd(`javac Hello.java -d dist`);
 console.log(result);
+
+console.log(cmd(`/usr/lib/jvm/java-8-oracle/bin java -version`));
