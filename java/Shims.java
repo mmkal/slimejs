@@ -14,6 +14,7 @@ public class Applet {
 	public DocumentBase getDocumentBase() { return null; }
 	public AppletContext getAppletContext() { return null; }
 	public URL getCodeBase() { return null; }
+	public AudioClip getAudioClip(URL u, String s) { return null; }
 	public Image getImage(URL u, String s) { return null; }
 }
 public class Color {
@@ -43,6 +44,7 @@ public class Graphics {
 	public void fillOval(int x, int y, int w, int h) {}
 	public void fillArc(int x, int y, int w, int h, int s, int e) {}
 	public void drawLine(int x, int y, int w, int h) {}
+	public void drawRect(int x, int y, int w, int h) {}
 	public void fillPolygon(int[] xs, int[] ys, int n) {}
 	public void fillPolygon(Polygon p) {}
 	public void drawArc(int x, int y, int w, int h, int s, int e) {}
@@ -75,6 +77,7 @@ public class FontMetrics {
 }
 public class Thread {
     public static void sleep(long ms) {}
+    public static void sleep(long ms, boolean b) {}
     public Thread(Runnable r) {}
     public void start() {}
     public void stop() {}
@@ -82,6 +85,7 @@ public class Thread {
 public interface Runnable {}
 
 public class AppletContext {
+	public void showDocument(URL u) {}
 	public void showDocument(URL u, String s) {}
 }
 public class DocumentBase {
@@ -155,5 +159,19 @@ public class Long {
 }
 public class Chars {
 	/** Replacement for .toCharArray() which returns chars, when actually we (probably/hopefully) want ints. */
-	public static int[] charCodeArray(String s) { return null; }
+	public static char[] charCodeArray(String s) { return null; }
+}
+public class ImageObserver {
+
+}
+public class Random {
+	public int nextInt(int m) { return 0; }
+}
+public class AudioClip {
+	public void play() {}
+}
+public class StringBuffer {
+	public StringBuffer() {}
+	public StringBuffer(Object i) {}
+	public StringBuffer append(Object s) { return null; }
 }

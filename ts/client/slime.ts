@@ -1,7 +1,7 @@
-import games from "../generated-ts/games";
+import games from "../../out/ts/games-index";
 
 import AutoPeer from "./AutoPeer";
-import { Applet } from "./AppletShims";
+import { Applet } from "./shims";
 
 window.onload = () => {
     const autoPeer = AutoPeer.Create("vxv7ldsv1h71ra4i");
@@ -31,7 +31,7 @@ window.onload = () => {
             await disconnection;
             autoPeer.connect(game);
         };
-        game.start();
+        Applet.prototype.start.call(game);
         document.title = name;
     }
 };

@@ -2,10 +2,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch",
+            "name": "transpile",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/transpilation/transpile.ts",
+            "program": "${workspaceRoot}/ts/porting/transpile.ts",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
@@ -22,10 +22,50 @@
             "outDir": "${workspaceRoot}/dist"
         },
         {
-            "name": "Deploy",
+            "name": "fetch",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/transpilation/deploy.ts",
+            "program": "${workspaceRoot}/ts/porting/fetch.ts",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "internalConsole",
+            "sourceMaps": true,
+            "outDir": "${workspaceRoot}/dist"
+        },
+        {
+            "name": "decompile",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/ts/porting/decompile.ts",
+            "stopOnEntry": false,
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "internalConsole",
+            "sourceMaps": true,
+            "outDir": "${workspaceRoot}/dist"
+        },
+        {
+            "name": "deploy",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/build/deploy.ts",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",

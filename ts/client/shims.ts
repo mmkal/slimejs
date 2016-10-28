@@ -44,17 +44,17 @@ export class Graphics {
         return new FontMetrics();
     }
     
-    setColor(c: Color): void {
-        this.ctx.strokeStyle = c.stringRepresentation;
-        this.ctx.fillStyle = c.stringRepresentation;
+    setColor(color: Color): void {
+        this.ctx.strokeStyle = color.name;
+        this.ctx.fillStyle = color.name;
     }
 
-    fillRect(v1: number, v2: number, v3: number, v4: number): void {
-        this.ctx.fillRect(v1, v2, v3, v4);
+    fillRect(x: number, y: number, w: number, h: number): void {
+        this.ctx.fillRect(x, y, w, h);
     }
 
-    drawString(v: string, p1: any, p2: any): void {
-        this.ctx.strokeText(v, p1, p2);
+    drawString(text: string, x: number, y: number): void {
+        this.ctx.strokeText(text, x, y);
     }
 
     private arcPath(x: number, y: number, width: number, height: number, startAngleDegrees: number, endAngleDegrees: number): void {
@@ -79,24 +79,24 @@ export class Graphics {
     }
 
     fillPolygon(polygon: Polygon); 
-    fillPolygon(pointsX: number[], pointsY: number[], v: number);
+    fillPolygon(pointsX: number[], pointsY: number[], numSides: number);
     fillPolygon() {
         let pointsX: number[];
         let pointsY: number[];
-        let v: number;
+        let numSides: number;
         if (arguments.length === 3) {
             pointsX = arguments[0];
             pointsY = arguments[1];
-            v = arguments[2];
+            numSides = arguments[2];
         } else {
             const polygon: Polygon = arguments[0];
             pointsX = polygon.xs;
             pointsY = polygon.ys;
-            v = polygon.n;
+            numSides = polygon.n;
         }
         this.ctx.beginPath();
         this.ctx.moveTo(pointsX[0], pointsY[0]);
-        for (var i = 1; i < v; i++) {
+        for (var i = 1; i < numSides; i++) {
             this.ctx.lineTo(pointsX[i], pointsY[i]);
         }
         this.ctx.closePath();
@@ -116,10 +116,17 @@ export class Graphics {
         this.ctx.stroke();
     }
 
-    drawLine(i1: number, v1: number, i2: number, v2: number): void {
-        this.ctx.moveTo(i1, v1);
-        this.ctx.lineTo(i2, v2);
+    drawLine(xFrom: number, yFrom: number, xTo: number, yTo: number): void {
+        this.ctx.moveTo(xFrom, yFrom);
+        this.ctx.lineTo(xTo, yTo);
         this.ctx.stroke();
+    }
+    drawRect(x: number, y: number, w: number, h: number) {
+        // todo use traceRect
+        this.drawLine(x, y, x + w, y);
+        this.drawLine(x + w, y, x + y, y + h);
+        this.drawLine(x + y, y + h, x, y + h);
+        this.drawLine(x, y + h, x, y);
     }
 
     getFont(): Font {
@@ -134,15 +141,15 @@ export class Graphics {
     }
 }
 export class Color {
-    public stringRepresentation: string = null;
+    public name: string = null;
     constructor(r: number, g: number, b: number)
     {
-        this.stringRepresentation = `rgb(${r}, ${g}, ${b})`;
+        this.name = `rgb(${r}, ${g}, ${b})`;
     }
     static fromString(v: string): Color
     {
         var color = new Color(0,0,0);
-        color.stringRepresentation = v;
+        color.name = v;
         return color;
     }
 }
@@ -218,6 +225,9 @@ abstract class AppletCore {
     public getAppletContext() {
         return new AppletContext();
     }
+    public getAudioClip(url: URL, name: string) {
+        return new AudioClip();
+    }
 }
 export abstract class Applet extends AppletCore {
     private guestSendTask: any = null;
@@ -226,13 +236,17 @@ export abstract class Applet extends AppletCore {
     abstract init(): void;
     abstract run(): Promise<void>;
 
-    public abstract handleEvent(wevent: Event) : Promise<boolean>;
-
     public start() {
         this.init();
         this.isInitialised = true;
         this.registerEventListeners();
         this.repaint();
+
+        // bit of a hack: volleyball-original has a start() method defined which needs to be called. Call it.
+        const _this: any = this;
+        if (_this.start && _this.start !== Applet.prototype.start) {
+            _this.start();
+        }
     }
 
     private registerEventListeners() {
@@ -257,6 +271,23 @@ export abstract class Applet extends AppletCore {
             this.onEvent(wevent);
         };
     }
+
+    public handleEvent(wevent: Event) : Promise<boolean> {
+        const _this: any = this;
+        switch (wevent.id) {
+            case 401:
+            _this.keyDown(wevent, wevent.key);
+            break;
+            case 402:
+            _this.keyUp(wevent, wevent.key);
+            break;
+            case 501:
+            _this.mouseUp(wevent, wevent.x, wevent.y);
+            break;
+        }
+        return Promise.resolve(false);
+    }
+
     private _screen: Graphics = null;
     public get screen(): Graphics {
         this.updateGuest();
@@ -304,7 +335,7 @@ export abstract class Applet extends AppletCore {
 export class Thread {
     constructor(private runnable: Runnable) {
     }
-    public static sleep(ms: number) {
+    public static sleep(ms: number, b?: boolean) {
         return new Promise(res => setTimeout(res, ms));
     }
     public start() {
@@ -327,7 +358,7 @@ export class System {
     }
 }
 export class AppletContext {
-    showDocument(url: URL, str: string) { }
+    showDocument(url: URL, str?: string) { }
 }
 export class DocumentBase {
     public getHost() {
@@ -436,7 +467,31 @@ export class Long {
     }
 }
 export class Chars {
-    public static charCodeArray(s: string) {
+    public static charCodeArray(s: string): any[] {
         return s.split("").map(c => c.charCodeAt(0));
     }
+}
+export class ImageObserver {
+}
+export class Random {
+    public nextInt(max: number) {
+        return Math.floor(Math.random() * max);
+    }
+}
+export class AudioClip {
+    public play() {
+    }
+}
+export class StringBuffer {
+     constructor(initial?: any) {
+         if (typeof initial !== "undefined") this.append(initial);
+     }
+     private pieces = new Array<string>();
+     public append(text: any): StringBuffer {
+         this.pieces.push(text);
+         return this;
+    }
+    public toString() {
+        return this.pieces.join("");
+	}
 }

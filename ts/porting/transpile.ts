@@ -3,33 +3,53 @@ import fs = require("fs");
 import path = require("path");
 import webpack = require("webpack");
 
+import paths from "./paths";
 import preprocessJava from "./preprocess-java";
 import postprocessTypeScript from "./postprocess-ts";
 
 const webpackConfig: webpack.Configuration = require(path.join(process.cwd(), "webpack.config.js"));
 
-(async function() {
-    const dirname = "original-java";
+if (require.main === module) {
+    (async function() {
+        await findAndTranspileAll();
+        process.exit();
+    })();
+}
+
+async function findAndTranspileAll() {
+    const dirname = paths.decompiledDir;
     const games = fs.readdirSync(dirname);
     for (const gamePath of games) {
         process.stdout.write(`Transpiling ${gamePath}... `);
-        const tsPath = await transpileJavaGame(gamePath, dirname);
-        console.log(tsPath + " created.");
+        try {
+            const tsPath = await transpileJavaGame(gamePath, dirname);
+            console.log(tsPath + " created.");
+        }
+        catch (e) {
+            console.error(`Transpiling ${gamePath} failed:`);
+            console.error(e);
+        }
     }
-    const indexPath = "generated-ts/games.ts";
+    const indexPath = path.join(paths.generatedTypeScript, "games-index.ts");
     console.log(`TypeScript transpilation done. Creating index file ${indexPath}...`);
-    const indexModule = games.map(g => `import ${g} from "./${g}";`).join("\r\n") + `\r\nexport default { ${games.join(", ")} };`;
-    fs.writeFileSync("generated-ts/games.ts", indexModule, "utf8");
+    const gameImports = games
+        .filter(g => fs.existsSync(path.join(paths.generatedTypeScript, g + ".ts")))
+        .map(g => { 
+            return {moduleName: g, varName: g.replace(/-/g, "_") }
+        });
+
+    const indexModule = gameImports.map(g => `import ${g.varName} from "./${g.moduleName}";`).join("\r\n") + `\r\nexport default { ${gameImports.map(g => g.varName).join(", ")} };`;
+    
+    fs.writeFileSync(indexPath, indexModule, "utf8");
     console.log(indexPath + " created.");
 
     console.log("Running webpack...");
-    await new Promise(resolve => webpack(webpackConfig).run(resolve));
+    const f = await new Promise(resolve => webpack(webpackConfig).run(() => {
+        console.dir(arguments);
+        resolve()
+    }));
     console.log("Webpack finished.");
-
-
-    console.log("Exiting.");
-    process.exit(0);
-})();
+}
 
 async function transpileJavaGame(filename: string, dirname?: string) {
     const javaGamePath = dirname ? path.join(dirname, filename) : filename;
@@ -42,18 +62,23 @@ async function transpileJavaGame(filename: string, dirname?: string) {
 
     const transpilableJava = preprocessJava(originalJava);
     
-    const tsPath = path.join("generated-ts", filename + ".ts");
+    const tsPath = path.join(paths.generatedTypeScript, filename + ".ts");
     if (!fs.existsSync(path.dirname(tsPath))) {
         fs.mkdirSync(path.dirname(tsPath));
     }
 
     let response: string = null;
-    const cached = tsPath.replace(/\.ts$/, ".cachedresponse.txt");
-    if (fs.existsSync(cached)) {
-        response = fs.readFileSync(cached, "utf8");
-    } else {
+    const cacheFile = tsPath.replace(/\.ts$/, ".cachedresponse.txt");
+    const endOfJavaMarker = "\nENDOFJAVAMARKER\n";
+    if (fs.existsSync(cacheFile)) {
+        const cache = fs.readFileSync(cacheFile, "utf8");
+        const parts = cache.split(endOfJavaMarker);
+        response = (parts[0] === transpilableJava) ? parts[1] : null;
+    } 
+    
+    if (!response) {
         response = await request.post("http://sandbox.jsweet.org/transpile", { form: { javaCode: transpilableJava, tsout: true } });
-        fs.writeFileSync(cached, response, "utf8");
+        fs.writeFileSync(cacheFile, transpilableJava + endOfJavaMarker + response, "utf8");
     }
 
     const transpilation = JSON.parse(response);
@@ -62,13 +87,12 @@ async function transpileJavaGame(filename: string, dirname?: string) {
         const ts = postprocessTypeScript(transpilation.tsout);
         fs.writeFileSync(tsPath, ts, "utf8");
     } catch (e) {
-        fs.unlinkSync(cached);
+        fs.unlinkSync(cacheFile);
         fs.writeFileSync(tsPath.replace(/\.ts$/, ".fail.java"), transpilableJava, "utf8");
         
         if (transpilation.tsout) fs.writeFileSync(tsPath.replace(/\.ts$/, ".fail.ts"), transpilation.tsout, "utf8");
         
         const errors: string = transpilation && transpilation.errors && transpilation.errors.join("\r\n");
-        console.error(e + "\r\n" + errors);
         throw new Error(e + "\r\n" + errors);
     }
 

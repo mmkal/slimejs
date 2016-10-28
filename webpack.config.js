@@ -1,5 +1,5 @@
 module.exports = {
-    entry: "./client-ts/slime",
+    entry: "./ts/client/slime",
     output: {
         filename: "dist/slime.js"
     },
@@ -9,7 +9,7 @@ module.exports = {
     },
     module: {
         loaders: [
-            { test: /\.ts$/, loader: "ts-loader", exclude: "^transpilation" }
+            { test: /\.ts$/, loader: "ts-loader" }
         ]
     }
 };

@@ -1,4 +1,4 @@
-import { Applet } from "./AppletShims"
+import { Applet } from "./shims"
 
 export default class AutoPeer {
     public connection: PeerJs.DataConnection = null;

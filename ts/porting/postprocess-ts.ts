@@ -1,4 +1,4 @@
-import matches from "./regex";
+import matches from "../util/regex";
 
 export default function cleanUpTranspiledTypeScript(ts: string) {
     const marker = "class EndOfShimDeclarations {}";
@@ -11,16 +11,20 @@ export default function cleanUpTranspiledTypeScript(ts: string) {
 
         ps = ps.replace(/\bprivate\b/g, "public");
 
-        // horribly nasty thing. TypeScript and Java think very different things about "char"s.
-        // This attempts to find chars that are likely to be used like ints, and turns them into ints.
-        // then it finds ternaries that try to get charCodeAt(0) from what TypeScript calls a "string | number".
-        ps = ps.replace(/'\\u[0-9A-Za-z]{4}'/g, m => "String(" + eval(m + ".charCodeAt(0)") + ")"); 
-        ps = ps.replace(/(\d+)(:String\(\d+\).{1,3}\.charCodeAt\(0\))/g, (m, g1, g2) => `String(${g1})${g2}`);
-        ps = ps.replace(/(String\(\d+\):)(\d+)(.{1,3}\.charCodeAt\(0\))/g, (m, g1, g2, g3) => `${g1}String(${g2})${g3}`);
+        ps = ps.replace(/\^=/g, "!=");
 
         ps = asyncify(ps);
 
         ps = ps.replace(/Color\.(\w+)/g, (m, g1) => `Color.fromString("${g1}")`);
+
+        ps = ps.replace(/<number>(\w+?\[\w+?\])/g, (m, g1) => `(${g1}.charCodeAt(0))`)
+
+        const getHostCalls = matches(ps, /this\.getDocumentBase\(\)\.getHost\(\)/g).forEach(m => {
+            const comparisonStart = ps.indexOf(`"`, m.index);
+            const comparisonEnd = ps.indexOf(`"`, comparisonStart + 1) + 1;
+            const comparison = ps.substring(comparisonStart, comparisonEnd);
+            ps = ps.replace(m[0], comparison);
+        });
 
         parts[i] = ps;
     }
@@ -33,7 +37,7 @@ export default function cleanUpTranspiledTypeScript(ts: string) {
         return g1;
     });
 
-    ts = `import { ${Array.from(imports).join(", ")} } from "../client-ts/AppletShims"\r\n\r\n${ts}`;
+    ts = `import { ${Array.from(imports).join(", ")} } from "../../ts/client/shims"\r\n\r\n${ts}`;
 
     ts = ts.replace(/\bclass (\w+ extends Applet)\b/, (m, g1) => "export default class " + g1);
 
@@ -43,11 +47,12 @@ export default function cleanUpTranspiledTypeScript(ts: string) {
 }
 
 function asyncify(ts: string) {
-    const functionMatcher = /public ([\w$]+)\(.*\)/g;
-
     const declarations = { };
-    const methods = matches(ts, functionMatcher).map(m => m[1]);
-    matches(ts, functionMatcher).forEach(m => declarations[m[1]] = m[0]);
+    const methods = new Array<string>();
+    matches(ts, /\n    (public |private )?(\w+)\(.*?\)( : \w+)? {/g).forEach(m => {
+        methods.push(m[2]);
+        declarations[m[2]] = m[0];
+    });
 
     function getBody(funcName: string) {
         const declaration: string = declarations[funcName];
@@ -73,7 +78,7 @@ function asyncify(ts: string) {
         if (end === -1) throw new Error("Couldn't find end of function body for: " + declaration);
         return ts.substring(start + declaration.length, end);
     }
-
+    
     const awaitableExpressions = [ /ShimmedThread\.sleep\(\d+\)/g ];
     const handledMethods = new Set<string>();
     const replacements = { };
@@ -87,7 +92,7 @@ function asyncify(ts: string) {
         
         const declaration = declarations[m];
         if (declaration) {
-            replacements[declaration] = declaration.replace("public", "public async"); 
+            replacements[declaration] = declaration.replace(m, "async " + m); 
         }
     }
 
@@ -97,6 +102,8 @@ function asyncify(ts: string) {
     
 
     ts.indexOf("handleEvent") > -1 && asyncifyMethod("handleEvent");
+
+    asyncifyMethod("run");
 
     while (awaitableExpressions.length > 0) {
         const regexp = awaitableExpressions.pop();
@@ -113,7 +120,7 @@ function asyncify(ts: string) {
         ts = ts.replace(declaration, replacements[declaration]);
     }
 
-    ts = ts.replace(/(public async .+\(.*\)) : (.+) {/g, (m, declaration, returnType) => `${declaration} : Promise<${returnType}> {`);
+    ts = ts.replace(/(async .+\(.*\)) : (.+) {/g, (m, declaration, returnType) => `${declaration} : Promise<${returnType}> {`);
 
     return ts;
 }
