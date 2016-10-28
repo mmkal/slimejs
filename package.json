@@ -22,7 +22,6 @@
     "webpack": "^1.13.2"
   },
   "scripts": {
-    "prepublish": "./fiddle.sh",
     "test": "ts-node test-java.ts"
   },
   "repository": {

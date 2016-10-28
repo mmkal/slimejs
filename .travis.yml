@@ -2,7 +2,7 @@ language: node_js
 node_js:
 - '6'
 sudo: required
-install: 
+before_install: 
   - chmod +x ./fiddle.sh
   - ./fiddle.sh
 deploy:
