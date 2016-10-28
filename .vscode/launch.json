@@ -65,7 +65,7 @@
             "name": "deploy",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/build/deploy.ts",
+            "program": "${workspaceRoot}/ts/util/deploy.ts",
             "stopOnEntry": false,
             "args": [],
             "cwd": "${workspaceRoot}",
