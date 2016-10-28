@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [[ -d "/usr/lib/jvm/java-8-oracle-$ARCH_SUFFIX" ]] ; then
     # Currently unused, because the `travis_java` cookbook doesn't create this architecture specific symbolic link
     ORACLEJDK8_UJA_ALIAS="java-8-oracle-$ARCH_SUFFIX"
