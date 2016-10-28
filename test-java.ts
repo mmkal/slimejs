@@ -12,3 +12,6 @@ const result = cmd(`javac Hello.java -d dist`);
 console.log(result);
 
 console.log(cmd(`java -version`));
+console.log(cmd(`java -version`));
+console.log(cmd(`java -version`));
+console.log(cmd(`java -version`));
