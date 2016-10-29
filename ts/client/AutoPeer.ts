@@ -92,7 +92,7 @@ export default class AutoPeer {
     public async connect() {
         this.log("Connecting...");
         this.peer = await this.register();
-        this.log("Register as host: " + this.peer.id);
+        this.log("Registered as host: " + this.peer.id);
 
         this.peer.on("connection", conn => this.handleNewConnection(conn));
 
