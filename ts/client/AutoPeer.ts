@@ -10,7 +10,7 @@ export default class AutoPeer {
     public ondatareceived: (data: any) => void = null;
     public onconnected: () => void = null;
 
-    private readonly server = "https://glen-pine.hyperdev.space/";
+    private readonly server = "https://slimejs.herokuapp.com/";
 
     private constructor(apiKey: string) {
         this.peerOptions = {
