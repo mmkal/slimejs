@@ -1,1 +1,1 @@
-web: ./node_modules/.bin/tsc -p . && node dist/ts/server/app.js
+web: node app.js
