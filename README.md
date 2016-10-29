@@ -1,6 +1,8 @@
 # slimejs
 Port of Slime Volleyball/Tennis/Cricket/Basketball to html5/javascript.
 
+[![Build Status](https://travis-ci.org/mmkal/slimejs.svg?branch=master)](https://travis-ci.org/mmkal/slimejs)
+
 #[Play it here](https://mmkal.github.io/slimejs/)
 #[![Yes, play it there.](http://i.imgur.com/ThHVJgb.png)](https://mmkal.github.io/slimejs/)
 
