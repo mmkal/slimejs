@@ -6,8 +6,10 @@
             "type": "chrome",
             "request": "launch",
             "url": "file:///${workspaceRoot}/index.html",
+            "port": 9222,
             "sourceMaps": true,
-            "webRoot": "${workspaceRoot}"
+            "webRoot": "${workspaceRoot}",
+            "userDataDir": "${workspaceRoot}/dist"
         },
         {
             "name": "Attach to Chrome",
