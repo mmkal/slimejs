@@ -2,7 +2,7 @@
   "name": "slimejs",
   "version": "0.0.1",
   "description": "Javascript port of Slime volleyball/soccer/cricket.",
-  "main": "dist/ts/server/app.js",
+  "main": "app.js",
   "dependencies": {},
   "devDependencies": {
     "@types/bluebird": "^3.0.35",
@@ -31,7 +31,7 @@
   },
   "scripts": {
     "prepublish": "ts-node ts/porting/fetch.ts && ts-node ts/porting/decompile.ts && ts-node ts/porting/transpile.ts",
-    "start": "ts-node ts/server/app.ts",
+    "start": "node app.js",
     "test": "echo \"no\"",
     "deploy": "ts-node ts/util/deploy.ts"
   },
