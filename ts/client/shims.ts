@@ -115,10 +115,9 @@ export class Graphics {
         this.ctx.stroke();
     }
     drawRect(x: number, y: number, w: number, h: number) {
-        // todo use traceRect
         this.drawLine(x, y, x + w, y);
-        this.drawLine(x + w, y, x + y, y + h);
-        this.drawLine(x + y, y + h, x, y + h);
+        this.drawLine(x + w, y, x + w, y + h);
+        this.drawLine(x + w, y + h, x, y + h);
         this.drawLine(x, y + h, x, y);
     }
 
@@ -135,12 +134,10 @@ export class Graphics {
 }
 export class Color {
     public name: string = null;
-    constructor(r: number, g: number, b: number)
-    {
+    constructor(r: number, g: number, b: number) {
         this.name = `rgb(${r}, ${g}, ${b})`;
     }
-    static fromString(v: string): Color
-    {
+    static fromString(v: string): Color {
         var color = new Color(0,0,0);
         color.name = v;
         return color;
@@ -224,7 +221,12 @@ abstract class AppletCore {
         return new AudioClip();
     }
 }
+interface DrawCall {
+    method: string;
+    arguments: any[];
+}
 export abstract class Applet extends AppletCore {
+
     private guestSendTask: any = null;
     private autoPeer = AutoPeer.Get();
 
@@ -277,17 +279,17 @@ export abstract class Applet extends AppletCore {
         };
     }
 
-    private drawCalls = new Array<{ method: string, arguments: any[] }>();
+    private drawCalls = new Array<DrawCall>();
     private captureDrawCalls() {
         Object.getOwnPropertyNames(Graphics.prototype).forEach(method => {
             const original: Function = this.graphics[method];
             if (method.startsWith("get") || typeof original !== "function") return;
 
-            this.graphics[method] = (a, b, c, d, e, f, g, h, i ,j, k) => {
-                const args = [a, b, c, d, e, f, g, h, i, j, k];
+            this.graphics[method] = (a, b, c, d, e, f, g, h, i ,j) => {
+                const args = [a, b, c, d, e, f, g, h, i, j];
                 original.apply(this.graphics, args);
                 this.drawCalls.push({ method: method, arguments: args });
-                this.sendDrawCalls();     
+                this.sendDrawCalls();
             };
         });
     }
@@ -301,7 +303,7 @@ export abstract class Applet extends AppletCore {
         });
     }
 
-    private handleDrawCalls(calls: Array<{ method: string, arguments: IArguments }>): void {
+    private handleDrawCalls(calls: Array<DrawCall>): void {
         const graphics: { [method: string]: Function } = this.graphics as any;
         calls && graphics && calls.forEach(call => {
             graphics[call.method].apply(graphics, call.arguments);
@@ -324,49 +326,7 @@ export abstract class Applet extends AppletCore {
         return Promise.resolve(false);
     }
 
-    private _screen: Graphics = null;
-    public get screen(): Graphics {
-        // this.updateGuest();
-        return this._screen;
-    }
-    public set screen(value: Graphics) {
-        this._screen = value; 
-    }
-
-    // public onEvent(event0: Event) {
-    //     if (this.autoPeer.isGuest) {
-    //         this.autoPeer.connection.send(event0); 
-    //         //return;
-    //     }
-    //     this.handleEvent(event0);
-    // }
-    
-    public restoreFromRemote(state: Applet) {
-        Object.keys(state).forEach(k => this[k] = state[k]);
-        this.repaint();
-        this.run();
-    }
-
-    private updateGuest() {
-        if (!this.autoPeer.isHost) return;
-        if (this.guestSendTask) return;
-
-        function getState(applet: Applet) {
-            const state = {};
-            Object.getOwnPropertyNames(applet).forEach(propName => {
-                const propType = typeof(applet[propName]);
-                if (propType === "number" || propType === "boolean" || propType === "string" || propName === "pointsX" || propName === "pointsY" || propName === "replayData") {
-                    state[propName] = applet[propName];
-                }
-            });
-            return state;
-        }
-        this.autoPeer.connection.send(getState(this));
-        this.guestSendTask = setTimeout(() => {
-            this.autoPeer.connection.send(getState(this));
-            this.guestSendTask = null;
-        }, 0);
-    }
+    public screen: Graphics = null;
 }
 export class Thread {
     constructor(private runnable: Runnable) {

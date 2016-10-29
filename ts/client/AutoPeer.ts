@@ -83,6 +83,9 @@ export default class AutoPeer {
             this.connection.on("data", data => {
                 this.ondatareceived && this.ondatareceived(data);
             });
+            this.connection.on("close", () => {
+                this.connection = null;
+            });
         });
     }
 
