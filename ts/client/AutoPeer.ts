@@ -7,6 +7,9 @@ export default class AutoPeer {
     public isHost = false;
     public isGuest = false;
 
+    public ondatareceived: (data: any) => void = null;
+    public onconnected: () => void = null;
+
     private readonly server = "https://glen-pine.hyperdev.space/";
 
     private constructor(apiKey: string) {
@@ -19,17 +22,18 @@ export default class AutoPeer {
     }
 
     private static instance: AutoPeer = null;
-    /** Get the AutoPeer0 instance. This will throw if there's no instance, so make sure it's initialised before calling this. */
+    /** Get the AutoPeer instance. This will throw if there's no instance, so make sure it's initialised before calling this. */
     public static Get() {
         if (!AutoPeer.instance) {
-            throw new Error("No instance of AutoPeer0 exists");
+            throw new Error("No instance of AutoPeer exists");
         }
         return AutoPeer.instance;
     }
-    /** Create and return the AutoPeer0 instance. */
+
+    /** Create and return the AutoPeer instance. */
     public static Create(apiKey: string) {
         if (AutoPeer.instance) {
-            throw new Error(`There's already an AutoPeer0 instance.`);
+            throw new Error(`There's already an AutoPeer instance.`);
         }
 
         return AutoPeer.instance = new AutoPeer(apiKey);
@@ -55,7 +59,7 @@ export default class AutoPeer {
         return await $.post(this.server + "takehost?" + $.param({ me: this.peer.id }));
     }
 
-    private handleNewConnection(connection: PeerJs.DataConnection, applet: Applet) {
+    private handleNewConnection(connection: PeerJs.DataConnection) {
         this.log(`Connection to ${connection.peer} established. Opening...`);
         connection["once"]("data", d => this.log("Received some data from " + connection.peer + ": " + d));
         connection.on("open", async () => {
@@ -72,20 +76,22 @@ export default class AutoPeer {
             this.isHost = Number(this.peer.id) < Number(connection.peer);
             this.isGuest = !this.isHost;
             this.log(`Now connected to ${connection.peer}. You are ${this.isHost ? "host" : "guest"}.`);
-            const dataHandler = this.isHost ? ev => applet.onEvent(ev) : state => applet.restoreFromRemote(state);
-            connection.on("data", dataHandler); 
             connection.serialization = "json";
             connection.send("Hi I'm " + this.peer.id);
             this.connection = connection;
+            this.onconnected && this.onconnected();
+            this.connection.on("data", data => {
+                this.ondatareceived && this.ondatareceived(data);
+            });
         });
     }
 
-    public async connect(applet: Applet) {
+    public async connect() {
         this.log("Connecting...");
         this.peer = await this.register();
         this.log("Register as host: " + this.peer.id);
 
-        this.peer.on("connection", conn => this.handleNewConnection(conn, applet));
+        this.peer.on("connection", conn => this.handleNewConnection(conn));
 
         const otherHostId = await this.takeHostId();
         if (!otherHostId) {
@@ -93,7 +99,7 @@ export default class AutoPeer {
         }
 
         const connectionToOther = this.peer.connect(otherHostId);
-        this.handleNewConnection(connectionToOther, applet);
+        this.handleNewConnection(connectionToOther);
     }
 
     public async disconnect() {

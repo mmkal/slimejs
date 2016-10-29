@@ -81,23 +81,16 @@ export class Graphics {
     fillPolygon(polygon: Polygon); 
     fillPolygon(pointsX: number[], pointsY: number[], numSides: number);
     fillPolygon() {
-        let pointsX: number[];
-        let pointsY: number[];
-        let numSides: number;
-        if (arguments.length === 3) {
-            pointsX = arguments[0];
-            pointsY = arguments[1];
-            numSides = arguments[2];
+        let polygon: Polygon;
+        if (arguments.length === 1) {
+            polygon = arguments[0];
         } else {
-            const polygon: Polygon = arguments[0];
-            pointsX = polygon.xs;
-            pointsY = polygon.ys;
-            numSides = polygon.n;
+            polygon = new Polygon(arguments[0], arguments[1], arguments[2]);
         }
         this.ctx.beginPath();
-        this.ctx.moveTo(pointsX[0], pointsY[0]);
-        for (var i = 1; i < numSides; i++) {
-            this.ctx.lineTo(pointsX[i], pointsY[i]);
+        this.ctx.moveTo(polygon.xs[0], polygon.ys[0]);
+        for (var i = 1; i < polygon.n; i++) {
+            this.ctx.lineTo(polygon.xs[i], polygon.ys[i]);
         }
         this.ctx.closePath();
         this.ctx.fill();
@@ -171,8 +164,10 @@ export class Size {
 abstract class AppletCore {
     protected isInitialised = false;
     canvasEl: HTMLCanvasElement = null;
+    protected readonly graphics: Graphics;
     constructor() {
         this.canvasEl = document.querySelector("canvas");
+        this.graphics = new Graphics(this.canvasEl.getContext("2d"));
     }
 
     abstract paint(graphics: Graphics): void;
@@ -198,7 +193,7 @@ abstract class AppletCore {
     requestFocus(): void { 
     }
     getGraphics(): Graphics {
-        return new Graphics(this.canvasEl.getContext("2d"));
+        return this.graphics;
     }
     createImage(nWidth: number, nHeight: number): Image {
         if (document.querySelector("canvas")) {
@@ -256,20 +251,61 @@ export abstract class Applet extends AppletCore {
             wevent.id = 501;
             wevent.x = ev.offsetX;
             wevent.y = ev.offsetY;
-            this.onEvent(wevent);
+            this.handleEvent(wevent);
         };
         document.body.onkeypress = ev => {
             var wevent = new Event();
             wevent.id = 401;
             wevent.key = ev.keyCode;
-            this.onEvent(wevent);
+            this.handleEvent(wevent);
         };
         document.body.onkeyup = ev => {
             var wevent = new Event();
             wevent.id = 402;
             wevent.key = ev.keyCode;
-            this.onEvent(wevent);
+            this.handleEvent(wevent);
         };
+        this.autoPeer.onconnected = () => {
+            if (this.autoPeer.isGuest) {
+                this.handleEvent = async (evt) => this.autoPeer.connection.send(evt);
+            } else {
+                this.captureDrawCalls();
+            }
+        }
+        this.autoPeer.ondatareceived = data => {
+            this.autoPeer.isGuest ? this.handleDrawCalls(data) : this.handleEvent(data);
+        };
+    }
+
+    private drawCalls = new Array<{ method: string, arguments: any[] }>();
+    private captureDrawCalls() {
+        Object.getOwnPropertyNames(Graphics.prototype).forEach(method => {
+            const original: Function = this.graphics[method];
+            if (method.startsWith("get") || typeof original !== "function") return;
+
+            this.graphics[method] = (a, b, c, d, e, f, g, h, i ,j, k) => {
+                const args = [a, b, c, d, e, f, g, h, i, j, k];
+                original.apply(this.graphics, args);
+                this.drawCalls.push({ method: method, arguments: args });
+                this.sendDrawCalls();     
+            };
+        });
+    }
+    private drawCallSendTimeout: number = null;
+    private sendDrawCalls() {
+        if (this.drawCallSendTimeout) return;
+        this.autoPeer.connection.send(this.drawCalls.splice(0, this.drawCalls.length));
+        this.drawCallSendTimeout = requestAnimationFrame(() => {
+            this.autoPeer.connection.send(this.drawCalls.splice(0, this.drawCalls.length));
+            this.drawCallSendTimeout = null;
+        });
+    }
+
+    private handleDrawCalls(calls: Array<{ method: string, arguments: IArguments }>): void {
+        const graphics: { [method: string]: Function } = this.graphics as any;
+        calls && graphics && calls.forEach(call => {
+            graphics[call.method].apply(graphics, call.arguments);
+        });
     }
 
     public handleEvent(wevent: Event) : Promise<boolean> {
@@ -290,20 +326,20 @@ export abstract class Applet extends AppletCore {
 
     private _screen: Graphics = null;
     public get screen(): Graphics {
-        this.updateGuest();
+        // this.updateGuest();
         return this._screen;
     }
     public set screen(value: Graphics) {
         this._screen = value; 
     }
 
-    public onEvent(event0: Event) {
-        if (this.autoPeer.isGuest) {
-            this.autoPeer.connection.send(event0); 
-            //return;
-        }
-        this.handleEvent(event0);
-    }
+    // public onEvent(event0: Event) {
+    //     if (this.autoPeer.isGuest) {
+    //         this.autoPeer.connection.send(event0); 
+    //         //return;
+    //     }
+    //     this.handleEvent(event0);
+    // }
     
     public restoreFromRemote(state: Applet) {
         Object.keys(state).forEach(k => this[k] = state[k]);

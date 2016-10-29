@@ -15,7 +15,7 @@ window.onload = () => {
         button.onclick = () => startGame(name);
         gamesEl.appendChild(button);
     });
-    startGame(gameNames[0]);
+    startGame(gameNames.filter(g => g.indexOf("soccer") > -1)[0] || gameNames[0]);
 
     function startGame(name: string) {
         Array.from(gamesEl.querySelectorAll("button")).forEach((b: HTMLButtonElement) => b.disabled = (b.textContent === name));
@@ -29,7 +29,7 @@ window.onload = () => {
         const game: Applet = new games[name]();
         connect.onclick = async () => {
             await disconnection;
-            autoPeer.connect(game);
+            autoPeer.connect();
         };
         Applet.prototype.start.call(game);
         document.title = name;
