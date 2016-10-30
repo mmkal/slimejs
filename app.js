@@ -10,7 +10,8 @@ app.use(function(req, res, next) {
 app.use(express.static("."));
 
 app.get("/", function (request, response) {
-    response.redirect("http://rawgit.com/mmkal/slimejs/gh-pages/index.html");
+    res.send("hi");
+    // response.redirect("http://rawgit.com/mmkal/slimejs/gh-pages/index.html");
 });
 
 const hosts = [];
