@@ -7,7 +7,7 @@ app.use(function(req, res, next) {
     next()
 });
 
-app.use(express.static("."));
+// app.use(express.static("."));
 
 app.get("/", function (request, response) {
     res.send("hi");
@@ -17,7 +17,7 @@ app.get("/", function (request, response) {
 const hosts = [];
 
 app.get("/ping", function(req, res) {
-    res.send("pong2");
+    res.send("pong");
 })
 
 app.get("/hosts", function(req, res) {
