@@ -17,7 +17,7 @@ app.get("/", function (request, response) {
 const hosts = [];
 
 app.get("/ping", function(req, res) {
-    res.send("pong");
+    res.send("pong2");
 })
 
 app.get("/hosts", function(req, res) {
