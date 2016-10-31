@@ -101,7 +101,12 @@ export class Graphics {
     }
 
     fillOval(x: number, y: number, width: number, height: number): void {
-        this.fillArc(x, y, width, height, 0, 360);
+        // if (width !this.fillArc(x, y, width, height, 0, 360);
+        // this.ctx.clip();
+        this.ctx.beginPath();
+        const radius = Math.ceil(width / 2);
+        this.ctx.arc(x + radius, y + radius, radius, 0, 2 * Math.PI);
+        this.ctx.fill();
     }
 
     drawArc(x: number, y: number, width: number, height: number, startAngleDegrees: number, endAngleDegrees: number): void {
