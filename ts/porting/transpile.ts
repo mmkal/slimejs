@@ -60,6 +60,9 @@ async function transpileJavaGame(filename: string, dirname?: string) {
         .sort((leftCode, rightCode) => leftCode.indexOf(" extends ") - rightCode.indexOf(" extends "))
         .join("\r\n\r\n");
 
+    const attributesFile = path.join(paths.compiledDir, path.basename(javaGamePath), paths.attributesFile);
+    const attributes = JSON.parse(fs.readFileSync(attributesFile, "utf8"));
+
     const transpilableJava = preprocessJava(originalJava);
     
     const tsPath = path.join(paths.generatedTypeScript, filename + ".ts");
@@ -84,7 +87,7 @@ async function transpileJavaGame(filename: string, dirname?: string) {
     const transpilation = JSON.parse(response);
     try {
         if (!transpilation.tsout) throw new Error("Transiplation failed");
-        const ts = postprocessTypeScript(transpilation.tsout);
+        const ts = postprocessTypeScript(transpilation.tsout, `public recommended_width = ${attributes.width};`, `public recommended_height = ${attributes.height};`);
         fs.writeFileSync(tsPath, ts, "utf8");
     } catch (e) {
         fs.unlinkSync(cacheFile);

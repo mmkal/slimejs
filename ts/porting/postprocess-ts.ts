@@ -1,6 +1,6 @@
 import matches from "../util/regex";
 
-export default function cleanUpTranspiledTypeScript(ts: string) {
+export default function cleanUpTranspiledTypeScript(ts: string, ...additionalProperties: string[]) {
     const marker = "class EndOfShimDeclarations {}";
     const markerStart = ts.indexOf(marker);
     if (markerStart > -1) ts = ts.substring(markerStart + marker.length, ts.length).trim();
@@ -39,7 +39,7 @@ export default function cleanUpTranspiledTypeScript(ts: string) {
 
     ts = `import { ${Array.from(imports).join(", ")} } from "../../ts/client/shims"\r\n\r\n${ts}`;
 
-    ts = ts.replace(/\bclass (\w+ extends Applet)\b/, (m, g1) => "export default class " + g1);
+    ts = ts.replace(/\bclass (\w+ extends Applet\b[^\n]+)(\n\s*)/, (m, g1, g2) => "export default class " + g1 + g2 + additionalProperties.join(g2) + g2);
 
     ts = ts.replace(/throw new Error[^\n]*server[^\n]*/g, "// Don't worry about it.");
 

@@ -23,10 +23,17 @@ window.onload = () => {
         
         const oldCanvas = document.querySelector("canvas");
         const newCanvas = document.createElement("canvas");
-        Array.from(oldCanvas.attributes).forEach(attr => newCanvas.setAttribute(attr.name, attr.value));
         oldCanvas.parentNode.replaceChild(newCanvas, oldCanvas);
 
         const game: Applet = new games[name]();
+
+        Array.from(oldCanvas.attributes).forEach(attr => newCanvas.setAttribute(attr.name, attr.value));
+        ["recommended_width", "recommended_height"].forEach(prop => {
+            if (game[prop]) {
+                newCanvas.setAttribute(prop.replace("recommended_", ""), game[prop]);
+            }
+        });
+
         connect.onclick = async () => {
             await disconnection;
             autoPeer.connect();
