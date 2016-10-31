@@ -4,7 +4,8 @@
   "description": "Javascript port of Slime volleyball/soccer/cricket.",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "ts-node": "^1.6.1"
   },
   "devDependencies": {
     "@types/bluebird": "^3.0.35",
@@ -26,7 +27,6 @@
     "request-promise": "^4.1.1",
     "shelljs": "^0.7.4",
     "ts-loader": "^0.9.5",
-    "ts-node": "^1.6.0",
     "typescript": "^2.0.3",
     "webpack": "^1.13.2"
   },
