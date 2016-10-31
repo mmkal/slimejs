@@ -1,5 +1,4 @@
 import AutoPeer from "./AutoPeer";
-import SuperGraphics from "./graphics";
 
 export class Image {
     root: HTMLElement = null;
@@ -36,9 +35,7 @@ export class Event {
     static KEY_ACTION_RELEASE = 402;
 }
 export class Graphics {
-    // superGraphics: SuperGraphics;
     constructor(public ctx: CanvasRenderingContext2D) {
-        // this.superGraphics = new SuperGraphics(this);
     }
 
     getFontMetrics(): FontMetrics {
@@ -122,11 +119,6 @@ export class Graphics {
 
     fillOval(x: number, y: number, width: number, height: number): void {
         this.fillArc(x, y, width, height, 0, 360);
-        // this.ctx.clip();
-        // this.ctx.beginPath();
-        // const radius = Math.ceil(width / 2);
-        // this.ctx.arc(x + radius, y + radius, radius, 0, 2 * Math.PI);
-        // this.ctx.fill();
     }
 
     drawArc(x: number, y: number, width: number, height: number, startAngleDegrees: number, endAngleDegrees: number): void {
