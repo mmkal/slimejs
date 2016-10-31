@@ -1,4 +1,6 @@
 import express = require("express");
+import fs = require("fs");
+import path = require("path");
 const app = express();
 
 app.use(function(req, res, next) {
@@ -7,9 +9,15 @@ app.use(function(req, res, next) {
     next()
 });
 
-app.get("/", function (request, response) {
-    response.redirect("http://rawgit.com/mmkal/slimejs/gh-pages/index.html");
-});
+const slimejsPath = "dist/slime.js";
+const exists = fs.existsSync(slimejsPath);
+
+if (exists) {
+    app.get("/", (req, res) => res.sendFile(path.join(process.cwd(), "/index.html")));
+    app.get("/" + slimejsPath, (req, res) => res.sendFile(path.join(process.cwd(), slimejsPath)));
+} else {
+    app.get("/", (req, res) => res.redirect("http://rawgit.com/mmkal/slimejs/gh-pages/index.html"));
+}
 
 const hosts = [];
 
