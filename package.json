@@ -32,7 +32,7 @@
   },
   "scripts": {
     "prepublish": "ts-node ts/porting/fetch.ts && ts-node ts/porting/decompile.ts && ts-node ts/porting/transpile.ts",
-    "start": "node app.js",
+    "start": "ts-node ts/server.ts",
     "test": "echo \"no\"",
     "deploy": "ts-node ts/util/deploy.ts"
   },
