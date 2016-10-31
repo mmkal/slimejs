@@ -1,4 +1,5 @@
-import AutoPeer from "./AutoPeer"
+import AutoPeer from "./AutoPeer";
+import SuperGraphics from "./graphics";
 
 export class Image {
     root: HTMLElement = null;
@@ -35,9 +36,9 @@ export class Event {
     static KEY_ACTION_RELEASE = 402;
 }
 export class Graphics {
-    public ctx: CanvasRenderingContext2D = null;
-    constructor(ctx: CanvasRenderingContext2D) {
-        this.ctx = ctx;
+    superGraphics: SuperGraphics;
+    constructor(public ctx: CanvasRenderingContext2D) {
+        this.superGraphics = new SuperGraphics(this);
     }
 
     getFontMetrics(): FontMetrics {

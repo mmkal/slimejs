@@ -1,4 +1,4 @@
-import { FontMetrics, Color, Polygon, Font, Image, DrawCall, Graphics } from "./shims";
+import { FontMetrics, Color, Polygon, Font, Image, Graphics } from "./shims";
 
 interface Shape {
     method: string;
@@ -12,12 +12,17 @@ export default class SuperGraphics {
     constructor(private dumbGraphics: Graphics) {
         Object.getOwnPropertyNames(Graphics.prototype).forEach(method => {
             const original: Function = this.dumbGraphics[method];
-            if (method.startsWith("get") || typeof original !== "function") return;
+            this.dumbGraphics["original" + method] = original;
+            if (method.startsWith("get") || method.startsWith("set") || method.startsWith("arcPath") || typeof original !== "function") return;
 
             this.dumbGraphics[method] = (a, b, c, d, e, f, g, h, i ,j) => {
                 const args = [a, b, c, d, e, f, g, h, i, j];
-                const currentColor = this.dumbGraphics.ctx.strokeStyle.toString();
-                this.addShape({ method: method, arguments: args, color: currentColor });
+                if (args[9] === "somekindofrecursivething") {
+                    original.apply(this.dumbGraphics, args);
+                } else {
+                    const currentColor = this.dumbGraphics.ctx.strokeStyle.toString();
+                    this.addShape({ method: method, arguments: args, color: currentColor });
+                }
             };
         });
     }
@@ -35,11 +40,16 @@ export default class SuperGraphics {
         }
         this.shapes.push(newShape);
         const ctx = this.dumbGraphics.ctx;
+        ctx.strokeStyle
         ctx.clearRect(0, 0, 100000, 100000);
         this.shapes.forEach(shape => {
-            this.dumbGraphics.setColor(Color.fromString(shape.color));
-            const method: Function = this.dumbGraphics[shape.method];
-            method.apply(this.dumbGraphics, shape.arguments);
+            ctx.strokeStyle = shape.color;
+            ctx.fillStyle = shape.color;
+            const method: Function = this.dumbGraphics["original" + shape.method];
+            const args = Array.from(shape.arguments);
+            args[9] = "somekindofrecursivething";
+            method.apply(this.dumbGraphics, args);
         });
     }
 }
+
