@@ -36,21 +36,35 @@ export class Event {
     static KEY_ACTION_RELEASE = 402;
 }
 export class Graphics {
-    superGraphics: SuperGraphics;
+    // superGraphics: SuperGraphics;
     constructor(public ctx: CanvasRenderingContext2D) {
-        this.superGraphics = new SuperGraphics(this);
+        // this.superGraphics = new SuperGraphics(this);
     }
 
     getFontMetrics(): FontMetrics {
         return new FontMetrics();
     }
     
+    private color: Color = Color.fromString("white");
     setColor(color: Color): void {
         this.ctx.strokeStyle = color.name;
         this.ctx.fillStyle = color.name;
+        this.color = color;
     }
 
+    private background = { color: "", size: 0 }
     fillRect(x: number, y: number, w: number, h: number): void {
+        const size = w * h;
+        if (size >= this.background.size) {
+            this.background.color = this.color.name;
+            this.background.size = size;
+        }
+        else if (this.color.name === this.background.color) {
+            x--;
+            y--;
+            w++;
+            h++;
+        }
         this.ctx.fillRect(x, y, w, h);
     }
 
@@ -67,6 +81,11 @@ export class Graphics {
         var startAngleRadians = startAngleDegrees * Math.PI / 180;
         var endAngleRadians = endAngleDegrees * Math.PI / 180;
         var anticlockwise = endAngleRadians >= 0;
+
+        if (this.color.name === this.background.color) {
+            radiusX++;
+        }
+
         if (startAngleRadians < 0 && endAngleRadians < 0) {
             this.ctx.arc(centreX, centreY - radiusX / 2, radiusX, -endAngleRadians, -startAngleRadians, true);
         }else {
@@ -102,12 +121,12 @@ export class Graphics {
     }
 
     fillOval(x: number, y: number, width: number, height: number): void {
-        // if (width !this.fillArc(x, y, width, height, 0, 360);
+        this.fillArc(x, y, width, height, 0, 360);
         // this.ctx.clip();
-        this.ctx.beginPath();
-        const radius = Math.ceil(width / 2);
-        this.ctx.arc(x + radius, y + radius, radius, 0, 2 * Math.PI);
-        this.ctx.fill();
+        // this.ctx.beginPath();
+        // const radius = Math.ceil(width / 2);
+        // this.ctx.arc(x + radius, y + radius, radius, 0, 2 * Math.PI);
+        // this.ctx.fill();
     }
 
     drawArc(x: number, y: number, width: number, height: number, startAngleDegrees: number, endAngleDegrees: number): void {
