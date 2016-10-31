@@ -1,1 +1,1 @@
-web: npm run prepublish && npm start
+web: npm start
