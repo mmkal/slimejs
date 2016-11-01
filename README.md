@@ -42,4 +42,4 @@ You should be able to just clone and run `npm install`. This will take quite a l
 | compile to JavaScript with webpack |
 | play |
 
-You'll need `java` and `javac` on your system path.
+You'll need Java 8 `java` and `javac` binaries on your system path.
