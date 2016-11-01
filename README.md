@@ -28,7 +28,7 @@ I don't know.
 
 ## Helping
 
-If you really want to work on this, I'll be... surprised.
+If you want to work on this, I'll be... surprised.
 
 You should be able to just clone and run `npm install`. This will take quite a long time because it gets dependencies from a few web services. The flow is more or less this:
 
