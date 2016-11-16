@@ -28,12 +28,12 @@ I don't know.
 
 ## Helping
 
-If you really want to work on this, I'll be... surprised.
+If you want to work on this, I'll be... surprised.
 
 You should be able to just clone and run `npm install`. This will take quite a long time because it gets dependencies from a few web services. The flow is more or less this:
 
 |flow|
-|-|
+|---|
 | scrape slimegames.eu et al. |
 | decompile to Java with fernflower |
 | pre-process Java with horrible regexes |
@@ -42,4 +42,4 @@ You should be able to just clone and run `npm install`. This will take quite a l
 | compile to JavaScript with webpack |
 | play |
 
-You'll need `java` and `javac` on your system path.
+You'll need Java 8 `java` and `javac` binaries on your system path.
