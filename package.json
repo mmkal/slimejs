@@ -33,7 +33,7 @@
     "build": "ts-node -D ts/porting/fetch.ts && ts-node -D ts/porting/decompile.ts && ts-node -D ts/porting/transpile.ts",
     "start": "ts-node -D ts/server.ts",
     "test": "echo \"no\"",
-    "deploy": "ts-node ts/util/deploy.ts"
+    "deploy": "ts-node -D ts/util/deploy.ts"
   },
   "repository": {
     "type": "git",
