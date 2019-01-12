@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
 const slimejsPath = "dist/slime.js";
 const exists = fs.existsSync(slimejsPath);
 
-if (exists) {
+if (exists && false) {
     app.get("/", (req, res) => res.sendFile(path.join(process.cwd(), "/index.html")));
     app.get("/" + slimejsPath, (req, res) => res.sendFile(path.join(process.cwd(), slimejsPath)));
 } else {
@@ -28,8 +28,10 @@ if (exists) {
         .then(js => res.type('application/javascript').send(js))
         .catch(err => res.status(500).send({ error: util.inspect(err) }))
     );
-    // app.get("/" + slimejsPath, (req, res) => res.sendFile(path.join(process.cwd(), slimejsPath)));
 }
+
+// hack: allow waking up server from github by requesting an 'image' in the readme :O
+app.get("/wakeup.png", async (req, res) => res.type('png').send(""));
 
 const hosts = [];
 

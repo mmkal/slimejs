@@ -43,3 +43,5 @@ You should be able to just clone and run `npm install`. This will take quite a l
 | play |
 
 You'll need Java 8 `java` and `javac` binaries on your system path.
+
+[![wakeup](http://slimejs.herokuapp.com/wakeup.png)](http://slimejs.herokuapp.com)
