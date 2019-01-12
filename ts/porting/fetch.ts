@@ -24,7 +24,7 @@ async function fetch() {
         gameLinks.add(host + el.attribs["href"]);
     });
     gameLinks.add("http://oneslime.net/");
-    gameLinks.add("http://slimetennis.com/");
+    // gameLinks.add("http://slimetennis.com/"); // seems to be dead. I think I have it cached on the `downloaded` branch. Should probably use that.
     gameLinks.add("http://footyslime.com/afl/");
     gameLinks.add("http://footyslime.com/nrl/");
 
