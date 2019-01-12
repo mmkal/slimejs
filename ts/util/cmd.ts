@@ -12,3 +12,19 @@ export default function cmd(command: string, options?: ExecOptions): string {
     }
     return result.stdout.trim().replace("\r\n", "\n");
 }
+
+export const defineBuildScript = async (expectedMainModule: typeof module, script: () => Promise<any>) => {
+    if (require.main !== expectedMainModule) {
+        return;
+    }
+    try {
+        const result = await script();
+        if (result) {
+            console.log(result);
+        }
+        process.exit();
+    } catch (err) {
+        console.error(err);
+        process.exit(1);
+    }
+}

@@ -4,17 +4,12 @@ import url = require("url");
 import request = require("request-promise");
 import cheerio = require("cheerio");
 import shell = require("shelljs");
-import cmd from "../util/cmd";
+import cmd, { defineBuildScript } from "../util/cmd";
 import paths from "./paths"
 
-if (require.main === module) {
-    (async function () {
-        await fetch();
-        process.exit();
-    })();
-}
+defineBuildScript(module, fetchGames);
 
-async function fetch() {
+async function fetchGames() {
     const host = "http://slimegames.eu/";
     const gameListHtml = await request(host); 
     const dom = cheerio.load(gameListHtml);

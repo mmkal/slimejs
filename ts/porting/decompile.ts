@@ -4,15 +4,10 @@ import path = require("path");
 import shell = require("shelljs");
 const extract = require("extract-zip");
 
-import cmd from "../util/cmd";
+import cmd, { defineBuildScript } from "../util/cmd";
 import paths from "./paths"
 
-if (require.main === module) {
-    (async function() {
-        await decompile();
-        process.exit();
-    })();
-}
+defineBuildScript(module, decompile);
 
 async function decompile() {
     const customRenamer = "LosslessRenamer";
@@ -65,7 +60,7 @@ async function decompile() {
             
             process.stdout.write(`Extracting ${archive} to ${outputDir}... `);
             await new Promise((resolve, reject) => {
-                extract(archive, { dir: outputDir }, err => {
+                extract(archive, { dir: path.resolve(outputDir) }, err => {
                     err ? reject(err) : resolve();
                 });
             });
