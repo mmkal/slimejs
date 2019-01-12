@@ -1,6 +1,8 @@
 import express = require("express");
 import fs = require("fs");
 import path = require("path");
+import util = require("util");
+const nodeFetch: typeof fetch = require("node-fetch")
 const app = express();
 
 app.use(function(req, res, next) {
@@ -16,7 +18,17 @@ if (exists) {
     app.get("/", (req, res) => res.sendFile(path.join(process.cwd(), "/index.html")));
     app.get("/" + slimejsPath, (req, res) => res.sendFile(path.join(process.cwd(), slimejsPath)));
 } else {
-    app.get("/", (req, res) => res.redirect("http://rawgit.com/mmkal/slimejs/gh-pages/index.html"));
+    app.get("/", async (req, res) => nodeFetch("https://raw.githubusercontent.com/mmkal/slimejs/gh-pages/index.html")
+        .then(response => response.text())
+        .then(html => res.type('html').send(html))
+        .catch(err => res.status(500).send({ error: util.inspect(err) }))
+    );
+    app.get("/" + slimejsPath, async (req, res) => nodeFetch("https://raw.githubusercontent.com/mmkal/slimejs/gh-pages/" + slimejsPath)
+        .then(response => response.text())
+        .then(js => res.type('application/javascript').send(js))
+        .catch(err => res.status(500).send({ error: util.inspect(err) }))
+    );
+    // app.get("/" + slimejsPath, (req, res) => res.sendFile(path.join(process.cwd(), slimejsPath)));
 }
 
 const hosts = [];
