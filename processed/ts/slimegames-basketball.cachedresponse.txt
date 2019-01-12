@@ -1,0 +1,1919 @@
+public class ShimmedSize {
+	public int width;
+	public int height;
+}
+public class ShimmedApplet {
+	public ShimmedSize size() { return null; }
+	public ShimmedImage createImage(int x, int y) { return null; }
+	public void showStatus(String s) {}
+	public void repaint() {}
+	public ShimmedGraphics getGraphics() { return null; }
+	public void requestFocus() {}
+	public int getWidth() { return 0; }
+	public int getHeight() { return 0; }
+	public ShimmedDocumentBase getDocumentBase() { return null; }
+	public ShimmedAppletContext getAppletContext() { return null; }
+	public ShimmedURL getCodeBase() { return null; }
+	public ShimmedAudioClip getAudioClip(ShimmedURL u, String s) { return null; }
+	public ShimmedImage getImage(ShimmedURL u, String s) { return null; }
+}
+public class ShimmedColor {
+	public static ShimmedColor yellow = null;
+	public static ShimmedColor black = null;
+	public static ShimmedColor red = null;
+	public static ShimmedColor gray = null;
+	public static ShimmedColor white = null;
+	public static ShimmedColor blue = null;
+	public static ShimmedColor green = null;
+	public static ShimmedColor pink = null;
+	public static ShimmedColor cyan = null;
+	public static ShimmedColor lightGray = null;
+	public static ShimmedColor darkGray = null;
+	public static ShimmedColor orange = null;
+	public ShimmedColor(int r, int g, int b) {}
+}
+public class ShimmedGraphics {
+	public ShimmedFont getFont() { return null; }
+	public void setFont(ShimmedFont f) {}
+	public void setColor(ShimmedColor c) {}
+	public void fillRect(int x, int y, int w, int h) {}
+	public ShimmedFontMetrics getFontMetrics() { return null; }
+	public void drawString(String s, int x, int y) {}
+	public void drawImage(ShimmedImage i, int x, int y, Object o) {}
+	public void drawOval(int x, int y, int w, int h) {}
+	public void fillOval(int x, int y, int w, int h) {}
+	public void fillArc(int x, int y, int w, int h, int s, int e) {}
+	public void drawLine(int x, int y, int w, int h) {}
+	public void drawRect(int x, int y, int w, int h) {}
+	public void fillPolygon(int[] xs, int[] ys, int n) {}
+	public void fillPolygon(ShimmedPolygon p) {}
+	public void drawArc(int x, int y, int w, int h, int s, int e) {}
+}
+public class ShimmedImage {
+	public ShimmedGraphics getGraphics() { return null; }
+	public int getHeight(ShimmedApplet a) { return 0; }
+}
+public class ShimmedEvent {
+	public int id;
+	public int x;
+	public int y;
+	public int key;
+	public ShimmedButton target;
+	public static final int KEY_ACTION = 0;
+	public static final int LEFT = 1;
+	public static final int RIGHT = 2;
+	public static final int UP = 3;
+	public static final int DOWN = 4;
+	public static final int KEY_ACTION_RELEASE = 5;
+}
+public class ShimmedFont {
+	public String getName() { return null; }
+	public ShimmedFont(String name, int w, int h) {}
+}
+public class ShimmedFontMetrics {
+	public int getHeight() { return 0; }
+	public int stringWidth(String s) { return 0; }
+	public int getAscent() { return 0; }
+}
+public class ShimmedThread {
+    public static void sleep(long ms) {}
+    public static void sleep(long ms, boolean b) {}
+    public ShimmedThread(ShimmedRunnable r) {}
+    public void start() {}
+    public void stop() {}
+}
+public interface ShimmedRunnable {}
+
+public class ShimmedAppletContext {
+	public void showDocument(ShimmedURL u) {}
+	public void showDocument(ShimmedURL u, String s) {}
+}
+public class ShimmedDocumentBase {
+	public String getHost() { return null; }
+}
+public class ShimmedURL { 
+	public ShimmedURL(String s) {}
+	public ShimmedInputStream openStream() { return null; }
+}
+public class ShimmedPrintStream {
+	public Object print(Object s) { return null; }
+	public Object println() { return null; }
+	public Object println(Object s) { return null; }
+}
+public class ShimmedSystem {
+	public static ShimmedPrintStream out = null;
+	public static long currentTimeMillis() { return 0L; }
+}
+public class ShimmedBufferedImage extends ShimmedImage {
+	public ShimmedBufferedImage(int x, int y, int z) {}
+	public ShimmedBufferedImage getSubimage(int a, int b, int c, int d) { return null; }
+}
+public class ShimmedVector {
+	public ShimmedVector(int n) {}
+	public void removeAllElements() {}
+	public Object get(int i) { return null; }
+	public int size() { return 0; }
+	public void add(int[] x) {}
+}
+public class ShimmedElement {
+	public void add(ShimmedElement e) {}
+}
+public class ShimmedFrame extends ShimmedElement {
+	public void setTitle(String s) {}
+	public void pack() {}
+	public void show() {}
+	public void dispose() {}
+	public void setLayout(ShimmedGridLayout g) {}
+}
+public class ShimmedTextField extends ShimmedElement {
+	public ShimmedTextField(int s) {}
+	public String getText() { return null; }
+}
+public class ShimmedButton extends ShimmedElement {
+	public ShimmedButton(String s) {}
+}
+public class ShimmedPolygon {
+	public ShimmedPolygon(int[] xs, int[] ys, int n) {}
+}
+public class ShimmedInputStream {
+	public void close() {}
+}
+public class ShimmedBufferedReader {
+	public ShimmedBufferedReader(ShimmedInputStreamReader i) {}
+	public String readLine() { return null; }
+	public void close() {}
+}
+public class ShimmedInputStreamReader {
+	public ShimmedInputStreamReader(ShimmedInputStream is) {}
+}
+public class ShimmedPanel extends ShimmedElement {
+}
+public class ShimmedLabel extends ShimmedElement {
+	public ShimmedLabel(String s) {}
+}
+public class ShimmedGridLayout {
+	public ShimmedGridLayout(int x, int y) {}
+}
+public class ShimmedLong {
+	public static long parseLong(String s) { return 0L; }
+}
+public class ShimmedChars {
+	/** Replacement for .toCharArray() which returns chars, when actually we (probably/hopefully) want ints. */
+	public static char[] charCodeArray(String s) { return null; }
+}
+public class ShimmedImageObserver {
+
+}
+public class ShimmedRandom {
+	public int nextInt(int m) { return 0; }
+}
+public class ShimmedAudioClip {
+	public void play() {}
+}
+public class ShimmedStringBuffer {
+	public ShimmedStringBuffer() {}
+	public ShimmedStringBuffer(Object i) {}
+	public ShimmedStringBuffer append(Object s) { return null; }
+}
+
+public class EndOfShimDeclarations{}
+
+public class SlimeDB extends ShimmedApplet implements ShimmedRunnable {
+   private ShimmedImage image;
+   private int nWidth;
+   private int nHeight;
+   private int p1Score;
+   private int p2Score;
+   private int p1X;
+   private int p2X;
+   private int p1Y;
+   private int p2Y;
+   private int p1Col;
+   private int p2Col;
+   private String[] slimeColText = new String[]{"Argentina", "Belgium", "Australia", "Iceland", "Cameroon", "China", "Costa Rica", "Croatia", "Denmark", "Ecuador", "Mexico", "France", "USA", "Italy", "Japan", "Russia", "Paraguay", "Poland", "Portugal", "Ireland", "Saudi Arabia", "Senegal", "Slovenia", "Spain", "South Africa", "South Korea", "Sweden", "Tunisia", "Turkey", "Uruguay", "Brazil", "England", "Germany"};
+   private ShimmedColor darkRed = new ShimmedColor(128, 0, 0);
+   private ShimmedColor darkGreen = new ShimmedColor(0, 128, 0);
+   private ShimmedColor darkBlue = new ShimmedColor(0, 0, 128);
+   private ShimmedColor[] slimaryCols;
+   private ShimmedColor[] secondaryCols;
+   private int p1OldX;
+   private int p2OldX;
+   private int p1OldY;
+   private int p2OldY;
+   private int p1XV;
+   private int p2XV;
+   private int p1YV;
+   private int p2YV;
+   private int ballX;
+   private int ballY;
+   private int ballVX;
+   private int ballVY;
+   private int ballOldX;
+   private int ballOldY;
+   private ShimmedGraphics screen;
+   private String promptMsg;
+   private int[][] replayData;
+   private int replayPos;
+   private int replayStart;
+   private boolean mousePressed;
+   private boolean fCanChangeCol;
+   private boolean fInPlay;
+   private boolean fPictureMode;
+   private int p1Blink;
+   private int p2Blink;
+   private boolean fP1Sticky;
+   private boolean fP2Sticky;
+   private boolean fP1Touched;
+   private boolean fP2Touched;
+   private boolean fhold1;
+   private boolean fhold2;
+   private int p1TouchingGoal;
+   private int p2TouchingGoal;
+   private ShimmedThread gameThread;
+   private boolean fEndGame;
+   private boolean fPlayOn;
+   private int nScoreX;
+   private long startTime;
+   private long gameTime;
+   private int scoringRun;
+   private int frenzyCol;
+   private int playOnTicks;
+   private ShimmedImage backBuffer;
+   private final int SMILE_DIFF;
+   private final int DAMPING;
+   private final int MAX_TICKS_TOUCHING_GOAL;
+   private int JUMPVEL;
+   private int SLIMEVEL;
+   private int GRAVITY;
+   private int gameLength;
+   private int points;
+   private int lastTouch;
+   private int scoreTouch;
+   private boolean worldCup;
+   private int worldCupRound;
+   private boolean fExtraTime;
+   private boolean fGoldenGoal;
+   private boolean fSuperSlime;
+   private boolean doubleBuffered;
+   private int[] pointsX;
+   private int[] pointsY;
+
+   public SlimeDB() {
+      this.slimaryCols = new ShimmedColor[]{ShimmedColor.cyan, ShimmedColor.red, ShimmedColor.green, ShimmedColor.white, this.darkGreen, ShimmedColor.white, this.darkRed, this.darkRed, new ShimmedColor(119, 41, 28), ShimmedColor.yellow, ShimmedColor.green, ShimmedColor.white, ShimmedColor.white, new ShimmedColor(128, 128, 255), this.darkBlue, ShimmedColor.white, ShimmedColor.red, ShimmedColor.white, new ShimmedColor(119, 41, 28), ShimmedColor.green, ShimmedColor.white, ShimmedColor.white, ShimmedColor.white, new ShimmedColor(185, 30, 2), ShimmedColor.white, ShimmedColor.red, new ShimmedColor(252, 239, 82), ShimmedColor.white, ShimmedColor.red, new ShimmedColor(16, 180, 180), new ShimmedColor(241, 245, 71), new ShimmedColor(230, 230, 230), ShimmedColor.white};
+      this.secondaryCols = new ShimmedColor[]{ShimmedColor.white, ShimmedColor.black, ShimmedColor.yellow, new ShimmedColor(128, 128, 255), ShimmedColor.red, ShimmedColor.red, this.darkBlue, ShimmedColor.white, ShimmedColor.white, this.darkBlue, ShimmedColor.green, ShimmedColor.blue, this.darkBlue, ShimmedColor.white, ShimmedColor.white, ShimmedColor.blue, ShimmedColor.white, ShimmedColor.red, this.darkGreen, ShimmedColor.white, new ShimmedColor(128, 255, 128), new ShimmedColor(255, 128, 0), this.darkGreen, this.darkBlue, new ShimmedColor(13, 131, 10), ShimmedColor.white, ShimmedColor.blue, ShimmedColor.red, ShimmedColor.white, ShimmedColor.black, new ShimmedColor(7, 177, 33), ShimmedColor.red, ShimmedColor.black};
+      this.frenzyCol = 0;
+      this.SMILE_DIFF = 10;
+      this.DAMPING = 7;
+      this.MAX_TICKS_TOUCHING_GOAL = 60;
+      this.points = 2;
+      this.worldCup = false;
+      this.worldCupRound = 0;
+      this.pointsX = new int[0];
+      this.pointsY = new int[0];
+      this.p2Col = 1;
+      this.replayData = new int[200][8];
+   }
+
+   private void DoReplay() {
+      ShimmedFontMetrics var1 = this.screen.getFontMetrics();
+      int var2 = var1.stringWidth("Replay...");
+      int var3 = var1.getHeight();
+      int var4 = this.nWidth / 2 - var2 / 2;
+      int var5 = this.nHeight / 2 - var3;
+      this.promptMsg = "Click the mouse to continue...";
+      this.mousePressed = false;
+      int var6 = this.replayPos - 1;
+
+      while(!this.mousePressed) {
+         ++var6;
+         if(var6 >= 200) {
+            var6 = 0;
+         }
+
+         if(var6 == this.replayPos) {
+            try {
+               ShimmedThread.sleep(1000L);
+            } catch (InterruptedException var7) {
+               ;
+            }
+
+            var6 = this.replayStart;
+            this.paint(this.getGraphics());
+         }
+
+         this.ReplayFrame(var6, var4, var5, var2, var3, false);
+         this.flip();
+      }
+
+      this.promptMsg = "";
+      this.paint(this.getGraphics());
+   }
+
+   private void DrawGoals() {
+      boolean var1 = true;
+      this.screen.setColor(ShimmedColor.white);
+      this.screen.fillRect(15, 120, 5, 60);
+      this.screen.fillRect(580, 120, 5, 60);
+      this.screen.fillRect(0, 4 * this.nHeight / 5 + 2, this.nWidth / 10, 2);
+      this.screen.fillRect(this.nWidth * 9 / 10, 4 * this.nHeight / 5 + 2, this.nWidth / 10, 2);
+
+      for(int var2 = 0; var2 <= 26; var2 += 5) {
+         this.screen.drawLine(var2 + 25, 160, var2 + 31, 180);
+         this.screen.drawLine(61 - var2, 160, 56 - var2, 180);
+         this.screen.drawLine(538 + var2, 160, 544 + var2, 180);
+         this.screen.drawLine(574 - var2, 160, 569 - var2, 180);
+      }
+
+      this.screen.setColor(ShimmedColor.orange);
+      this.screen.fillRect(20, 160, 41, 3);
+      this.screen.fillRect(539, 160, 41, 3);
+      int var3 = (60 - this.p1TouchingGoal) * this.nWidth / 120;
+      this.screen.setColor(this.secondaryCols[this.p1Col]);
+      this.screen.fillRect(0, this.nHeight - 5, var3, 5);
+      this.screen.setColor(ShimmedColor.gray);
+      this.screen.fillRect(var3, this.nHeight - 5, this.nWidth / 2 - var3, 5);
+      int var4 = this.nWidth - (60 - this.p2TouchingGoal) * this.nWidth / 120;
+      this.screen.setColor(this.secondaryCols[this.p2Col]);
+      this.screen.fillRect(var4, this.nHeight - 5, this.nWidth, 5);
+      this.screen.setColor(ShimmedColor.gray);
+      this.screen.fillRect(this.nWidth / 2, this.nHeight - 5, var4 - this.nWidth / 2, 5);
+      this.screen.setColor(ShimmedColor.white);
+      this.screen.fillRect(295, this.nHeight - 60, 5, 5);
+   }
+
+   private void DrawSlimers() {
+      int var1 = this.nWidth / 10;
+      int var2 = this.nHeight / 10;
+      int var3 = this.nWidth / 50;
+      int var4 = this.nHeight / 25;
+      int var5 = this.ballX * this.nWidth / 1000;
+      int var6 = 4 * this.nHeight / 5 - this.ballY * this.nHeight / 1000;
+      int var7 = this.p1OldX * this.nWidth / 1000 - var1 / 2;
+      int var8 = 7 * this.nHeight / 10 - this.p1OldY * this.nHeight / 1000;
+      this.screen.setColor(ShimmedColor.blue);
+      this.screen.fillRect(var7, var8, var1, var2);
+      var7 = this.p2OldX * this.nWidth / 1000 - var1 / 2;
+      var8 = 7 * this.nHeight / 10 - this.p2OldY * this.nHeight / 1000;
+      this.screen.setColor(ShimmedColor.blue);
+      this.screen.fillRect(var7, var8, var1, var2);
+      if(!this.fEndGame) {
+         this.MoveBall();
+      }
+
+      var7 = this.p1X * this.nWidth / 1000 - var1 / 2;
+      var8 = 7 * this.nHeight / 10 - this.p1Y * this.nHeight / 1000;
+      this.screen.setColor(this.fSuperSlime?this.slimaryCols[this.frenzyCol = (this.frenzyCol + 1) % this.slimaryCols.length]:this.slimaryCols[this.p1Col]);
+      this.screen.fillArc(var7, var8, var1, 2 * var2, 0, 180);
+      this.screen.setColor(this.secondaryCols[this.p1Col]);
+      this.pointsX[0] = this.pointsX[2] = var7 + var1 / 2;
+      this.pointsX[1] = var7 + var1 * 2 / 5;
+      this.pointsX[3] = var7 + var1 / 8;
+      this.pointsY[0] = var8;
+      this.pointsY[1] = this.pointsY[3] = var8 + var2 / 2;
+      this.pointsY[2] = var8 + var2;
+      this.screen.fillPolygon(this.pointsX, this.pointsY, 4);
+      int var9 = this.p1X + 38;
+      int var10 = this.p1Y - 60;
+      var7 = var9 * this.nWidth / 1000;
+      var8 = 7 * this.nHeight / 10 - var10 * this.nHeight / 1000;
+      int var11 = var7 - var5;
+      int var12 = var8 - var6;
+      int var13 = (int)Math.sqrt((double)(var11 * var11 + var12 * var12));
+      boolean var14 = Math.random() < 0.01D;
+      if(var14) {
+         this.p1Blink = 5;
+      }
+
+      if(this.p1Blink == 0) {
+         this.screen.setColor(ShimmedColor.white);
+         this.screen.fillOval(var7 - var3, var8 - var4, var3, var4);
+         if(var13 > 0 && !var14) {
+            this.screen.setColor(ShimmedColor.black);
+            this.screen.fillOval(var7 - 4 * var11 / var13 - 3 * var3 / 4, var8 - 4 * var12 / var13 - 3 * var4 / 4, var3 / 2, var4 / 2);
+         }
+      } else {
+         --this.p1Blink;
+      }
+
+      int var15;
+      int var16;
+      int var17;
+      int var18;
+      int var19;
+      if(this.p1Score > this.p2Score + 10) {
+         var15 = this.p1X * this.nWidth / 1000;
+         var16 = 7 * this.nHeight / 10 - (this.p1Y - 40) * this.nHeight / 1000;
+         var17 = this.nWidth / 20;
+         var18 = this.nHeight / 20;
+         var19 = 0;
+
+         do {
+            this.screen.setColor(ShimmedColor.black);
+            this.screen.drawArc(var15, var16 + var19, var17, var18, -30, -150);
+            ++var19;
+         } while(var19 < 3);
+      }
+
+      var7 = this.p2X * this.nWidth / 1000 - var1 / 2;
+      var8 = 7 * this.nHeight / 10 - this.p2Y * this.nHeight / 1000;
+      this.screen.setColor(this.fSuperSlime?this.slimaryCols[this.frenzyCol = (this.frenzyCol + 1) % this.slimaryCols.length]:this.slimaryCols[this.p2Col]);
+      this.screen.fillArc(var7, var8, var1, 2 * var2, 0, 180);
+      this.screen.setColor(this.secondaryCols[this.p2Col]);
+      this.pointsX[0] = this.pointsX[2] = var7 + var1 / 2;
+      this.pointsX[1] = var7 + var1 * 3 / 5;
+      this.pointsX[3] = var7 + var1 * 7 / 8;
+      this.pointsY[0] = var8;
+      this.pointsY[1] = this.pointsY[3] = var8 + var2 / 2;
+      this.pointsY[2] = var8 + var2;
+      this.screen.fillPolygon(this.pointsX, this.pointsY, 4);
+      var9 = this.p2X - 18;
+      var10 = this.p2Y - 60;
+      var7 = var9 * this.nWidth / 1000;
+      var8 = 7 * this.nHeight / 10 - var10 * this.nHeight / 1000;
+      var11 = var7 - var5;
+      var12 = var8 - var6;
+      var13 = (int)Math.sqrt((double)(var11 * var11 + var12 * var12));
+      var14 = Math.random() < 0.01D;
+      if(var14) {
+         this.p2Blink = 5;
+      }
+
+      if(this.p2Blink == 0) {
+         this.screen.setColor(var14?ShimmedColor.gray:ShimmedColor.white);
+         this.screen.fillOval(var7 - var3, var8 - var4, var3, var4);
+         if(var13 > 0 && !var14) {
+            this.screen.setColor(ShimmedColor.black);
+            this.screen.fillOval(var7 - 4 * var11 / var13 - 3 * var3 / 4, var8 - 4 * var12 / var13 - 3 * var4 / 4, var3 / 2, var4 / 2);
+         }
+      } else {
+         --this.p2Blink;
+      }
+
+      if(this.p2Score > this.p1Score + 10) {
+         var15 = this.nWidth / 20;
+         var16 = this.nHeight / 20;
+         var17 = this.p2X * this.nWidth / 1000 - var15;
+         var18 = 7 * this.nHeight / 10 - (this.p2Y - 40) * this.nHeight / 1000;
+         var19 = 0;
+
+         do {
+            this.screen.setColor(ShimmedColor.black);
+            this.screen.drawArc(var17, var18 + var19, var15, var16, -10, -150);
+            ++var19;
+         } while(var19 < 3);
+      }
+
+   }
+
+   private void DrawStatus() {
+      ShimmedGraphics var1 = this.screen;
+      ShimmedFontMetrics var2 = this.screen.getFontMetrics();
+      String var3 = null;
+      String var4 = this.MakeTime(this.gameTime);
+      int var5 = this.nHeight / 20;
+      int var6 = 0;
+      int var7 = var2.stringWidth(var4);
+      if(this.worldCup) {
+         switch(this.worldCupRound) {
+         case 1:
+            var3 = "Practice AI 2";
+            break;
+         case 2:
+            var3 = "Practice AI 3";
+            break;
+         case 3:
+            var3 = "Practice AI 4";
+            break;
+         default:
+            var3 = "Practice AI 1";
+         }
+
+         if(this.fGoldenGoal) {
+            var3 = var3 + " [Sudden Death]";
+         } else if(this.fExtraTime) {
+            var3 = var3 + " [Extra Time]";
+         }
+
+         var6 = var2.stringWidth(var3);
+      }
+
+      int var8 = var6 > var7?var6:var7;
+      var1.setColor(ShimmedColor.blue);
+      var1.fillRect(this.nWidth / 2 - var8 / 2 - 5, 0, var8 + 10, var5 + 22);
+      var1.setColor(ShimmedColor.white);
+      this.screen.drawString(var4, this.nWidth / 2 - var7 / 2, var2.getAscent() + 20);
+      if(var3 != null) {
+         this.screen.drawString(var3, this.nWidth / 2 - var6 / 2, var2.getAscent() + 20 - var2.getHeight());
+      }
+
+   }
+
+   private String MakeTime(long var1) {
+      long var3 = var1 / 10L % 100L;
+      long var5 = var1 / 1000L % 60L;
+      long var7 = var1 / 60000L % 60L;
+      String var9 = "";
+      if(var7 < 10L) {
+         var9 = var9 + "0";
+      }
+
+      var9 = var9 + var7;
+      var9 = var9 + ":";
+      if(var5 < 10L) {
+         var9 = var9 + "0";
+      }
+
+      var9 = var9 + var5;
+      var9 = var9 + ":";
+      if(var3 < 10L) {
+         var9 = var9 + "0";
+      }
+
+      var9 = var9 + var3;
+      return var9;
+   }
+
+   private void MoveBall() {
+      int var1 = 30 * this.nHeight / 1000;
+      int var2 = this.ballOldX * this.nWidth / 1000;
+      int var3 = 4 * this.nHeight / 5 - this.ballOldY * this.nHeight / 1000;
+      this.screen.setColor(ShimmedColor.blue);
+      this.screen.fillOval(var2 - var1, var3 - var1, var1 * 2, var1 * 2);
+      this.ballY += --this.ballVY;
+      this.ballX += this.ballVX;
+      if(!this.fEndGame) {
+         int var4 = (this.ballX - this.p1X) * 2;
+         int var5 = this.ballY - this.p1Y;
+         int var6 = var4 * var4 + var5 * var5;
+         int var7 = this.ballVX - this.p1XV;
+         int var8 = this.ballVY - this.p1YV;
+         int var9;
+         int var10;
+         if(var5 > 0 && var6 < 15625 && var6 > 25) {
+            var9 = (int)Math.sqrt((double)var6);
+            var10 = (var4 * var7 + var5 * var8) / var9;
+            this.ballX = this.p1X + var4 * 63 / var9;
+            this.ballY = this.p1Y + var5 * 125 / var9;
+            if(var10 <= 0) {
+               if(!this.fP1Sticky) {
+                  this.ballVY += this.p1YV - 2 * var5 * var10 / var9;
+                  this.ballVX += (this.p1XV - 2 * var4 * var10 / var9) * 7 / 10;
+               } else {
+                  this.ballVX = 0;
+                  this.ballVY = 0;
+               }
+
+               if(this.ballVX < -15) {
+                  this.ballVX = -15;
+               }
+
+               if(this.ballVX > 15) {
+                  this.ballVX = 15;
+               }
+
+               if(this.ballVY < -22) {
+                  this.ballVY = -22;
+               }
+
+               if(this.ballVY > 22) {
+                  this.ballVY = 22;
+               }
+            }
+
+            this.fP1Touched = true;
+            if(this.fhold1) {
+               this.ballVX = 15;
+               this.ballVY = 25;
+            }
+
+            this.lastTouch = this.p1X;
+         }
+
+         var4 = (this.ballX - this.p2X) * 2;
+         var5 = this.ballY - this.p2Y;
+         var6 = var4 * var4 + var5 * var5;
+         var7 = this.ballVX - this.p2XV;
+         var8 = this.ballVY - this.p2YV;
+         if(var5 > 0 && var6 < 15625 && var6 > 25) {
+            var9 = (int)Math.sqrt((double)var6);
+            var10 = (var4 * var7 + var5 * var8) / var9;
+            this.ballX = this.p2X + var4 * 63 / var9;
+            this.ballY = this.p2Y + var5 * 125 / var9;
+            if(var10 <= 0) {
+               if(!this.fP2Sticky) {
+                  this.ballVX += (this.p2XV - 2 * var4 * var10 / var9) * 7 / 10;
+                  this.ballVY += this.p2YV - 2 * var5 * var10 / var9;
+               } else {
+                  this.ballVX = 0;
+                  this.ballVY = 0;
+               }
+
+               if(this.ballVX < -15) {
+                  this.ballVX = -15;
+               }
+
+               if(this.ballVX > 15) {
+                  this.ballVX = 15;
+               }
+
+               if(this.ballVY < -22) {
+                  this.ballVY = -22;
+               }
+
+               if(this.ballVY > 22) {
+                  this.ballVY = 22;
+               }
+            }
+
+            this.fP2Touched = true;
+            if(this.fhold2) {
+               this.ballVX = -15;
+               this.ballVY = 25;
+            }
+
+            this.lastTouch = this.p2X;
+         }
+
+         if(this.ballX < 15) {
+            this.ballX = 15;
+            this.ballVX = -this.ballVX;
+         }
+
+         if(this.ballX > 985) {
+            this.ballX = 985;
+            this.ballVX = -this.ballVX;
+         }
+
+         if(this.ballY >= 195 && this.ballY <= 405) {
+            if(this.ballX <= 44) {
+               this.ballX = 44;
+               this.ballVX = -this.ballVX;
+            }
+
+            if(this.ballX >= 960) {
+               this.ballX = 960;
+               this.ballVX = -this.ballVX;
+            }
+         }
+
+         if(this.ballY >= 252 && this.ballY <= 274) {
+            if(this.ballX <= 115 && this.ballX >= 90) {
+               if(this.ballOldX >= 115) {
+                  this.ballX = 115;
+                  this.ballVX = -this.ballVX;
+               } else if(this.ballOldX <= 90) {
+                  this.ballX = 90;
+                  this.ballVX = -this.ballVX;
+               }
+
+               if(this.ballOldY >= 274) {
+                  this.ballY = 274;
+               }
+
+               if(this.ballOldY <= 252) {
+                  this.ballY = 252;
+               }
+
+               this.ballVY = -this.ballVY;
+            }
+
+            if(this.ballX <= 907 && this.ballX >= 891) {
+               if(this.ballOldX >= 907) {
+                  this.ballX = 903;
+                  this.ballVX = -this.ballVX;
+               } else if(this.ballOldX <= 891) {
+                  this.ballX = 891;
+                  this.ballVX = -this.ballVX;
+               }
+
+               if(this.ballOldY >= 274) {
+                  this.ballY = 274;
+               }
+
+               if(this.ballOldY <= 252) {
+                  this.ballY = 252;
+               }
+
+               this.ballVY = -this.ballVY;
+            }
+
+            if(this.ballX <= 45) {
+               if(this.ballOldY >= 274) {
+                  this.ballY = 274;
+               }
+
+               if(this.ballOldY <= 252) {
+                  this.ballY = 252;
+               }
+
+               this.ballX = 45;
+               this.ballVY = -this.ballVY;
+               this.ballVX = -this.ballVX + 1;
+            }
+
+            if(this.ballX >= 955) {
+               if(this.ballOldY >= 274) {
+                  this.ballY = 274;
+               }
+
+               if(this.ballOldY <= 252) {
+                  this.ballY = 252;
+               }
+
+               this.ballX = 955;
+               this.ballVY = -this.ballVY;
+               this.ballVX = -this.ballVX - 1;
+            }
+         }
+
+         if(this.ballY < 34) {
+            this.ballY = 34;
+            this.ballVY = -this.ballVY * 7 / 10;
+            this.ballVX = this.ballVX * 7 / 10;
+         }
+      }
+
+      var2 = this.ballX * this.nWidth / 1000;
+      var3 = 4 * this.nHeight / 5 - this.ballY * this.nHeight / 1000;
+      this.screen.setColor(ShimmedColor.yellow);
+      this.screen.fillOval(var2 - var1, var3 - var1, var1 * 2, var1 * 2);
+   }
+
+   private void MoveSlimers() {
+      if(this.worldCup) {
+         switch(this.worldCupRound) {
+         case 0:
+            this.controlP2v0();
+            break;
+         case 1:
+            this.controlP2v1();
+            break;
+         case 2:
+            this.controlP2v2();
+            break;
+         case 3:
+            this.controlP2v3();
+         }
+      }
+
+      this.p1X += this.p1XV;
+      if(this.p1X < 50) {
+         this.p1X = 50;
+      }
+
+      if(this.p1X > 950) {
+         this.p1X = 950;
+      }
+
+      if(this.p1YV != 0) {
+         this.p1Y += this.p1YV -= this.GRAVITY;
+         if(this.p1Y < 0) {
+            this.p1Y = 0;
+            this.p1YV = 0;
+         }
+      }
+
+      this.p2X += this.p2XV;
+      if(this.p2X > 950) {
+         this.p2X = 950;
+      }
+
+      if(this.p2X < 50) {
+         this.p2X = 50;
+      }
+
+      if(this.p2YV != 0) {
+         this.p2Y += this.p2YV -= this.GRAVITY;
+         if(this.p2Y < 0) {
+            this.p2Y = 0;
+            this.p2YV = 0;
+         }
+      }
+
+   }
+
+   private void ReplayFrame(int var1, int var2, int var3, int var4, int var5, boolean var6) {
+      if(var6) {
+         this.ballX = -1000;
+         this.ballOldX = 500;
+         this.ballY = -1000;
+         this.ballOldY = 500;
+         this.p1OldX = this.p1OldY = this.p2OldX = this.p2OldY = -10000;
+      } else {
+         int var7 = var1 != 0?var1 - 1:199;
+         this.p1OldX = this.replayData[var7][0];
+         this.p1OldY = this.replayData[var7][1];
+         this.p2OldX = this.replayData[var7][2];
+         this.p2OldY = this.replayData[var7][3];
+         if(var1 == 0) {
+            this.ballOldX = 500;
+            this.ballOldY = 200;
+         } else {
+            this.ballOldX = this.replayData[var7][4];
+            this.ballOldY = this.replayData[var7][5];
+         }
+      }
+
+      this.p1X = this.replayData[var1][0];
+      this.p1Y = this.replayData[var1][1];
+      this.p2X = this.replayData[var1][2];
+      this.p2Y = this.replayData[var1][3];
+      this.ballX = this.replayData[var1][4];
+      this.ballY = this.replayData[var1][5];
+      this.p1Col = this.replayData[var1][6];
+      this.p2Col = this.replayData[var1][7];
+      this.ballVX = 0;
+      this.ballVY = 1;
+      if(var1 / 10 % 2 > 0) {
+         this.screen.setColor(ShimmedColor.red);
+         this.screen.drawString("Replay...", var2, var3);
+      } else {
+         this.screen.setColor(ShimmedColor.blue);
+         this.screen.fillRect(var2, var3 - var5, var4, var5 * 2);
+      }
+
+      this.DrawSlimers();
+      this.DrawGoals();
+
+      try {
+         ShimmedThread.sleep(20L);
+      } catch (InterruptedException var8) {
+         ;
+      }
+   }
+
+   private void SaveReplayData() {
+      this.replayData[this.replayPos][0] = this.p1X;
+      this.replayData[this.replayPos][1] = this.p1Y;
+      this.replayData[this.replayPos][2] = this.p2X;
+      this.replayData[this.replayPos][3] = this.p2Y;
+      this.replayData[this.replayPos][4] = this.ballX;
+      this.replayData[this.replayPos][5] = this.ballY;
+      this.replayData[this.replayPos][6] = this.p1Col;
+      this.replayData[this.replayPos][7] = this.p2Col;
+      ++this.replayPos;
+      if(this.replayPos >= 200) {
+         this.replayPos = 0;
+      }
+
+      if(this.replayStart == this.replayPos) {
+         ++this.replayStart;
+      }
+
+      if(this.replayStart >= 200) {
+         this.replayStart = 0;
+      }
+
+   }
+
+   public boolean checkScored() {
+      if(this.ballY >= 263 || this.ballY > 253 || this.ballOldY < 253 || (this.ballX > 97 || this.ballX < 37) && (this.ballX < 902 || this.ballX > 962)) {
+         return false;
+      } else {
+         this.scoreTouch = this.lastTouch;
+         this.nScoreX = this.ballX;
+         this.fPlayOn = true;
+         this.playOnTicks = 10;
+         return true;
+      }
+   }
+
+   private void controlP2v0() {
+      this.p2XV = 0;
+      this.fhold2 = true;
+      if(this.ballX > this.p2X + 5 && this.ballX < 960) {
+         this.fP2Sticky = true;
+      }
+
+      if(this.ballX > this.p2X - 10) {
+         this.p2XV = this.SLIMEVEL;
+      }
+
+      if(this.ballX + 30 > this.p2X && this.p2YV == 0) {
+         this.fP2Sticky = false;
+         this.p2YV = this.JUMPVEL;
+      }
+
+      if(this.ballX + 50 < this.p2X) {
+         this.fP2Sticky = false;
+         this.p2XV = -this.SLIMEVEL;
+      }
+
+      if(this.ballX > this.p2X + 50 && this.p2YV == 0 && this.ballY > 10 && this.ballY < 150) {
+         this.p2YV = this.JUMPVEL;
+      }
+
+      if(this.p2TouchingGoal > 0 && 60 - this.p2TouchingGoal < 3 + (this.p2X - 850) / this.SLIMEVEL) {
+         this.p2XV = -this.SLIMEVEL;
+      }
+
+   }
+
+   private void controlP2v1() {
+      this.p2XV = 0;
+      this.fhold2 = true;
+      int var1 = this.getBallBounceX();
+      int var2 = this.getBallMaxY();
+      if(this.ballVY < 1) {
+         boolean var10000 = true;
+      } else {
+         int var4 = this.ballVY;
+      }
+
+      if(var1 > 900) {
+         this.p2XV = this.SLIMEVEL;
+      }
+
+      if(var1 + 20 < this.p2X) {
+         this.fP2Sticky = false;
+         this.p2XV = -this.SLIMEVEL;
+      }
+
+      if(this.ballX > this.p2X - 10) {
+         this.p2XV = this.SLIMEVEL;
+      }
+
+      if(this.ballX + 30 > this.p2X && this.p2YV == 0) {
+         this.fP2Sticky = false;
+         this.p2YV = this.JUMPVEL;
+      }
+
+      if(var1 > this.p2X + 50 && this.p2YV == 0) {
+         this.p2XV = this.SLIMEVEL;
+      }
+
+      if(this.ballX > this.p2X && this.ballX < 960) {
+         this.fP2Sticky = true;
+      }
+
+      if(this.p2YV == 0 && this.ballX > this.p1X - 120 && this.ballX < this.p1X + 120 && this.ballY > this.p1Y && this.ballY < this.p1Y + 100 && this.p1Y > 0) {
+         this.p2XV = this.SLIMEVEL;
+      }
+
+      if(this.p2Score >= this.p1Score && var1 < 200 && this.p2X > this.p1X || var1 < this.p1X + 50 && var1 > this.p1X - 50 && this.ballVY / 4 == 0 && this.p1X < 400 && this.p2X < 848) {
+         if(this.p2X < 900) {
+            this.p2XV = this.SLIMEVEL;
+         }
+
+         if(this.ballX > 800 && var1 > 950 && this.p2YV == 0 && var2 > 40) {
+            this.p2YV = this.JUMPVEL;
+         }
+      }
+
+      if(this.p2YV == this.JUMPVEL) {
+         if(var2 < 110) {
+            this.p2YV = 0;
+         }
+
+         if(this.ballX < this.p2X - 400) {
+            this.p2YV = 0;
+         }
+
+         if(this.ballY < 80) {
+            this.p2YV = 0;
+         }
+
+         if(this.ballX < 900 && this.p2X > 900) {
+            this.p2YV = 0;
+         }
+
+         if(this.p2X < 150) {
+            this.p2YV = 0;
+         }
+      }
+
+      if(this.p2TouchingGoal > 0 && 60 - this.p2TouchingGoal < 3 + (this.p2X - 850) / this.SLIMEVEL) {
+         this.p2XV = -this.SLIMEVEL;
+      }
+
+   }
+
+   private void controlP2v2() {
+      this.fhold2 = true;
+      int var1 = this.getBallBounceX();
+      int var2 = this.getBallMaxY();
+      if(this.ballVY < 1) {
+         boolean var10000 = true;
+      } else {
+         int var4 = this.ballVY;
+      }
+
+      if(this.p2X < 790) {
+         this.p2XV = this.SLIMEVEL;
+      } else if(this.p2X > 830) {
+         this.p2XV = -this.SLIMEVEL;
+      } else {
+         this.p2XV = 0;
+      }
+
+      if(var1 > 900) {
+         this.p2XV = this.SLIMEVEL;
+      }
+
+      if(var1 + 20 < this.p2X) {
+         this.fP2Sticky = false;
+         this.p2XV = -this.SLIMEVEL;
+      }
+
+      if(this.ballX > this.p2X - 10) {
+         this.p2XV = this.SLIMEVEL;
+      }
+
+      if(this.ballX + 30 > this.p2X && this.p2YV == 0) {
+         this.fP2Sticky = false;
+         this.p2YV = this.JUMPVEL;
+      }
+
+      if(var1 > this.p2X + 50 && this.p2YV == 0) {
+         this.p2XV = this.SLIMEVEL;
+      }
+
+      if(this.ballX > this.p2X && this.ballX < 960) {
+         this.fP2Sticky = true;
+      }
+
+      if(this.p2YV == 0 && this.ballX > this.p1X - 120 && this.ballX < this.p1X + 120 && this.ballY > this.p1Y && this.ballY < this.p1Y + 100 && this.p1Y > 0) {
+         this.p2XV = this.SLIMEVEL;
+      }
+
+      if(this.p2Score >= this.p1Score && var1 < 200 && this.p2X > this.p1X || var1 < this.p1X + 50 && var1 > this.p1X - 50 && this.ballVY / 4 == 0 && this.p1X < 400 && this.p2X < 848) {
+         if(this.p2X < 900) {
+            this.p2XV = this.SLIMEVEL;
+         }
+
+         if(this.ballX > 800 && var1 > 950 && this.p2YV == 0 && var2 > 40) {
+            this.p2YV = this.JUMPVEL;
+         }
+      }
+
+      if(this.p2YV == this.JUMPVEL) {
+         if(var2 < 110) {
+            this.p2YV = 0;
+         }
+
+         if(this.ballX < this.p2X - 400) {
+            this.p2YV = 0;
+         }
+
+         if(this.ballY < 80) {
+            this.p2YV = 0;
+         }
+
+         if(this.ballX < 900 && this.p2X > 900) {
+            this.p2YV = 0;
+         }
+      }
+
+      if(this.p2YV == 0 && this.p2X < 400 && var1 > 500 && var2 > 50) {
+         this.p2YV = this.JUMPVEL;
+      }
+
+      if(this.p2TouchingGoal > 0 && 60 - this.p2TouchingGoal < 3 + (this.p2X - 850) / this.SLIMEVEL) {
+         this.p2XV = -this.SLIMEVEL;
+      }
+
+   }
+
+   private void controlP2v3() {
+      this.fhold2 = true;
+      int var1 = this.SLIMEVEL * 4 / 3;
+      int var2 = this.getBallBounceX();
+      int var3 = this.getBallMaxY();
+      if(this.ballVY < 1) {
+         boolean var10000 = true;
+      } else {
+         int var5 = this.ballVY;
+      }
+
+      if(this.p2X < 790) {
+         this.p2XV = var1;
+      } else if(this.p2X > 830) {
+         this.p2XV = -var1;
+      } else {
+         this.p2XV = 0;
+      }
+
+      if(var2 > 900) {
+         this.p2XV = var1;
+      }
+
+      if(var2 + 20 < this.p2X) {
+         this.fP2Sticky = false;
+         this.p2XV = -var1;
+      }
+
+      if(this.ballX > this.p2X - 10) {
+         this.p2XV = var1;
+      }
+
+      if(this.ballX + 30 > this.p2X && this.p2YV == 0) {
+         this.fP2Sticky = false;
+         this.p2YV = this.JUMPVEL;
+      }
+
+      if(var2 > this.p2X + 50 && this.p2YV == 0) {
+         this.p2XV = var1;
+      }
+
+      if(this.ballX > this.p2X && this.ballX < 960) {
+         this.fP2Sticky = true;
+      }
+
+      if(this.p2YV == 0 && this.ballX > this.p1X - 120 && this.ballX < this.p1X + 120 && this.ballY > this.p1Y && this.ballY < this.p1Y + 100 && this.p1Y > 0) {
+         this.p2XV = var1;
+      }
+
+      if(this.p2Score >= this.p1Score && var2 < 200 && this.p2X > this.p1X || var2 < this.p1X + 50 && var2 > this.p1X - 50 && this.ballVY / 4 == 0 && this.p1X < 400 && this.p2X < 848) {
+         if(this.p2X < 900) {
+            this.p2XV = var1;
+         }
+
+         if(this.ballX > 800 && var2 > 950 && this.p2YV == 0 && var3 > 40) {
+            this.p2YV = this.JUMPVEL;
+         }
+      }
+
+      if(this.p2YV == this.JUMPVEL) {
+         if(var3 < 110) {
+            this.p2YV = 0;
+         }
+
+         if(this.ballX < this.p2X - 400) {
+            this.p2YV = 0;
+         }
+
+         if(this.ballY < 80) {
+            this.p2YV = 0;
+         }
+
+         if(this.ballX < 900 && this.p2X > 900) {
+            this.p2YV = 0;
+         }
+
+         if(this.p2XV > 0 && var3 > 200 && var2 > this.p2X + 300) {
+            this.p2YV = 0;
+         }
+      }
+
+      if(this.p2YV == 0 && this.p2X < 400 && var2 > this.p2X + 400 && var3 > 50) {
+         this.p2YV = this.JUMPVEL;
+      }
+
+      if(this.p2TouchingGoal > 0 && 60 - this.p2TouchingGoal < 3 + (this.p2X - 850) / var1) {
+         this.p2XV = -var1;
+      }
+
+   }
+
+   public void destroy() {
+      this.gameThread.stop();
+      this.gameThread = null;
+   }
+
+   private void drawButtons() {
+      String[] var1 = new String[]{"1 minute", "2 minutes", "4 minutes", "8 minutes", "Practice AI"};
+      ShimmedFontMetrics var2 = this.screen.getFontMetrics();
+      ShimmedColor var3 = new ShimmedColor(0, 0, 128);
+
+      for(int var4 = 0; var4 < 5; ++var4) {
+         this.screen.setColor(var3);
+         this.screen.fillRect((2 * var4 + 1) * this.nWidth / 10 - this.nWidth / 12, this.nHeight * 2 / 10, this.nWidth / 6, this.nHeight / 10);
+         this.screen.setColor(ShimmedColor.white);
+         this.screen.drawString(var1[var4], (2 * var4 + 1) * this.nWidth / 10 - var2.stringWidth(var1[var4]) / 2, this.nHeight * 5 / 20 + var2.getHeight() / 2);
+      }
+
+      this.flip();
+   }
+
+   public void drawPrompt() {
+      this.screen.setColor(ShimmedColor.gray);
+      this.screen.fillRect(0, 4 * this.nHeight / 5 + 6, this.nWidth, this.nHeight / 5 - 10);
+      this.drawPrompt(this.promptMsg, 0);
+   }
+
+   public void drawPrompt(String var1, int var2) {
+      ShimmedFontMetrics var3 = this.screen.getFontMetrics();
+      this.screen.setColor(ShimmedColor.lightGray);
+      this.screen.drawString(var1, (this.nWidth - var3.stringWidth(var1)) / 2, this.nHeight * 4 / 5 + var3.getHeight() * (var2 + 1) + 10);
+   }
+
+   private void drawScores() {
+      ShimmedGraphics var1 = this.screen;
+      int var2 = this.nHeight / 20;
+      ShimmedFontMetrics var3 = this.screen.getFontMetrics();
+      int var4 = var3.stringWidth("Replay...");
+      var1.setColor(ShimmedColor.blue);
+      var1.fillRect(0, 0, this.nWidth, var2 + 22);
+      var1.setColor(ShimmedColor.white);
+      var1.drawString(this.slimeColText[this.p1Col] + " : " + this.p1Score, this.nWidth / 20, var2);
+      String var5 = this.p2Score + " : " + this.slimeColText[this.p2Col];
+      var1.drawString(var5, this.nWidth - this.nWidth / 20 - var3.stringWidth(var5), var2);
+   }
+
+   private void flip() {
+      if(this.doubleBuffered) {
+         this.getGraphics().drawImage(this.backBuffer, 0, 0, (ShimmedImageObserver)null);
+      }
+
+   }
+
+   private int getBallBounceX() {
+      int var1 = this.ballVY + (int)Math.sqrt((double)(this.ballVY * this.ballVY + 2 * this.ballY));
+      int var2 = this.ballX + var1 * this.ballVX;
+      if(var2 < 0) {
+         var2 = -var2;
+      }
+
+      if(var2 > 1000) {
+         var2 = 1000 - var2;
+      }
+
+      return var2;
+   }
+
+   private int getBallMaxY() {
+      return this.ballVY < 0?this.ballY:this.ballY + this.ballVY * this.ballVY / 2;
+   }
+
+   public boolean handleEvent(ShimmedEvent var1) {
+      switch(var1.id) {
+      case 401:
+      case 403:
+         if(this.fCanChangeCol) {
+            switch(var1.key) {
+            case 54:
+               this.fSuperSlime ^= true;
+               this.repaint();
+               break;
+            case 73:
+            case 105:
+            case 1004:
+               do {
+                  this.p2Col = this.p2Col == 0?this.slimaryCols.length - 1:this.p2Col - 1;
+               } while(this.p1Col == this.p2Col);
+
+               this.drawScores();
+               this.repaint();
+               break;
+            case 75:
+            case 107:
+            case 1005:
+               do {
+                  this.p2Col = this.p2Col != this.slimaryCols.length - 1?this.p2Col + 1:0;
+               } while(this.p2Col == this.p1Col);
+
+               this.drawScores();
+               this.repaint();
+               break;
+            case 83:
+            case 115:
+               do {
+                  this.p1Col = this.p1Col != this.slimaryCols.length - 1?this.p1Col + 1:0;
+               } while(this.p1Col == this.p2Col);
+
+               this.drawScores();
+               this.repaint();
+               break;
+            case 87:
+            case 119:
+               while(true) {
+                  this.p1Col = this.p1Col == 0?this.slimaryCols.length - 1:this.p1Col - 1;
+                  if(this.p1Col != this.p2Col) {
+                     this.drawScores();
+                     this.repaint();
+                     break;
+                  }
+               }
+            }
+         }
+
+         if(!this.fEndGame) {
+            switch(var1.key) {
+            case 32:
+               this.mousePressed = true;
+               return false;
+            case 65:
+            case 97:
+               this.p1XV = -this.SLIMEVEL;
+               return false;
+            case 66:
+            case 98:
+               this.toggleBuffering();
+               return false;
+            case 68:
+            case 100:
+               this.p1XV = this.SLIMEVEL;
+               return false;
+            case 73:
+            case 105:
+            case 1004:
+               if(this.p2Y == 0 && !this.worldCup) {
+                  this.p2YV = this.JUMPVEL;
+               }
+
+               return false;
+            case 74:
+            case 106:
+            case 1006:
+               if(!this.worldCup) {
+                  this.p2XV = -this.SLIMEVEL;
+               }
+
+               return false;
+            case 75:
+            case 107:
+            case 1005:
+               if(!this.worldCup) {
+                  this.fP2Sticky = true;
+               }
+
+               return false;
+            case 76:
+            case 108:
+            case 1007:
+               if(!this.worldCup) {
+                  this.p2XV = this.SLIMEVEL;
+               }
+
+               return false;
+            case 77:
+            case 109:
+               this.fhold2 = true;
+               return false;
+            case 83:
+            case 115:
+               this.fP1Sticky = true;
+               return false;
+            case 87:
+            case 119:
+               if(this.p1Y == 0) {
+                  this.p1YV = this.JUMPVEL;
+               }
+
+               return false;
+            case 88:
+            case 120:
+               this.fhold1 = true;
+            }
+         }
+         break;
+      case 402:
+      case 404:
+         switch(var1.key) {
+         case 65:
+         case 97:
+            if(this.p1XV < 0) {
+               this.p1XV = 0;
+            }
+
+            return false;
+         case 68:
+         case 100:
+            if(this.p1XV > 0) {
+               this.p1XV = 0;
+            }
+
+            return false;
+         case 74:
+         case 106:
+         case 1006:
+            if(this.p2XV < 0 && !this.worldCup) {
+               this.p2XV = 0;
+            }
+
+            return false;
+         case 75:
+         case 107:
+         case 1005:
+            this.fP2Sticky = false;
+            return false;
+         case 76:
+         case 108:
+         case 1007:
+            if(this.p2XV > 0 && !this.worldCup) {
+               this.p2XV = 0;
+            }
+
+            return false;
+         case 77:
+         case 109:
+            this.fhold2 = false;
+            return false;
+         case 83:
+         case 115:
+            this.fP1Sticky = false;
+            return false;
+         case 88:
+         case 120:
+            this.fhold1 = false;
+            return false;
+         default:
+            return false;
+         }
+      case 501:
+         this.mousePressed = true;
+         if(this.fPictureMode) {
+            this.fPictureMode = false;
+            this.promptMsg = "Choose an option to play...";
+            this.repaint();
+         } else if(!this.fInPlay && this.testButton(var1.x, var1.y)) {
+            this.fEndGame = false;
+            this.fInPlay = true;
+            this.p1X = 400;
+            this.p1Y = 0;
+            this.p2X = 600;
+            this.p2Y = 0;
+            this.p1XV = 0;
+            this.p1YV = 0;
+            this.p2XV = 0;
+            this.p2YV = 0;
+            this.ballX = 500;
+            this.ballY = 400;
+            this.ballOldX = 500;
+            this.ballOldY = 400;
+            this.ballVX = 0;
+            this.ballVY = -this.ballVY;
+            this.p1Score = 0;
+            this.p2Score = 0;
+            this.promptMsg = "";
+            this.paint(this.getGraphics());
+
+            try {
+               ShimmedThread.sleep(100L);
+            } catch (Exception var2) {
+               ;
+            }
+
+            this.gameThread = new ShimmedThread(this);
+            this.gameThread.start();
+         }
+         break;
+      case 503:
+         this.showStatus("Slime Dunk Basketball: http://slimedb.tripod.com");
+         this.requestFocus();
+      }
+
+      return false;
+   }
+
+   public void init() {
+      this.nWidth = this.size().width;
+      this.nHeight = this.size().height;
+      this.fInPlay = this.fEndGame = false;
+      this.fPictureMode = true;
+      this.fCanChangeCol = true;
+      this.initStuff();
+      this.promptMsg = "Click for options...";
+      this.backBuffer = this.createImage(this.nWidth, this.nHeight);
+      this.screen = this.getGraphics();
+      this.screen.setFont(new ShimmedFont(this.screen.getFont().getName(), 1, 15));
+      this.image = this.getImage(this.getCodeBase(), "sdb.jpg");
+   }
+
+   public void initStuff() {
+      this.fEndGame = true;
+      this.p1X = 400;
+      this.p1Y = 0;
+      this.p2X = 600;
+      this.p2Y = 0;
+      this.p1XV = 0;
+      this.p1YV = 0;
+      this.p2XV = 0;
+      this.p2YV = 0;
+      this.p1Score = 0;
+      this.p2Score = 0;
+      this.ballOldX = this.ballX = 500;
+      this.ballOldY = this.ballY = 34;
+      this.ballVX = 0;
+      this.ballVY = -this.ballVY + 13;
+      this.replayStart = this.replayPos = 0;
+      this.fP1Touched = this.fP2Touched = false;
+      this.playOnTicks = 10;
+      this.fPlayOn = false;
+      this.fExtraTime = false;
+      this.fGoldenGoal = false;
+      this.JUMPVEL = this.fSuperSlime?65:31;
+      this.SLIMEVEL = this.fSuperSlime?16:8;
+      this.GRAVITY = this.fSuperSlime?8:2;
+   }
+
+   // $FF: renamed from: p (java.lang.String) void
+   private void method_rn_SlimeDB_p_1(String var1) {
+      ShimmedSystem.out.println(var1);
+   }
+
+   public void paint(ShimmedGraphics var1) {
+      if(this.fPictureMode) {
+         this.image.getHeight(this);
+         var1.drawImage(this.image, 0, 0, this);
+      } else {
+         this.nWidth = this.size().width;
+         this.nHeight = this.size().height;
+         this.screen.setColor(ShimmedColor.blue);
+         this.screen.fillRect(0, 0, this.nWidth, 4 * this.nHeight / 5);
+         this.screen.setColor(ShimmedColor.gray);
+         this.screen.fillRect(0, 4 * this.nHeight / 5, this.nWidth, this.nHeight / 5);
+         this.screen.setColor(ShimmedColor.white);
+         this.DrawGoals();
+         this.drawScores();
+      }
+
+      if(!this.fInPlay && !this.fPictureMode) {
+         this.DrawSlimers();
+         this.drawButtons();
+      }
+
+      this.drawPrompt();
+      if(!this.fInPlay && !this.fPictureMode) {
+         ShimmedFontMetrics var2 = this.screen.getFontMetrics();
+         this.screen.setColor(ShimmedColor.white);
+         if(this.fSuperSlime) {
+            this.screen.drawString("Super Slime Dunk!", this.nWidth / 2 - var2.stringWidth("Super Slime Dunk!") / 2, this.nHeight / 2 - var2.getHeight());
+         } else {
+            this.screen.drawString("Slime Dunk Basketball!", this.nWidth / 2 - var2.stringWidth("Slime Dunk Basketball!") / 2, this.nHeight / 2 - var2.getHeight());
+         }
+
+         this.screen.setColor(ShimmedColor.white);
+         var2 = this.screen.getFontMetrics();
+         this.screen.drawString("http://slimedb.tripod.com", this.nWidth / 2 - var2.stringWidth("http://slimedb.tripod.com") / 2, this.nHeight / 2 + var2.getHeight() * 2);
+      }
+
+      this.flip();
+   }
+
+   private void promptBox(String var1, String var2) {
+      ShimmedFontMetrics var3 = this.screen.getFontMetrics();
+      int var4 = var3.stringWidth(var1);
+      int var5 = var3.stringWidth(var2);
+      int var6 = var4 > var5?var4:var5;
+      this.screen.setColor(ShimmedColor.darkGray);
+      this.screen.fillRect(this.nWidth / 2 - var6 / 2 - 20, this.nHeight * 2 / 5, var6 + 40, this.nHeight / 5);
+      this.screen.setColor(ShimmedColor.white);
+      this.screen.drawString(var1, this.nWidth / 2 - var4 / 2, this.nHeight * 9 / 20);
+      this.screen.drawString(var2, this.nWidth / 2 - var5 / 2, this.nHeight * 11 / 20);
+      this.flip();
+   }
+
+   public void run() {
+      this.worldCupRound = 0;
+
+      do {
+         this.initStuff();
+         this.replayPos = this.replayStart = 0;
+         this.scoringRun = 0;
+         this.fP1Touched = this.fP2Touched = false;
+         this.gameTime = 0L;
+         this.startTime = ShimmedSystem.currentTimeMillis();
+         this.fEndGame = false;
+         this.fCanChangeCol = false;
+         this.mousePressed = false;
+         this.gameTime = (long)this.gameLength;
+         this.fInPlay = true;
+         this.fEndGame = false;
+         String var1;
+         if(this.worldCup) {
+            this.paint(this.getGraphics());
+
+            do {
+               this.p2Col = (int)(Math.random() * (double)this.slimaryCols.length / 4.0D) + this.worldCupRound * this.slimaryCols.length / 4;
+            } while(this.p1Col == this.p2Col);
+
+            var1 = this.slimeColText[this.p1Col] + " vs. " + this.slimeColText[this.p2Col];
+            switch(this.worldCupRound) {
+            case 0:
+               this.promptBox("Practice AI 1", var1);
+               this.gameLength = 30000;
+               break;
+            case 1:
+               this.promptBox("Practice AI 2", var1);
+               this.gameLength = 120000;
+               break;
+            case 2:
+               this.promptBox("Practice AI 3", var1);
+               this.gameLength = 120000;
+               break;
+            case 3:
+               this.promptBox("Practice AI 4", var1);
+               this.gameLength = 300000;
+            }
+
+            try {
+               ShimmedThread.sleep(4000L);
+            } catch (Exception var3) {
+               ;
+            }
+
+            this.repaint();
+            this.flip();
+         }
+
+         while(this.gameTime > 0L || this.worldCup && this.worldCupRound > 0 && this.p1Score == this.p2Score) {
+            this.gameTime = this.startTime + (long)this.gameLength - ShimmedSystem.currentTimeMillis();
+            if(this.gameTime < 0L) {
+               this.gameTime = 0L;
+            }
+
+            if(this.worldCup && !this.fExtraTime && this.gameTime <= 0L && this.worldCupRound > 0 && this.p1Score == this.p2Score) {
+               var1 = this.p1Score == 0?" nil":" " + this.p1Score;
+               this.promptBox("The score is " + this.slimeColText[this.p1Col] + var1 + ", " + this.slimeColText[this.p2Col] + var1 + ".", "And the game goes into extra time...");
+
+               try {
+                  ShimmedThread.sleep(4000L);
+               } catch (Exception var8) {
+                  ;
+               }
+
+               this.repaint();
+               this.flip();
+               this.startTime += 30000L;
+               this.gameTime += 30000L;
+               this.fExtraTime = true;
+            } else if(this.gameTime <= 0L && this.fExtraTime && !this.fGoldenGoal && this.p1Score == this.p2Score) {
+               this.fGoldenGoal = true;
+               var1 = this.p1Score == 0?" nil":" " + this.p1Score;
+               this.promptBox("The score is " + this.slimeColText[this.p1Col] + var1 + ", " + this.slimeColText[this.p2Col] + var1 + ", and the game goes into Sudden Death.", "The next player to score will win the game!");
+
+               try {
+                  ShimmedThread.sleep(4000L);
+               } catch (Exception var7) {
+                  ;
+               }
+
+               this.repaint();
+               this.flip();
+            }
+
+            this.SaveReplayData();
+            this.p1OldX = this.p1X;
+            this.p1OldY = this.p1Y;
+            this.p2OldX = this.p2X;
+            this.p2OldY = this.p2Y;
+            this.ballOldX = this.ballX;
+            this.ballOldY = this.ballY;
+            this.MoveSlimers();
+            this.DrawSlimers();
+            this.DrawGoals();
+            this.DrawStatus();
+            this.flip();
+            if(this.p1X >= 150 && this.p1X <= 850) {
+               this.p1TouchingGoal = 0;
+            } else {
+               ++this.p1TouchingGoal;
+            }
+
+            if(this.p2X <= 850 && this.p2X >= 150) {
+               this.p2TouchingGoal = 0;
+            } else {
+               ++this.p2TouchingGoal;
+            }
+
+            if(this.fPlayOn) {
+               --this.playOnTicks;
+            } else {
+               this.fPlayOn = this.checkScored();
+            }
+
+            if(this.playOnTicks == 0 || this.p1TouchingGoal > 60 || this.p2TouchingGoal > 60) {
+               long var9 = ShimmedSystem.currentTimeMillis();
+               if(this.p1TouchingGoal > 60) {
+                  ++this.p2Score;
+                  this.promptMsg = this.slimeColText[this.p1Col] + " pinged for goal tending!";
+                  this.p2X = 850;
+                  this.p1X = 500;
+                  this.ballX = 850;
+                  this.ballY = 200;
+               } else if(this.p2TouchingGoal > 60) {
+                  ++this.p1Score;
+                  this.promptMsg = this.slimeColText[this.p2Col] + " pinged for goal tending!";
+                  this.p2X = 500;
+                  this.p1X = 150;
+                  this.ballX = 150;
+                  this.ballY = 200;
+               } else if(this.nScoreX < 500) {
+                  if(this.scoreTouch > 500) {
+                     this.points = 3;
+                     this.p2Score += this.points;
+                     this.promptMsg = this.slimeColText[this.p2Col] + " sinks the three!";
+                  } else {
+                     this.points = 2;
+                     this.p2Score += this.points;
+                     this.promptMsg = this.slimeColText[this.p2Col] + " Scores!";
+                  }
+
+                  this.p2X = 500;
+                  this.p1X = 150;
+                  this.ballX = 150;
+                  this.ballY = 200;
+               } else {
+                  if(this.scoreTouch < 500) {
+                     this.points = 3;
+                     this.p1Score += this.points;
+                     this.promptMsg = this.slimeColText[this.p1Col] + " sinks the three!";
+                  } else {
+                     this.points = 2;
+                     this.p1Score += this.points;
+                     this.promptMsg = this.slimeColText[this.p1Col] + " Scores!";
+                  }
+
+                  this.p2X = 850;
+                  this.p1X = 500;
+                  this.ballX = 850;
+                  this.ballY = 200;
+               }
+
+               this.drawPrompt();
+               this.drawPrompt("Click mouse for replay...", 1);
+               this.flip();
+               this.mousePressed = false;
+               if(this.gameThread != null) {
+                  try {
+                     ShimmedThread.sleep(2500L);
+                  } catch (InterruptedException var6) {
+                     ;
+                  }
+               }
+
+               if(this.mousePressed) {
+                  this.SaveReplayData();
+                  this.DoReplay();
+               }
+
+               this.promptMsg = "";
+               this.drawPrompt();
+               this.playOnTicks = 10;
+               this.fPlayOn = false;
+               this.startTime += ShimmedSystem.currentTimeMillis() - var9;
+               this.ballVX = 0;
+               this.ballVY = 0;
+               if(this.nScoreX > 500) {
+                  this.p2X = 850;
+                  this.p1X = 500;
+                  this.p1Y = this.p2Y = 0;
+                  this.ballX = 850;
+                  this.ballY = 200;
+               }
+
+               if(this.nScoreX < 500) {
+                  this.p2X = 500;
+                  this.p1X = 150;
+                  this.p1Y = this.p2Y = 0;
+                  this.ballX = 150;
+                  this.ballY = 200;
+               }
+
+               this.replayStart = this.replayPos = 0;
+               this.repaint();
+            }
+
+            if(this.gameThread != null) {
+               try {
+                  if(this.fPlayOn) {
+                     ShimmedThread.sleep(120L);
+                  } else {
+                     ShimmedThread.sleep(20L);
+                  }
+               } catch (InterruptedException var5) {
+                  ;
+               }
+            }
+         }
+
+         this.fEndGame = true;
+         if(this.fPlayOn) {
+            if(this.nScoreX < 500) {
+               if(this.lastTouch > 500) {
+                  this.points = 3;
+               } else {
+                  this.points = 2;
+               }
+
+               this.p2Score += this.points;
+               this.promptMsg = this.slimeColText[this.p2Col] + " scores at the buzzer!";
+            } else {
+               if(this.lastTouch < 500) {
+                  this.points = 3;
+               } else {
+                  this.points = 2;
+               }
+
+               this.p1Score += this.points;
+               this.promptMsg = this.slimeColText[this.p1Col] + " scores at the buzzer!";
+            }
+
+            this.drawPrompt();
+         } else {
+            this.drawPrompt("And that\'s the final buzzer!", 0);
+         }
+
+         if(this.worldCup) {
+            if(this.p1Score == this.p2Score) {
+               this.drawPrompt("It\'s a tie at full time, here at Slime Coliseum!", 1);
+               this.promptBox("You played well, but a draw is not enough.", "You have been eliminated.");
+               this.worldCup = false;
+               this.flip();
+            } else if(this.p1Score >= this.p2Score) {
+               switch(this.worldCupRound) {
+               case 0:
+                  this.drawPrompt(this.slimeColText[this.p1Col] + " qualifies for the next AI!", 1);
+                  break;
+               case 1:
+                  this.drawPrompt(this.slimeColText[this.p1Col] + " proceeds to the next AI!", 1);
+                  break;
+               case 2:
+                  this.drawPrompt(this.slimeColText[this.p1Col] + " is through to the next AI!", 1);
+                  break;
+               case 3:
+                  this.drawPrompt(this.slimeColText[this.p1Col] + " has defeated every AI!", 1);
+               }
+
+               if(this.worldCupRound == 3) {
+                  this.worldCup = false;
+                  this.promptBox("You have beaten all the AIs!", "Now it\'s time for you to play a human!");
+               } else {
+                  ++this.worldCupRound;
+               }
+            } else {
+               switch(this.worldCupRound) {
+               case 0:
+               case 1:
+                  this.promptBox("You have been eliminated.", "Goodbye.");
+                  break;
+               case 2:
+                  this.promptBox("You have been knocked out of this practice session.", "You played well.");
+                  break;
+               case 3:
+                  this.promptBox("You almost won.", "Are you satisfied with that?");
+               }
+
+               this.worldCup = false;
+            }
+         } else if(this.p1Score == this.p2Score) {
+            this.drawPrompt("It\'s a draw at full time, here at Slime Coliseum!", 1);
+         } else if(this.p1Score < this.p2Score) {
+            this.drawPrompt(this.slimeColText[this.p2Col] + " (" + this.p2Score + ")    def. " + this.slimeColText[this.p1Col] + " (" + this.p1Score + ")", 1);
+         } else {
+            this.drawPrompt(this.slimeColText[this.p1Col] + " (" + this.p1Score + ")    def. " + this.slimeColText[this.p2Col] + " (" + this.p2Score + ")", 1);
+         }
+
+         this.flip();
+
+         try {
+            ShimmedThread.sleep(5000L);
+         } catch (InterruptedException var4) {
+            ;
+         }
+
+         this.initStuff();
+      } while(this.worldCup);
+
+      this.fCanChangeCol = true;
+      this.fInPlay = false;
+      this.repaint();
+   }
+
+   private boolean testButton(int var1, int var2) {
+      for(int var3 = 0; var3 < 5; ++var3) {
+         if(var1 > (2 * var3 + 1) * this.nWidth / 10 - this.nWidth / 12 && var1 < (2 * var3 + 1) * this.nWidth / 10 + this.nWidth / 12 && var2 > this.nHeight * 2 / 10 && var2 < this.nHeight * 3 / 10) {
+            if(var3 == 4) {
+               this.gameLength = 120000;
+               this.worldCup = true;
+            } else {
+               this.gameLength = (1 << var3) * 60000;
+               this.worldCup = false;
+            }
+
+            return true;
+         }
+      }
+
+      return false;
+   }
+
+   private void toggleBuffering() {
+      if(this.doubleBuffered ^= true) {
+         this.screen = this.backBuffer.getGraphics();
+         this.screen.setFont(new ShimmedFont(this.screen.getFont().getName(), 1, 15));
+      } else {
+         this.screen = this.getGraphics();
+         this.screen.setFont(new ShimmedFont(this.screen.getFont().getName(), 1, 15));
+      }
+
+      this.repaint();
+   }
+}
+
+ENDOFJAVAMARKER
+{
+  "startTime": "2019-01-12 18:35:16",
+  "sourceLength": 0,
+  "success": false,
+  "endTime": "2019-01-12 18:35:18",
+  "durationMillis": 1835,
+  "errors": [
+    "Line 105: the \u0027^\u003d\u0027 operator is not allowed for boolean types. Consider using \u0027!\u003d\u003d\u0027 instead",
+    "Line 105: the \u0027^\u003d\u0027 operator is not allowed for boolean types. Consider using \u0027!\u003d\u003d\u0027 instead"
+  ],
+  "jsout": "",
+  "tsout": "/* Generated from Java with JSweet 2.0.0 - http://www.jsweet.org */\nclass ShimmedSize {\n    public width : number;\n\n    public height : number;\n\n    constructor() {\n        this.width \u003d 0;\n        this.height \u003d 0;\n    }\n}\nShimmedSize[\"__class\"] \u003d \"ShimmedSize\";\n\n\nclass ShimmedApplet {\n    public size() : ShimmedSize {\n        return null;\n    }\n\n    public createImage(x : number, y : number) : ShimmedImage {\n        return null;\n    }\n\n    public showStatus(s : string) {\n    }\n\n    public repaint() {\n    }\n\n    public getGraphics() : ShimmedGraphics {\n        return null;\n    }\n\n    public requestFocus() {\n    }\n\n    public getWidth() : number {\n        return 0;\n    }\n\n    public getHeight() : number {\n        return 0;\n    }\n\n    public getDocumentBase() : ShimmedDocumentBase {\n        return null;\n    }\n\n    public getAppletContext() : ShimmedAppletContext {\n        return null;\n    }\n\n    public getCodeBase() : ShimmedURL {\n        return null;\n    }\n\n    public getAudioClip(u : ShimmedURL, s : string) : ShimmedAudioClip {\n        return null;\n    }\n\n    public getImage(u : ShimmedURL, s : string) : ShimmedImage {\n        return null;\n    }\n}\nShimmedApplet[\"__class\"] \u003d \"ShimmedApplet\";\n\n\nclass ShimmedColor {\n    public static yellow : ShimmedColor \u003d null;\n\n    public static black : ShimmedColor \u003d null;\n\n    public static red : ShimmedColor \u003d null;\n\n    public static gray : ShimmedColor \u003d null;\n\n    public static white : ShimmedColor \u003d null;\n\n    public static blue : ShimmedColor \u003d null;\n\n    public static green : ShimmedColor \u003d null;\n\n    public static pink : ShimmedColor \u003d null;\n\n    public static cyan : ShimmedColor \u003d null;\n\n    public static lightGray : ShimmedColor \u003d null;\n\n    public static darkGray : ShimmedColor \u003d null;\n\n    public static orange : ShimmedColor \u003d null;\n\n    public constructor(r : number, g : number, b : number) {\n    }\n}\nShimmedColor[\"__class\"] \u003d \"ShimmedColor\";\n\n\nclass ShimmedGraphics {\n    public getFont() : ShimmedFont {\n        return null;\n    }\n\n    public setFont(f : ShimmedFont) {\n    }\n\n    public setColor(c : ShimmedColor) {\n    }\n\n    public fillRect(x : number, y : number, w : number, h : number) {\n    }\n\n    public getFontMetrics() : ShimmedFontMetrics {\n        return null;\n    }\n\n    public drawString(s : string, x : number, y : number) {\n    }\n\n    public drawImage(i : ShimmedImage, x : number, y : number, o : any) {\n    }\n\n    public drawOval(x : number, y : number, w : number, h : number) {\n    }\n\n    public fillOval(x : number, y : number, w : number, h : number) {\n    }\n\n    public fillArc(x : number, y : number, w : number, h : number, s : number, e : number) {\n    }\n\n    public drawLine(x : number, y : number, w : number, h : number) {\n    }\n\n    public drawRect(x : number, y : number, w : number, h : number) {\n    }\n\n    public fillPolygon$int_A$int_A$int(xs : number[], ys : number[], n : number) {\n    }\n\n    public fillPolygon(xs? : any, ys? : any, n? : any) : any {\n        if(((xs !\u003d null \u0026\u0026 xs instanceof \u003cany\u003eArray \u0026\u0026 (xs.length\u003d\u003d0 || xs[0] \u003d\u003d null ||(typeof xs[0] \u003d\u003d\u003d \u0027number\u0027))) || xs \u003d\u003d\u003d null) \u0026\u0026 ((ys !\u003d null \u0026\u0026 ys instanceof \u003cany\u003eArray \u0026\u0026 (ys.length\u003d\u003d0 || ys[0] \u003d\u003d null ||(typeof ys[0] \u003d\u003d\u003d \u0027number\u0027))) || ys \u003d\u003d\u003d null) \u0026\u0026 ((typeof n \u003d\u003d\u003d \u0027number\u0027) || n \u003d\u003d\u003d null)) {\n            return \u003cany\u003ethis.fillPolygon$int_A$int_A$int(xs, ys, n);\n        } else if(((xs !\u003d null \u0026\u0026 xs instanceof \u003cany\u003eShimmedPolygon) || xs \u003d\u003d\u003d null) \u0026\u0026 ys \u003d\u003d\u003d undefined \u0026\u0026 n \u003d\u003d\u003d undefined) {\n            return \u003cany\u003ethis.fillPolygon$ShimmedPolygon(xs);\n        } else throw new Error(\u0027invalid overload\u0027);\n    }\n\n    public fillPolygon$ShimmedPolygon(p : ShimmedPolygon) {\n    }\n\n    public drawArc(x : number, y : number, w : number, h : number, s : number, e : number) {\n    }\n}\nShimmedGraphics[\"__class\"] \u003d \"ShimmedGraphics\";\n\n\nclass ShimmedImage {\n    public getGraphics() : ShimmedGraphics {\n        return null;\n    }\n\n    public getHeight(a : ShimmedApplet) : number {\n        return 0;\n    }\n}\nShimmedImage[\"__class\"] \u003d \"ShimmedImage\";\n\n\nclass ShimmedEvent {\n    public id : number;\n\n    public x : number;\n\n    public y : number;\n\n    public key : number;\n\n    public target : ShimmedButton;\n\n    public static KEY_ACTION : number \u003d 0;\n\n    public static LEFT : number \u003d 1;\n\n    public static RIGHT : number \u003d 2;\n\n    public static UP : number \u003d 3;\n\n    public static DOWN : number \u003d 4;\n\n    public static KEY_ACTION_RELEASE : number \u003d 5;\n\n    constructor() {\n        this.id \u003d 0;\n        this.x \u003d 0;\n        this.y \u003d 0;\n        this.key \u003d 0;\n        this.target \u003d null;\n    }\n}\nShimmedEvent[\"__class\"] \u003d \"ShimmedEvent\";\n\n\nclass ShimmedFont {\n    public getName() : string {\n        return null;\n    }\n\n    public constructor(name : string, w : number, h : number) {\n    }\n}\nShimmedFont[\"__class\"] \u003d \"ShimmedFont\";\n\n\nclass ShimmedFontMetrics {\n    public getHeight() : number {\n        return 0;\n    }\n\n    public stringWidth(s : string) : number {\n        return 0;\n    }\n\n    public getAscent() : number {\n        return 0;\n    }\n}\nShimmedFontMetrics[\"__class\"] \u003d \"ShimmedFontMetrics\";\n\n\nclass ShimmedThread {\n    public static sleep$long(ms : number) {\n    }\n\n    public static sleep$long$boolean(ms : number, b : boolean) {\n    }\n\n    public static sleep(ms? : any, b? : any) : any {\n        if(((typeof ms \u003d\u003d\u003d \u0027number\u0027) || ms \u003d\u003d\u003d null) \u0026\u0026 ((typeof b \u003d\u003d\u003d \u0027boolean\u0027) || b \u003d\u003d\u003d null)) {\n            return \u003cany\u003eShimmedThread.sleep$long$boolean(ms, b);\n        } else if(((typeof ms \u003d\u003d\u003d \u0027number\u0027) || ms \u003d\u003d\u003d null) \u0026\u0026 b \u003d\u003d\u003d undefined) {\n            return \u003cany\u003eShimmedThread.sleep$long(ms);\n        } else throw new Error(\u0027invalid overload\u0027);\n    }\n\n    public constructor(r : ShimmedRunnable) {\n    }\n\n    public start() {\n    }\n\n    public stop() {\n    }\n}\nShimmedThread[\"__class\"] \u003d \"ShimmedThread\";\n\n\ninterface ShimmedRunnable {}\n\nclass ShimmedAppletContext {\n    public showDocument$ShimmedURL(u : ShimmedURL) {\n    }\n\n    public showDocument$ShimmedURL$java_lang_String(u : ShimmedURL, s : string) {\n    }\n\n    public showDocument(u? : any, s? : any) : any {\n        if(((u !\u003d null \u0026\u0026 u instanceof \u003cany\u003eShimmedURL) || u \u003d\u003d\u003d null) \u0026\u0026 ((typeof s \u003d\u003d\u003d \u0027string\u0027) || s \u003d\u003d\u003d null)) {\n            return \u003cany\u003ethis.showDocument$ShimmedURL$java_lang_String(u, s);\n        } else if(((u !\u003d null \u0026\u0026 u instanceof \u003cany\u003eShimmedURL) || u \u003d\u003d\u003d null) \u0026\u0026 s \u003d\u003d\u003d undefined) {\n            return \u003cany\u003ethis.showDocument$ShimmedURL(u);\n        } else throw new Error(\u0027invalid overload\u0027);\n    }\n}\nShimmedAppletContext[\"__class\"] \u003d \"ShimmedAppletContext\";\n\n\nclass ShimmedDocumentBase {\n    public getHost() : string {\n        return null;\n    }\n}\nShimmedDocumentBase[\"__class\"] \u003d \"ShimmedDocumentBase\";\n\n\nclass ShimmedURL {\n    public constructor(s : string) {\n    }\n\n    public openStream() : ShimmedInputStream {\n        return null;\n    }\n}\nShimmedURL[\"__class\"] \u003d \"ShimmedURL\";\n\n\nclass ShimmedPrintStream {\n    public print(s : any) : any {\n        return null;\n    }\n\n    public println$() : any {\n        return null;\n    }\n\n    public println$java_lang_Object(s : any) : any {\n        return null;\n    }\n\n    public println(s? : any) : any {\n        if(((s !\u003d null) || s \u003d\u003d\u003d null)) {\n            return \u003cany\u003ethis.println$java_lang_Object(s);\n        } else if(s \u003d\u003d\u003d undefined) {\n            return \u003cany\u003ethis.println$();\n        } else throw new Error(\u0027invalid overload\u0027);\n    }\n}\nShimmedPrintStream[\"__class\"] \u003d \"ShimmedPrintStream\";\n\n\nclass ShimmedSystem {\n    public static out : ShimmedPrintStream \u003d null;\n\n    public static currentTimeMillis() : number {\n        return 0;\n    }\n}\nShimmedSystem[\"__class\"] \u003d \"ShimmedSystem\";\n\n\nclass ShimmedVector {\n    public constructor(n : number) {\n    }\n\n    public removeAllElements() {\n    }\n\n    public get(i : number) : any {\n        return null;\n    }\n\n    public size() : number {\n        return 0;\n    }\n\n    public add(x : number[]) {\n    }\n}\nShimmedVector[\"__class\"] \u003d \"ShimmedVector\";\n\n\nclass ShimmedElement {\n    public add(e : ShimmedElement) {\n    }\n}\nShimmedElement[\"__class\"] \u003d \"ShimmedElement\";\n\n\nclass ShimmedPolygon {\n    public constructor(xs : number[], ys : number[], n : number) {\n    }\n}\nShimmedPolygon[\"__class\"] \u003d \"ShimmedPolygon\";\n\n\nclass ShimmedInputStream {\n    public close() {\n    }\n}\nShimmedInputStream[\"__class\"] \u003d \"ShimmedInputStream\";\n\n\nclass ShimmedBufferedReader {\n    public constructor(i : ShimmedInputStreamReader) {\n    }\n\n    public readLine() : string {\n        return null;\n    }\n\n    public close() {\n    }\n}\nShimmedBufferedReader[\"__class\"] \u003d \"ShimmedBufferedReader\";\n\n\nclass ShimmedInputStreamReader {\n    public constructor(is : ShimmedInputStream) {\n    }\n}\nShimmedInputStreamReader[\"__class\"] \u003d \"ShimmedInputStreamReader\";\n\n\nclass ShimmedGridLayout {\n    public constructor(x : number, y : number) {\n    }\n}\nShimmedGridLayout[\"__class\"] \u003d \"ShimmedGridLayout\";\n\n\nclass ShimmedLong {\n    public static parseLong(s : string) : number {\n        return 0;\n    }\n}\nShimmedLong[\"__class\"] \u003d \"ShimmedLong\";\n\n\nclass ShimmedChars {\n    /**\n     * Replacement for .toCharArray() which returns chars, when actually we (probably/hopefully) want ints.\n     * @param {string} s\n     * @return {Array}\n     */\n    public static charCodeArray(s : string) : string[] {\n        return null;\n    }\n}\nShimmedChars[\"__class\"] \u003d \"ShimmedChars\";\n\n\nclass ShimmedImageObserver {}\nShimmedImageObserver[\"__class\"] \u003d \"ShimmedImageObserver\";\n\n\nclass ShimmedRandom {\n    public nextInt(m : number) : number {\n        return 0;\n    }\n}\nShimmedRandom[\"__class\"] \u003d \"ShimmedRandom\";\n\n\nclass ShimmedAudioClip {\n    public play() {\n    }\n}\nShimmedAudioClip[\"__class\"] \u003d \"ShimmedAudioClip\";\n\n\nclass ShimmedStringBuffer {\n    public constructor(i? : any) {\n        if(((i !\u003d null) || i \u003d\u003d\u003d null)) {\n            let __args \u003d Array.prototype.slice.call(arguments);\n        } else if(i \u003d\u003d\u003d undefined) {\n            let __args \u003d Array.prototype.slice.call(arguments);\n        } else throw new Error(\u0027invalid overload\u0027);\n    }\n\n    public append(s : any) : ShimmedStringBuffer {\n        return null;\n    }\n}\nShimmedStringBuffer[\"__class\"] \u003d \"ShimmedStringBuffer\";\n\n\nclass EndOfShimDeclarations {}\nEndOfShimDeclarations[\"__class\"] \u003d \"EndOfShimDeclarations\";\n\n\nclass SlimeDB extends ShimmedApplet implements ShimmedRunnable {\n    /*private*/ image : ShimmedImage;\n\n    /*private*/ nWidth : number;\n\n    /*private*/ nHeight : number;\n\n    /*private*/ p1Score : number;\n\n    /*private*/ p2Score : number;\n\n    /*private*/ p1X : number;\n\n    /*private*/ p2X : number;\n\n    /*private*/ p1Y : number;\n\n    /*private*/ p2Y : number;\n\n    /*private*/ p1Col : number;\n\n    /*private*/ p2Col : number;\n\n    /*private*/ slimeColText : string[] \u003d [\"Argentina\", \"Belgium\", \"Australia\", \"Iceland\", \"Cameroon\", \"China\", \"Costa Rica\", \"Croatia\", \"Denmark\", \"Ecuador\", \"Mexico\", \"France\", \"USA\", \"Italy\", \"Japan\", \"Russia\", \"Paraguay\", \"Poland\", \"Portugal\", \"Ireland\", \"Saudi Arabia\", \"Senegal\", \"Slovenia\", \"Spain\", \"South Africa\", \"South Korea\", \"Sweden\", \"Tunisia\", \"Turkey\", \"Uruguay\", \"Brazil\", \"England\", \"Germany\"];\n\n    /*private*/ darkRed : ShimmedColor \u003d new ShimmedColor(128, 0, 0);\n\n    /*private*/ darkGreen : ShimmedColor \u003d new ShimmedColor(0, 128, 0);\n\n    /*private*/ darkBlue : ShimmedColor \u003d new ShimmedColor(0, 0, 128);\n\n    /*private*/ slimaryCols : ShimmedColor[];\n\n    /*private*/ secondaryCols : ShimmedColor[];\n\n    /*private*/ p1OldX : number;\n\n    /*private*/ p2OldX : number;\n\n    /*private*/ p1OldY : number;\n\n    /*private*/ p2OldY : number;\n\n    /*private*/ p1XV : number;\n\n    /*private*/ p2XV : number;\n\n    /*private*/ p1YV : number;\n\n    /*private*/ p2YV : number;\n\n    /*private*/ ballX : number;\n\n    /*private*/ ballY : number;\n\n    /*private*/ ballVX : number;\n\n    /*private*/ ballVY : number;\n\n    /*private*/ ballOldX : number;\n\n    /*private*/ ballOldY : number;\n\n    /*private*/ screen : ShimmedGraphics;\n\n    /*private*/ promptMsg : string;\n\n    /*private*/ replayData : number[][];\n\n    /*private*/ replayPos : number;\n\n    /*private*/ replayStart : number;\n\n    /*private*/ mousePressed : boolean;\n\n    /*private*/ fCanChangeCol : boolean;\n\n    /*private*/ fInPlay : boolean;\n\n    /*private*/ fPictureMode : boolean;\n\n    /*private*/ p1Blink : number;\n\n    /*private*/ p2Blink : number;\n\n    /*private*/ fP1Sticky : boolean;\n\n    /*private*/ fP2Sticky : boolean;\n\n    /*private*/ fP1Touched : boolean;\n\n    /*private*/ fP2Touched : boolean;\n\n    /*private*/ fhold1 : boolean;\n\n    /*private*/ fhold2 : boolean;\n\n    /*private*/ p1TouchingGoal : number;\n\n    /*private*/ p2TouchingGoal : number;\n\n    /*private*/ gameThread : ShimmedThread;\n\n    /*private*/ fEndGame : boolean;\n\n    /*private*/ fPlayOn : boolean;\n\n    /*private*/ nScoreX : number;\n\n    /*private*/ startTime : number;\n\n    /*private*/ gameTime : number;\n\n    /*private*/ scoringRun : number;\n\n    /*private*/ frenzyCol : number;\n\n    /*private*/ playOnTicks : number;\n\n    /*private*/ backBuffer : ShimmedImage;\n\n    /*private*/ SMILE_DIFF : number;\n\n    /*private*/ DAMPING : number;\n\n    /*private*/ MAX_TICKS_TOUCHING_GOAL : number;\n\n    /*private*/ JUMPVEL : number;\n\n    /*private*/ SLIMEVEL : number;\n\n    /*private*/ GRAVITY : number;\n\n    /*private*/ gameLength : number;\n\n    /*private*/ points : number;\n\n    /*private*/ lastTouch : number;\n\n    /*private*/ scoreTouch : number;\n\n    /*private*/ worldCup : boolean;\n\n    /*private*/ worldCupRound : number;\n\n    /*private*/ fExtraTime : boolean;\n\n    /*private*/ fGoldenGoal : boolean;\n\n    /*private*/ fSuperSlime : boolean;\n\n    /*private*/ doubleBuffered : boolean;\n\n    /*private*/ pointsX : number[];\n\n    /*private*/ pointsY : number[];\n\n    public constructor() {\n        super();\n        this.image \u003d null;\n        this.nWidth \u003d 0;\n        this.nHeight \u003d 0;\n        this.p1Score \u003d 0;\n        this.p2Score \u003d 0;\n        this.p1X \u003d 0;\n        this.p2X \u003d 0;\n        this.p1Y \u003d 0;\n        this.p2Y \u003d 0;\n        this.p1Col \u003d 0;\n        this.p2Col \u003d 0;\n        this.slimaryCols \u003d null;\n        this.secondaryCols \u003d null;\n        this.p1OldX \u003d 0;\n        this.p2OldX \u003d 0;\n        this.p1OldY \u003d 0;\n        this.p2OldY \u003d 0;\n        this.p1XV \u003d 0;\n        this.p2XV \u003d 0;\n        this.p1YV \u003d 0;\n        this.p2YV \u003d 0;\n        this.ballX \u003d 0;\n        this.ballY \u003d 0;\n        this.ballVX \u003d 0;\n        this.ballVY \u003d 0;\n        this.ballOldX \u003d 0;\n        this.ballOldY \u003d 0;\n        this.screen \u003d null;\n        this.promptMsg \u003d null;\n        this.replayData \u003d null;\n        this.replayPos \u003d 0;\n        this.replayStart \u003d 0;\n        this.mousePressed \u003d false;\n        this.fCanChangeCol \u003d false;\n        this.fInPlay \u003d false;\n        this.fPictureMode \u003d false;\n        this.p1Blink \u003d 0;\n        this.p2Blink \u003d 0;\n        this.fP1Sticky \u003d false;\n        this.fP2Sticky \u003d false;\n        this.fP1Touched \u003d false;\n        this.fP2Touched \u003d false;\n        this.fhold1 \u003d false;\n        this.fhold2 \u003d false;\n        this.p1TouchingGoal \u003d 0;\n        this.p2TouchingGoal \u003d 0;\n        this.gameThread \u003d null;\n        this.fEndGame \u003d false;\n        this.fPlayOn \u003d false;\n        this.nScoreX \u003d 0;\n        this.startTime \u003d 0;\n        this.gameTime \u003d 0;\n        this.scoringRun \u003d 0;\n        this.frenzyCol \u003d 0;\n        this.playOnTicks \u003d 0;\n        this.backBuffer \u003d null;\n        this.SMILE_DIFF \u003d 0;\n        this.DAMPING \u003d 0;\n        this.MAX_TICKS_TOUCHING_GOAL \u003d 0;\n        this.JUMPVEL \u003d 0;\n        this.SLIMEVEL \u003d 0;\n        this.GRAVITY \u003d 0;\n        this.gameLength \u003d 0;\n        this.points \u003d 0;\n        this.lastTouch \u003d 0;\n        this.scoreTouch \u003d 0;\n        this.worldCup \u003d false;\n        this.worldCupRound \u003d 0;\n        this.fExtraTime \u003d false;\n        this.fGoldenGoal \u003d false;\n        this.fSuperSlime \u003d false;\n        this.doubleBuffered \u003d false;\n        this.pointsX \u003d null;\n        this.pointsY \u003d null;\n        this.slimaryCols \u003d [ShimmedColor.cyan, ShimmedColor.red, ShimmedColor.green, ShimmedColor.white, this.darkGreen, ShimmedColor.white, this.darkRed, this.darkRed, new ShimmedColor(119, 41, 28), ShimmedColor.yellow, ShimmedColor.green, ShimmedColor.white, ShimmedColor.white, new ShimmedColor(128, 128, 255), this.darkBlue, ShimmedColor.white, ShimmedColor.red, ShimmedColor.white, new ShimmedColor(119, 41, 28), ShimmedColor.green, ShimmedColor.white, ShimmedColor.white, ShimmedColor.white, new ShimmedColor(185, 30, 2), ShimmedColor.white, ShimmedColor.red, new ShimmedColor(252, 239, 82), ShimmedColor.white, ShimmedColor.red, new ShimmedColor(16, 180, 180), new ShimmedColor(241, 245, 71), new ShimmedColor(230, 230, 230), ShimmedColor.white];\n        this.secondaryCols \u003d [ShimmedColor.white, ShimmedColor.black, ShimmedColor.yellow, new ShimmedColor(128, 128, 255), ShimmedColor.red, ShimmedColor.red, this.darkBlue, ShimmedColor.white, ShimmedColor.white, this.darkBlue, ShimmedColor.green, ShimmedColor.blue, this.darkBlue, ShimmedColor.white, ShimmedColor.white, ShimmedColor.blue, ShimmedColor.white, ShimmedColor.red, this.darkGreen, ShimmedColor.white, new ShimmedColor(128, 255, 128), new ShimmedColor(255, 128, 0), this.darkGreen, this.darkBlue, new ShimmedColor(13, 131, 10), ShimmedColor.white, ShimmedColor.blue, ShimmedColor.red, ShimmedColor.white, ShimmedColor.black, new ShimmedColor(7, 177, 33), ShimmedColor.red, ShimmedColor.black];\n        this.frenzyCol \u003d 0;\n        this.SMILE_DIFF \u003d 10;\n        this.DAMPING \u003d 7;\n        this.MAX_TICKS_TOUCHING_GOAL \u003d 60;\n        this.points \u003d 2;\n        this.worldCup \u003d false;\n        this.worldCupRound \u003d 0;\n        this.pointsX \u003d [];\n        this.pointsY \u003d [];\n        this.p2Col \u003d 1;\n        this.replayData \u003d \u003cany\u003e (function(dims) { let allocate \u003d function(dims) { if(dims.length\u003d\u003d0) { return 0; } else { let array \u003d []; for(let i \u003d 0; i \u003c dims[0]; i++) { array.push(allocate(dims.slice(1))); } return array; }}; return allocate(dims);})([200, 8]);\n    }\n\n    /*private*/ DoReplay() {\n        let var1 : ShimmedFontMetrics \u003d this.screen.getFontMetrics();\n        let var2 : number \u003d var1.stringWidth(\"Replay...\");\n        let var3 : number \u003d var1.getHeight();\n        let var4 : number \u003d (this.nWidth / 2|0) - (var2 / 2|0);\n        let var5 : number \u003d (this.nHeight / 2|0) - var3;\n        this.promptMsg \u003d \"Click the mouse to continue...\";\n        this.mousePressed \u003d false;\n        let var6 : number \u003d this.replayPos - 1;\n        while((!this.mousePressed)) {\n            ++var6;\n            if(var6 \u003e\u003d 200) {\n                var6 \u003d 0;\n            }\n            if(var6 \u003d\u003d\u003d this.replayPos) {\n                try {\n                    ShimmedThread.sleep$long(1000);\n                } catch(var7) {\n                };\n                var6 \u003d this.replayStart;\n                this.paint(this.getGraphics());\n            }\n            this.ReplayFrame(var6, var4, var5, var2, var3, false);\n            this.flip();\n        };\n        this.promptMsg \u003d \"\";\n        this.paint(this.getGraphics());\n    }\n\n    /*private*/ DrawGoals() {\n        let var1 : boolean \u003d true;\n        this.screen.setColor(ShimmedColor.white);\n        this.screen.fillRect(15, 120, 5, 60);\n        this.screen.fillRect(580, 120, 5, 60);\n        this.screen.fillRect(0, (4 * this.nHeight / 5|0) + 2, (this.nWidth / 10|0), 2);\n        this.screen.fillRect((this.nWidth * 9 / 10|0), (4 * this.nHeight / 5|0) + 2, (this.nWidth / 10|0), 2);\n        for(let var2 : number \u003d 0; var2 \u003c\u003d 26; var2 +\u003d 5) {\n            this.screen.drawLine(var2 + 25, 160, var2 + 31, 180);\n            this.screen.drawLine(61 - var2, 160, 56 - var2, 180);\n            this.screen.drawLine(538 + var2, 160, 544 + var2, 180);\n            this.screen.drawLine(574 - var2, 160, 569 - var2, 180);\n        };\n        this.screen.setColor(ShimmedColor.orange);\n        this.screen.fillRect(20, 160, 41, 3);\n        this.screen.fillRect(539, 160, 41, 3);\n        let var3 : number \u003d ((60 - this.p1TouchingGoal) * this.nWidth / 120|0);\n        this.screen.setColor(this.secondaryCols[this.p1Col]);\n        this.screen.fillRect(0, this.nHeight - 5, var3, 5);\n        this.screen.setColor(ShimmedColor.gray);\n        this.screen.fillRect(var3, this.nHeight - 5, (this.nWidth / 2|0) - var3, 5);\n        let var4 : number \u003d this.nWidth - ((60 - this.p2TouchingGoal) * this.nWidth / 120|0);\n        this.screen.setColor(this.secondaryCols[this.p2Col]);\n        this.screen.fillRect(var4, this.nHeight - 5, this.nWidth, 5);\n        this.screen.setColor(ShimmedColor.gray);\n        this.screen.fillRect((this.nWidth / 2|0), this.nHeight - 5, var4 - (this.nWidth / 2|0), 5);\n        this.screen.setColor(ShimmedColor.white);\n        this.screen.fillRect(295, this.nHeight - 60, 5, 5);\n    }\n\n    /*private*/ DrawSlimers() {\n        let var1 : number \u003d (this.nWidth / 10|0);\n        let var2 : number \u003d (this.nHeight / 10|0);\n        let var3 : number \u003d (this.nWidth / 50|0);\n        let var4 : number \u003d (this.nHeight / 25|0);\n        let var5 : number \u003d (this.ballX * this.nWidth / 1000|0);\n        let var6 : number \u003d (4 * this.nHeight / 5|0) - (this.ballY * this.nHeight / 1000|0);\n        let var7 : number \u003d (this.p1OldX * this.nWidth / 1000|0) - (var1 / 2|0);\n        let var8 : number \u003d (7 * this.nHeight / 10|0) - (this.p1OldY * this.nHeight / 1000|0);\n        this.screen.setColor(ShimmedColor.blue);\n        this.screen.fillRect(var7, var8, var1, var2);\n        var7 \u003d (this.p2OldX * this.nWidth / 1000|0) - (var1 / 2|0);\n        var8 \u003d (7 * this.nHeight / 10|0) - (this.p2OldY * this.nHeight / 1000|0);\n        this.screen.setColor(ShimmedColor.blue);\n        this.screen.fillRect(var7, var8, var1, var2);\n        if(!this.fEndGame) {\n            this.MoveBall();\n        }\n        var7 \u003d (this.p1X * this.nWidth / 1000|0) - (var1 / 2|0);\n        var8 \u003d (7 * this.nHeight / 10|0) - (this.p1Y * this.nHeight / 1000|0);\n        this.screen.setColor(this.fSuperSlime?this.slimaryCols[this.frenzyCol \u003d (this.frenzyCol + 1) % this.slimaryCols.length]:this.slimaryCols[this.p1Col]);\n        this.screen.fillArc(var7, var8, var1, 2 * var2, 0, 180);\n        this.screen.setColor(this.secondaryCols[this.p1Col]);\n        this.pointsX[0] \u003d this.pointsX[2] \u003d var7 + (var1 / 2|0);\n        this.pointsX[1] \u003d var7 + (var1 * 2 / 5|0);\n        this.pointsX[3] \u003d var7 + (var1 / 8|0);\n        this.pointsY[0] \u003d var8;\n        this.pointsY[1] \u003d this.pointsY[3] \u003d var8 + (var2 / 2|0);\n        this.pointsY[2] \u003d var8 + var2;\n        this.screen.fillPolygon$int_A$int_A$int(this.pointsX, this.pointsY, 4);\n        let var9 : number \u003d this.p1X + 38;\n        let var10 : number \u003d this.p1Y - 60;\n        var7 \u003d (var9 * this.nWidth / 1000|0);\n        var8 \u003d (7 * this.nHeight / 10|0) - (var10 * this.nHeight / 1000|0);\n        let var11 : number \u003d var7 - var5;\n        let var12 : number \u003d var8 - var6;\n        let var13 : number \u003d (\u003cnumber\u003eMath.sqrt(\u003cnumber\u003e(var11 * var11 + var12 * var12))|0);\n        let var14 : boolean \u003d Math.random() \u003c 0.01;\n        if(var14) {\n            this.p1Blink \u003d 5;\n        }\n        if(this.p1Blink \u003d\u003d\u003d 0) {\n            this.screen.setColor(ShimmedColor.white);\n            this.screen.fillOval(var7 - var3, var8 - var4, var3, var4);\n            if(var13 \u003e 0 \u0026\u0026 !var14) {\n                this.screen.setColor(ShimmedColor.black);\n                this.screen.fillOval(var7 - (4 * var11 / var13|0) - (3 * var3 / 4|0), var8 - (4 * var12 / var13|0) - (3 * var4 / 4|0), (var3 / 2|0), (var4 / 2|0));\n            }\n        } else {\n            --this.p1Blink;\n        }\n        let var15 : number;\n        let var16 : number;\n        let var17 : number;\n        let var18 : number;\n        let var19 : number;\n        if(this.p1Score \u003e this.p2Score + 10) {\n            var15 \u003d (this.p1X * this.nWidth / 1000|0);\n            var16 \u003d (7 * this.nHeight / 10|0) - ((this.p1Y - 40) * this.nHeight / 1000|0);\n            var17 \u003d (this.nWidth / 20|0);\n            var18 \u003d (this.nHeight / 20|0);\n            var19 \u003d 0;\n            do {\n                this.screen.setColor(ShimmedColor.black);\n                this.screen.drawArc(var15, var16 + var19, var17, var18, -30, -150);\n                ++var19;\n            } while((var19 \u003c 3));\n        }\n        var7 \u003d (this.p2X * this.nWidth / 1000|0) - (var1 / 2|0);\n        var8 \u003d (7 * this.nHeight / 10|0) - (this.p2Y * this.nHeight / 1000|0);\n        this.screen.setColor(this.fSuperSlime?this.slimaryCols[this.frenzyCol \u003d (this.frenzyCol + 1) % this.slimaryCols.length]:this.slimaryCols[this.p2Col]);\n        this.screen.fillArc(var7, var8, var1, 2 * var2, 0, 180);\n        this.screen.setColor(this.secondaryCols[this.p2Col]);\n        this.pointsX[0] \u003d this.pointsX[2] \u003d var7 + (var1 / 2|0);\n        this.pointsX[1] \u003d var7 + (var1 * 3 / 5|0);\n        this.pointsX[3] \u003d var7 + (var1 * 7 / 8|0);\n        this.pointsY[0] \u003d var8;\n        this.pointsY[1] \u003d this.pointsY[3] \u003d var8 + (var2 / 2|0);\n        this.pointsY[2] \u003d var8 + var2;\n        this.screen.fillPolygon$int_A$int_A$int(this.pointsX, this.pointsY, 4);\n        var9 \u003d this.p2X - 18;\n        var10 \u003d this.p2Y - 60;\n        var7 \u003d (var9 * this.nWidth / 1000|0);\n        var8 \u003d (7 * this.nHeight / 10|0) - (var10 * this.nHeight / 1000|0);\n        var11 \u003d var7 - var5;\n        var12 \u003d var8 - var6;\n        var13 \u003d (\u003cnumber\u003eMath.sqrt(\u003cnumber\u003e(var11 * var11 + var12 * var12))|0);\n        var14 \u003d Math.random() \u003c 0.01;\n        if(var14) {\n            this.p2Blink \u003d 5;\n        }\n        if(this.p2Blink \u003d\u003d\u003d 0) {\n            this.screen.setColor(var14?ShimmedColor.gray:ShimmedColor.white);\n            this.screen.fillOval(var7 - var3, var8 - var4, var3, var4);\n            if(var13 \u003e 0 \u0026\u0026 !var14) {\n                this.screen.setColor(ShimmedColor.black);\n                this.screen.fillOval(var7 - (4 * var11 / var13|0) - (3 * var3 / 4|0), var8 - (4 * var12 / var13|0) - (3 * var4 / 4|0), (var3 / 2|0), (var4 / 2|0));\n            }\n        } else {\n            --this.p2Blink;\n        }\n        if(this.p2Score \u003e this.p1Score + 10) {\n            var15 \u003d (this.nWidth / 20|0);\n            var16 \u003d (this.nHeight / 20|0);\n            var17 \u003d (this.p2X * this.nWidth / 1000|0) - var15;\n            var18 \u003d (7 * this.nHeight / 10|0) - ((this.p2Y - 40) * this.nHeight / 1000|0);\n            var19 \u003d 0;\n            do {\n                this.screen.setColor(ShimmedColor.black);\n                this.screen.drawArc(var17, var18 + var19, var15, var16, -10, -150);\n                ++var19;\n            } while((var19 \u003c 3));\n        }\n    }\n\n    /*private*/ DrawStatus() {\n        let var1 : ShimmedGraphics \u003d this.screen;\n        let var2 : ShimmedFontMetrics \u003d this.screen.getFontMetrics();\n        let var3 : string \u003d null;\n        let var4 : string \u003d this.MakeTime(this.gameTime);\n        let var5 : number \u003d (this.nHeight / 20|0);\n        let var6 : number \u003d 0;\n        let var7 : number \u003d var2.stringWidth(var4);\n        if(this.worldCup) {\n            switch((this.worldCupRound)) {\n            case 1:\n                var3 \u003d \"Practice AI 2\";\n                break;\n            case 2:\n                var3 \u003d \"Practice AI 3\";\n                break;\n            case 3:\n                var3 \u003d \"Practice AI 4\";\n                break;\n            default:\n                var3 \u003d \"Practice AI 1\";\n            }\n            if(this.fGoldenGoal) {\n                var3 \u003d var3 + \" [Sudden Death]\";\n            } else if(this.fExtraTime) {\n                var3 \u003d var3 + \" [Extra Time]\";\n            }\n            var6 \u003d var2.stringWidth(var3);\n        }\n        let var8 : number \u003d var6 \u003e var7?var6:var7;\n        var1.setColor(ShimmedColor.blue);\n        var1.fillRect((this.nWidth / 2|0) - (var8 / 2|0) - 5, 0, var8 + 10, var5 + 22);\n        var1.setColor(ShimmedColor.white);\n        this.screen.drawString(var4, (this.nWidth / 2|0) - (var7 / 2|0), var2.getAscent() + 20);\n        if(var3 !\u003d null) {\n            this.screen.drawString(var3, (this.nWidth / 2|0) - (var6 / 2|0), var2.getAscent() + 20 - var2.getHeight());\n        }\n    }\n\n    /*private*/ MakeTime(var1 : number) : string {\n        let var3 : number \u003d Math.floor(var1 / 10) % 100;\n        let var5 : number \u003d Math.floor(var1 / 1000) % 60;\n        let var7 : number \u003d Math.floor(var1 / 60000) % 60;\n        let var9 : string \u003d \"\";\n        if(var7 \u003c 10) {\n            var9 \u003d var9 + \"0\";\n        }\n        var9 \u003d var9 + var7;\n        var9 \u003d var9 + \":\";\n        if(var5 \u003c 10) {\n            var9 \u003d var9 + \"0\";\n        }\n        var9 \u003d var9 + var5;\n        var9 \u003d var9 + \":\";\n        if(var3 \u003c 10) {\n            var9 \u003d var9 + \"0\";\n        }\n        var9 \u003d var9 + var3;\n        return var9;\n    }\n\n    /*private*/ MoveBall() {\n        let var1 : number \u003d (30 * this.nHeight / 1000|0);\n        let var2 : number \u003d (this.ballOldX * this.nWidth / 1000|0);\n        let var3 : number \u003d (4 * this.nHeight / 5|0) - (this.ballOldY * this.nHeight / 1000|0);\n        this.screen.setColor(ShimmedColor.blue);\n        this.screen.fillOval(var2 - var1, var3 - var1, var1 * 2, var1 * 2);\n        this.ballY +\u003d --this.ballVY;\n        this.ballX +\u003d this.ballVX;\n        if(!this.fEndGame) {\n            let var4 : number \u003d (this.ballX - this.p1X) * 2;\n            let var5 : number \u003d this.ballY - this.p1Y;\n            let var6 : number \u003d var4 * var4 + var5 * var5;\n            let var7 : number \u003d this.ballVX - this.p1XV;\n            let var8 : number \u003d this.ballVY - this.p1YV;\n            let var9 : number;\n            let var10 : number;\n            if(var5 \u003e 0 \u0026\u0026 var6 \u003c 15625 \u0026\u0026 var6 \u003e 25) {\n                var9 \u003d (\u003cnumber\u003eMath.sqrt(\u003cnumber\u003evar6)|0);\n                var10 \u003d ((var4 * var7 + var5 * var8) / var9|0);\n                this.ballX \u003d this.p1X + (var4 * 63 / var9|0);\n                this.ballY \u003d this.p1Y + (var5 * 125 / var9|0);\n                if(var10 \u003c\u003d 0) {\n                    if(!this.fP1Sticky) {\n                        this.ballVY +\u003d this.p1YV - (2 * var5 * var10 / var9|0);\n                        this.ballVX +\u003d ((this.p1XV - (2 * var4 * var10 / var9|0)) * 7 / 10|0);\n                    } else {\n                        this.ballVX \u003d 0;\n                        this.ballVY \u003d 0;\n                    }\n                    if(this.ballVX \u003c -15) {\n                        this.ballVX \u003d -15;\n                    }\n                    if(this.ballVX \u003e 15) {\n                        this.ballVX \u003d 15;\n                    }\n                    if(this.ballVY \u003c -22) {\n                        this.ballVY \u003d -22;\n                    }\n                    if(this.ballVY \u003e 22) {\n                        this.ballVY \u003d 22;\n                    }\n                }\n                this.fP1Touched \u003d true;\n                if(this.fhold1) {\n                    this.ballVX \u003d 15;\n                    this.ballVY \u003d 25;\n                }\n                this.lastTouch \u003d this.p1X;\n            }\n            var4 \u003d (this.ballX - this.p2X) * 2;\n            var5 \u003d this.ballY - this.p2Y;\n            var6 \u003d var4 * var4 + var5 * var5;\n            var7 \u003d this.ballVX - this.p2XV;\n            var8 \u003d this.ballVY - this.p2YV;\n            if(var5 \u003e 0 \u0026\u0026 var6 \u003c 15625 \u0026\u0026 var6 \u003e 25) {\n                var9 \u003d (\u003cnumber\u003eMath.sqrt(\u003cnumber\u003evar6)|0);\n                var10 \u003d ((var4 * var7 + var5 * var8) / var9|0);\n                this.ballX \u003d this.p2X + (var4 * 63 / var9|0);\n                this.ballY \u003d this.p2Y + (var5 * 125 / var9|0);\n                if(var10 \u003c\u003d 0) {\n                    if(!this.fP2Sticky) {\n                        this.ballVX +\u003d ((this.p2XV - (2 * var4 * var10 / var9|0)) * 7 / 10|0);\n                        this.ballVY +\u003d this.p2YV - (2 * var5 * var10 / var9|0);\n                    } else {\n                        this.ballVX \u003d 0;\n                        this.ballVY \u003d 0;\n                    }\n                    if(this.ballVX \u003c -15) {\n                        this.ballVX \u003d -15;\n                    }\n                    if(this.ballVX \u003e 15) {\n                        this.ballVX \u003d 15;\n                    }\n                    if(this.ballVY \u003c -22) {\n                        this.ballVY \u003d -22;\n                    }\n                    if(this.ballVY \u003e 22) {\n                        this.ballVY \u003d 22;\n                    }\n                }\n                this.fP2Touched \u003d true;\n                if(this.fhold2) {\n                    this.ballVX \u003d -15;\n                    this.ballVY \u003d 25;\n                }\n                this.lastTouch \u003d this.p2X;\n            }\n            if(this.ballX \u003c 15) {\n                this.ballX \u003d 15;\n                this.ballVX \u003d -this.ballVX;\n            }\n            if(this.ballX \u003e 985) {\n                this.ballX \u003d 985;\n                this.ballVX \u003d -this.ballVX;\n            }\n            if(this.ballY \u003e\u003d 195 \u0026\u0026 this.ballY \u003c\u003d 405) {\n                if(this.ballX \u003c\u003d 44) {\n                    this.ballX \u003d 44;\n                    this.ballVX \u003d -this.ballVX;\n                }\n                if(this.ballX \u003e\u003d 960) {\n                    this.ballX \u003d 960;\n                    this.ballVX \u003d -this.ballVX;\n                }\n            }\n            if(this.ballY \u003e\u003d 252 \u0026\u0026 this.ballY \u003c\u003d 274) {\n                if(this.ballX \u003c\u003d 115 \u0026\u0026 this.ballX \u003e\u003d 90) {\n                    if(this.ballOldX \u003e\u003d 115) {\n                        this.ballX \u003d 115;\n                        this.ballVX \u003d -this.ballVX;\n                    } else if(this.ballOldX \u003c\u003d 90) {\n                        this.ballX \u003d 90;\n                        this.ballVX \u003d -this.ballVX;\n                    }\n                    if(this.ballOldY \u003e\u003d 274) {\n                        this.ballY \u003d 274;\n                    }\n                    if(this.ballOldY \u003c\u003d 252) {\n                        this.ballY \u003d 252;\n                    }\n                    this.ballVY \u003d -this.ballVY;\n                }\n                if(this.ballX \u003c\u003d 907 \u0026\u0026 this.ballX \u003e\u003d 891) {\n                    if(this.ballOldX \u003e\u003d 907) {\n                        this.ballX \u003d 903;\n                        this.ballVX \u003d -this.ballVX;\n                    } else if(this.ballOldX \u003c\u003d 891) {\n                        this.ballX \u003d 891;\n                        this.ballVX \u003d -this.ballVX;\n                    }\n                    if(this.ballOldY \u003e\u003d 274) {\n                        this.ballY \u003d 274;\n                    }\n                    if(this.ballOldY \u003c\u003d 252) {\n                        this.ballY \u003d 252;\n                    }\n                    this.ballVY \u003d -this.ballVY;\n                }\n                if(this.ballX \u003c\u003d 45) {\n                    if(this.ballOldY \u003e\u003d 274) {\n                        this.ballY \u003d 274;\n                    }\n                    if(this.ballOldY \u003c\u003d 252) {\n                        this.ballY \u003d 252;\n                    }\n                    this.ballX \u003d 45;\n                    this.ballVY \u003d -this.ballVY;\n                    this.ballVX \u003d -this.ballVX + 1;\n                }\n                if(this.ballX \u003e\u003d 955) {\n                    if(this.ballOldY \u003e\u003d 274) {\n                        this.ballY \u003d 274;\n                    }\n                    if(this.ballOldY \u003c\u003d 252) {\n                        this.ballY \u003d 252;\n                    }\n                    this.ballX \u003d 955;\n                    this.ballVY \u003d -this.ballVY;\n                    this.ballVX \u003d -this.ballVX - 1;\n                }\n            }\n            if(this.ballY \u003c 34) {\n                this.ballY \u003d 34;\n                this.ballVY \u003d (-this.ballVY * 7 / 10|0);\n                this.ballVX \u003d (this.ballVX * 7 / 10|0);\n            }\n        }\n        var2 \u003d (this.ballX * this.nWidth / 1000|0);\n        var3 \u003d (4 * this.nHeight / 5|0) - (this.ballY * this.nHeight / 1000|0);\n        this.screen.setColor(ShimmedColor.yellow);\n        this.screen.fillOval(var2 - var1, var3 - var1, var1 * 2, var1 * 2);\n    }\n\n    /*private*/ MoveSlimers() {\n        if(this.worldCup) {\n            switch((this.worldCupRound)) {\n            case 0:\n                this.controlP2v0();\n                break;\n            case 1:\n                this.controlP2v1();\n                break;\n            case 2:\n                this.controlP2v2();\n                break;\n            case 3:\n                this.controlP2v3();\n            }\n        }\n        this.p1X +\u003d this.p1XV;\n        if(this.p1X \u003c 50) {\n            this.p1X \u003d 50;\n        }\n        if(this.p1X \u003e 950) {\n            this.p1X \u003d 950;\n        }\n        if(this.p1YV !\u003d\u003d 0) {\n            this.p1Y +\u003d this.p1YV -\u003d this.GRAVITY;\n            if(this.p1Y \u003c 0) {\n                this.p1Y \u003d 0;\n                this.p1YV \u003d 0;\n            }\n        }\n        this.p2X +\u003d this.p2XV;\n        if(this.p2X \u003e 950) {\n            this.p2X \u003d 950;\n        }\n        if(this.p2X \u003c 50) {\n            this.p2X \u003d 50;\n        }\n        if(this.p2YV !\u003d\u003d 0) {\n            this.p2Y +\u003d this.p2YV -\u003d this.GRAVITY;\n            if(this.p2Y \u003c 0) {\n                this.p2Y \u003d 0;\n                this.p2YV \u003d 0;\n            }\n        }\n    }\n\n    /*private*/ ReplayFrame(var1 : number, var2 : number, var3 : number, var4 : number, var5 : number, var6 : boolean) {\n        if(var6) {\n            this.ballX \u003d -1000;\n            this.ballOldX \u003d 500;\n            this.ballY \u003d -1000;\n            this.ballOldY \u003d 500;\n            this.p1OldX \u003d this.p1OldY \u003d this.p2OldX \u003d this.p2OldY \u003d -10000;\n        } else {\n            let var7 : number \u003d var1 !\u003d\u003d 0?var1 - 1:199;\n            this.p1OldX \u003d this.replayData[var7][0];\n            this.p1OldY \u003d this.replayData[var7][1];\n            this.p2OldX \u003d this.replayData[var7][2];\n            this.p2OldY \u003d this.replayData[var7][3];\n            if(var1 \u003d\u003d\u003d 0) {\n                this.ballOldX \u003d 500;\n                this.ballOldY \u003d 200;\n            } else {\n                this.ballOldX \u003d this.replayData[var7][4];\n                this.ballOldY \u003d this.replayData[var7][5];\n            }\n        }\n        this.p1X \u003d this.replayData[var1][0];\n        this.p1Y \u003d this.replayData[var1][1];\n        this.p2X \u003d this.replayData[var1][2];\n        this.p2Y \u003d this.replayData[var1][3];\n        this.ballX \u003d this.replayData[var1][4];\n        this.ballY \u003d this.replayData[var1][5];\n        this.p1Col \u003d this.replayData[var1][6];\n        this.p2Col \u003d this.replayData[var1][7];\n        this.ballVX \u003d 0;\n        this.ballVY \u003d 1;\n        if((var1 / 10|0) % 2 \u003e 0) {\n            this.screen.setColor(ShimmedColor.red);\n            this.screen.drawString(\"Replay...\", var2, var3);\n        } else {\n            this.screen.setColor(ShimmedColor.blue);\n            this.screen.fillRect(var2, var3 - var5, var4, var5 * 2);\n        }\n        this.DrawSlimers();\n        this.DrawGoals();\n        try {\n            ShimmedThread.sleep$long(20);\n        } catch(var8) {\n        };\n    }\n\n    /*private*/ SaveReplayData() {\n        this.replayData[this.replayPos][0] \u003d this.p1X;\n        this.replayData[this.replayPos][1] \u003d this.p1Y;\n        this.replayData[this.replayPos][2] \u003d this.p2X;\n        this.replayData[this.replayPos][3] \u003d this.p2Y;\n        this.replayData[this.replayPos][4] \u003d this.ballX;\n        this.replayData[this.replayPos][5] \u003d this.ballY;\n        this.replayData[this.replayPos][6] \u003d this.p1Col;\n        this.replayData[this.replayPos][7] \u003d this.p2Col;\n        ++this.replayPos;\n        if(this.replayPos \u003e\u003d 200) {\n            this.replayPos \u003d 0;\n        }\n        if(this.replayStart \u003d\u003d\u003d this.replayPos) {\n            ++this.replayStart;\n        }\n        if(this.replayStart \u003e\u003d 200) {\n            this.replayStart \u003d 0;\n        }\n    }\n\n    public checkScored() : boolean {\n        if(this.ballY \u003e\u003d 263 || this.ballY \u003e 253 || this.ballOldY \u003c 253 || (this.ballX \u003e 97 || this.ballX \u003c 37) \u0026\u0026 (this.ballX \u003c 902 || this.ballX \u003e 962)) {\n            return false;\n        } else {\n            this.scoreTouch \u003d this.lastTouch;\n            this.nScoreX \u003d this.ballX;\n            this.fPlayOn \u003d true;\n            this.playOnTicks \u003d 10;\n            return true;\n        }\n    }\n\n    /*private*/ controlP2v0() {\n        this.p2XV \u003d 0;\n        this.fhold2 \u003d true;\n        if(this.ballX \u003e this.p2X + 5 \u0026\u0026 this.ballX \u003c 960) {\n            this.fP2Sticky \u003d true;\n        }\n        if(this.ballX \u003e this.p2X - 10) {\n            this.p2XV \u003d this.SLIMEVEL;\n        }\n        if(this.ballX + 30 \u003e this.p2X \u0026\u0026 this.p2YV \u003d\u003d\u003d 0) {\n            this.fP2Sticky \u003d false;\n            this.p2YV \u003d this.JUMPVEL;\n        }\n        if(this.ballX + 50 \u003c this.p2X) {\n            this.fP2Sticky \u003d false;\n            this.p2XV \u003d -this.SLIMEVEL;\n        }\n        if(this.ballX \u003e this.p2X + 50 \u0026\u0026 this.p2YV \u003d\u003d\u003d 0 \u0026\u0026 this.ballY \u003e 10 \u0026\u0026 this.ballY \u003c 150) {\n            this.p2YV \u003d this.JUMPVEL;\n        }\n        if(this.p2TouchingGoal \u003e 0 \u0026\u0026 60 - this.p2TouchingGoal \u003c 3 + ((this.p2X - 850) / this.SLIMEVEL|0)) {\n            this.p2XV \u003d -this.SLIMEVEL;\n        }\n    }\n\n    /*private*/ controlP2v1() {\n        this.p2XV \u003d 0;\n        this.fhold2 \u003d true;\n        let var1 : number \u003d this.getBallBounceX();\n        let var2 : number \u003d this.getBallMaxY();\n        if(this.ballVY \u003c 1) {\n            let var10000 : boolean \u003d true;\n        } else {\n            let var4 : number \u003d this.ballVY;\n        }\n        if(var1 \u003e 900) {\n            this.p2XV \u003d this.SLIMEVEL;\n        }\n        if(var1 + 20 \u003c this.p2X) {\n            this.fP2Sticky \u003d false;\n            this.p2XV \u003d -this.SLIMEVEL;\n        }\n        if(this.ballX \u003e this.p2X - 10) {\n            this.p2XV \u003d this.SLIMEVEL;\n        }\n        if(this.ballX + 30 \u003e this.p2X \u0026\u0026 this.p2YV \u003d\u003d\u003d 0) {\n            this.fP2Sticky \u003d false;\n            this.p2YV \u003d this.JUMPVEL;\n        }\n        if(var1 \u003e this.p2X + 50 \u0026\u0026 this.p2YV \u003d\u003d\u003d 0) {\n            this.p2XV \u003d this.SLIMEVEL;\n        }\n        if(this.ballX \u003e this.p2X \u0026\u0026 this.ballX \u003c 960) {\n            this.fP2Sticky \u003d true;\n        }\n        if(this.p2YV \u003d\u003d\u003d 0 \u0026\u0026 this.ballX \u003e this.p1X - 120 \u0026\u0026 this.ballX \u003c this.p1X + 120 \u0026\u0026 this.ballY \u003e this.p1Y \u0026\u0026 this.ballY \u003c this.p1Y + 100 \u0026\u0026 this.p1Y \u003e 0) {\n            this.p2XV \u003d this.SLIMEVEL;\n        }\n        if(this.p2Score \u003e\u003d this.p1Score \u0026\u0026 var1 \u003c 200 \u0026\u0026 this.p2X \u003e this.p1X || var1 \u003c this.p1X + 50 \u0026\u0026 var1 \u003e this.p1X - 50 \u0026\u0026 (this.ballVY / 4|0) \u003d\u003d\u003d 0 \u0026\u0026 this.p1X \u003c 400 \u0026\u0026 this.p2X \u003c 848) {\n            if(this.p2X \u003c 900) {\n                this.p2XV \u003d this.SLIMEVEL;\n            }\n            if(this.ballX \u003e 800 \u0026\u0026 var1 \u003e 950 \u0026\u0026 this.p2YV \u003d\u003d\u003d 0 \u0026\u0026 var2 \u003e 40) {\n                this.p2YV \u003d this.JUMPVEL;\n            }\n        }\n        if(this.p2YV \u003d\u003d\u003d this.JUMPVEL) {\n            if(var2 \u003c 110) {\n                this.p2YV \u003d 0;\n            }\n            if(this.ballX \u003c this.p2X - 400) {\n                this.p2YV \u003d 0;\n            }\n            if(this.ballY \u003c 80) {\n                this.p2YV \u003d 0;\n            }\n            if(this.ballX \u003c 900 \u0026\u0026 this.p2X \u003e 900) {\n                this.p2YV \u003d 0;\n            }\n            if(this.p2X \u003c 150) {\n                this.p2YV \u003d 0;\n            }\n        }\n        if(this.p2TouchingGoal \u003e 0 \u0026\u0026 60 - this.p2TouchingGoal \u003c 3 + ((this.p2X - 850) / this.SLIMEVEL|0)) {\n            this.p2XV \u003d -this.SLIMEVEL;\n        }\n    }\n\n    /*private*/ controlP2v2() {\n        this.fhold2 \u003d true;\n        let var1 : number \u003d this.getBallBounceX();\n        let var2 : number \u003d this.getBallMaxY();\n        if(this.ballVY \u003c 1) {\n            let var10000 : boolean \u003d true;\n        } else {\n            let var4 : number \u003d this.ballVY;\n        }\n        if(this.p2X \u003c 790) {\n            this.p2XV \u003d this.SLIMEVEL;\n        } else if(this.p2X \u003e 830) {\n            this.p2XV \u003d -this.SLIMEVEL;\n        } else {\n            this.p2XV \u003d 0;\n        }\n        if(var1 \u003e 900) {\n            this.p2XV \u003d this.SLIMEVEL;\n        }\n        if(var1 + 20 \u003c this.p2X) {\n            this.fP2Sticky \u003d false;\n            this.p2XV \u003d -this.SLIMEVEL;\n        }\n        if(this.ballX \u003e this.p2X - 10) {\n            this.p2XV \u003d this.SLIMEVEL;\n        }\n        if(this.ballX + 30 \u003e this.p2X \u0026\u0026 this.p2YV \u003d\u003d\u003d 0) {\n            this.fP2Sticky \u003d false;\n            this.p2YV \u003d this.JUMPVEL;\n        }\n        if(var1 \u003e this.p2X + 50 \u0026\u0026 this.p2YV \u003d\u003d\u003d 0) {\n            this.p2XV \u003d this.SLIMEVEL;\n        }\n        if(this.ballX \u003e this.p2X \u0026\u0026 this.ballX \u003c 960) {\n            this.fP2Sticky \u003d true;\n        }\n        if(this.p2YV \u003d\u003d\u003d 0 \u0026\u0026 this.ballX \u003e this.p1X - 120 \u0026\u0026 this.ballX \u003c this.p1X + 120 \u0026\u0026 this.ballY \u003e this.p1Y \u0026\u0026 this.ballY \u003c this.p1Y + 100 \u0026\u0026 this.p1Y \u003e 0) {\n            this.p2XV \u003d this.SLIMEVEL;\n        }\n        if(this.p2Score \u003e\u003d this.p1Score \u0026\u0026 var1 \u003c 200 \u0026\u0026 this.p2X \u003e this.p1X || var1 \u003c this.p1X + 50 \u0026\u0026 var1 \u003e this.p1X - 50 \u0026\u0026 (this.ballVY / 4|0) \u003d\u003d\u003d 0 \u0026\u0026 this.p1X \u003c 400 \u0026\u0026 this.p2X \u003c 848) {\n            if(this.p2X \u003c 900) {\n                this.p2XV \u003d this.SLIMEVEL;\n            }\n            if(this.ballX \u003e 800 \u0026\u0026 var1 \u003e 950 \u0026\u0026 this.p2YV \u003d\u003d\u003d 0 \u0026\u0026 var2 \u003e 40) {\n                this.p2YV \u003d this.JUMPVEL;\n            }\n        }\n        if(this.p2YV \u003d\u003d\u003d this.JUMPVEL) {\n            if(var2 \u003c 110) {\n                this.p2YV \u003d 0;\n            }\n            if(this.ballX \u003c this.p2X - 400) {\n                this.p2YV \u003d 0;\n            }\n            if(this.ballY \u003c 80) {\n                this.p2YV \u003d 0;\n            }\n            if(this.ballX \u003c 900 \u0026\u0026 this.p2X \u003e 900) {\n                this.p2YV \u003d 0;\n            }\n        }\n        if(this.p2YV \u003d\u003d\u003d 0 \u0026\u0026 this.p2X \u003c 400 \u0026\u0026 var1 \u003e 500 \u0026\u0026 var2 \u003e 50) {\n            this.p2YV \u003d this.JUMPVEL;\n        }\n        if(this.p2TouchingGoal \u003e 0 \u0026\u0026 60 - this.p2TouchingGoal \u003c 3 + ((this.p2X - 850) / this.SLIMEVEL|0)) {\n            this.p2XV \u003d -this.SLIMEVEL;\n        }\n    }\n\n    /*private*/ controlP2v3() {\n        this.fhold2 \u003d true;\n        let var1 : number \u003d (this.SLIMEVEL * 4 / 3|0);\n        let var2 : number \u003d this.getBallBounceX();\n        let var3 : number \u003d this.getBallMaxY();\n        if(this.ballVY \u003c 1) {\n            let var10000 : boolean \u003d true;\n        } else {\n            let var5 : number \u003d this.ballVY;\n        }\n        if(this.p2X \u003c 790) {\n            this.p2XV \u003d var1;\n        } else if(this.p2X \u003e 830) {\n            this.p2XV \u003d -var1;\n        } else {\n            this.p2XV \u003d 0;\n        }\n        if(var2 \u003e 900) {\n            this.p2XV \u003d var1;\n        }\n        if(var2 + 20 \u003c this.p2X) {\n            this.fP2Sticky \u003d false;\n            this.p2XV \u003d -var1;\n        }\n        if(this.ballX \u003e this.p2X - 10) {\n            this.p2XV \u003d var1;\n        }\n        if(this.ballX + 30 \u003e this.p2X \u0026\u0026 this.p2YV \u003d\u003d\u003d 0) {\n            this.fP2Sticky \u003d false;\n            this.p2YV \u003d this.JUMPVEL;\n        }\n        if(var2 \u003e this.p2X + 50 \u0026\u0026 this.p2YV \u003d\u003d\u003d 0) {\n            this.p2XV \u003d var1;\n        }\n        if(this.ballX \u003e this.p2X \u0026\u0026 this.ballX \u003c 960) {\n            this.fP2Sticky \u003d true;\n        }\n        if(this.p2YV \u003d\u003d\u003d 0 \u0026\u0026 this.ballX \u003e this.p1X - 120 \u0026\u0026 this.ballX \u003c this.p1X + 120 \u0026\u0026 this.ballY \u003e this.p1Y \u0026\u0026 this.ballY \u003c this.p1Y + 100 \u0026\u0026 this.p1Y \u003e 0) {\n            this.p2XV \u003d var1;\n        }\n        if(this.p2Score \u003e\u003d this.p1Score \u0026\u0026 var2 \u003c 200 \u0026\u0026 this.p2X \u003e this.p1X || var2 \u003c this.p1X + 50 \u0026\u0026 var2 \u003e this.p1X - 50 \u0026\u0026 (this.ballVY / 4|0) \u003d\u003d\u003d 0 \u0026\u0026 this.p1X \u003c 400 \u0026\u0026 this.p2X \u003c 848) {\n            if(this.p2X \u003c 900) {\n                this.p2XV \u003d var1;\n            }\n            if(this.ballX \u003e 800 \u0026\u0026 var2 \u003e 950 \u0026\u0026 this.p2YV \u003d\u003d\u003d 0 \u0026\u0026 var3 \u003e 40) {\n                this.p2YV \u003d this.JUMPVEL;\n            }\n        }\n        if(this.p2YV \u003d\u003d\u003d this.JUMPVEL) {\n            if(var3 \u003c 110) {\n                this.p2YV \u003d 0;\n            }\n            if(this.ballX \u003c this.p2X - 400) {\n                this.p2YV \u003d 0;\n            }\n            if(this.ballY \u003c 80) {\n                this.p2YV \u003d 0;\n            }\n            if(this.ballX \u003c 900 \u0026\u0026 this.p2X \u003e 900) {\n                this.p2YV \u003d 0;\n            }\n            if(this.p2XV \u003e 0 \u0026\u0026 var3 \u003e 200 \u0026\u0026 var2 \u003e this.p2X + 300) {\n                this.p2YV \u003d 0;\n            }\n        }\n        if(this.p2YV \u003d\u003d\u003d 0 \u0026\u0026 this.p2X \u003c 400 \u0026\u0026 var2 \u003e this.p2X + 400 \u0026\u0026 var3 \u003e 50) {\n            this.p2YV \u003d this.JUMPVEL;\n        }\n        if(this.p2TouchingGoal \u003e 0 \u0026\u0026 60 - this.p2TouchingGoal \u003c 3 + ((this.p2X - 850) / var1|0)) {\n            this.p2XV \u003d -var1;\n        }\n    }\n\n    public destroy() {\n        this.gameThread.stop();\n        this.gameThread \u003d null;\n    }\n\n    /*private*/ drawButtons() {\n        let var1 : string[] \u003d [\"1 minute\", \"2 minutes\", \"4 minutes\", \"8 minutes\", \"Practice AI\"];\n        let var2 : ShimmedFontMetrics \u003d this.screen.getFontMetrics();\n        let var3 : ShimmedColor \u003d new ShimmedColor(0, 0, 128);\n        for(let var4 : number \u003d 0; var4 \u003c 5; ++var4) {\n            this.screen.setColor(var3);\n            this.screen.fillRect(((2 * var4 + 1) * this.nWidth / 10|0) - (this.nWidth / 12|0), (this.nHeight * 2 / 10|0), (this.nWidth / 6|0), (this.nHeight / 10|0));\n            this.screen.setColor(ShimmedColor.white);\n            this.screen.drawString(var1[var4], ((2 * var4 + 1) * this.nWidth / 10|0) - (var2.stringWidth(var1[var4]) / 2|0), (this.nHeight * 5 / 20|0) + (var2.getHeight() / 2|0));\n        };\n        this.flip();\n    }\n\n    public drawPrompt$() {\n        this.screen.setColor(ShimmedColor.gray);\n        this.screen.fillRect(0, (4 * this.nHeight / 5|0) + 6, this.nWidth, (this.nHeight / 5|0) - 10);\n        this.drawPrompt$java_lang_String$int(this.promptMsg, 0);\n    }\n\n    public drawPrompt$java_lang_String$int(var1 : string, var2 : number) {\n        let var3 : ShimmedFontMetrics \u003d this.screen.getFontMetrics();\n        this.screen.setColor(ShimmedColor.lightGray);\n        this.screen.drawString(var1, ((this.nWidth - var3.stringWidth(var1)) / 2|0), (this.nHeight * 4 / 5|0) + var3.getHeight() * (var2 + 1) + 10);\n    }\n\n    public drawPrompt(var1? : any, var2? : any) : any {\n        if(((typeof var1 \u003d\u003d\u003d \u0027string\u0027) || var1 \u003d\u003d\u003d null) \u0026\u0026 ((typeof var2 \u003d\u003d\u003d \u0027number\u0027) || var2 \u003d\u003d\u003d null)) {\n            return \u003cany\u003ethis.drawPrompt$java_lang_String$int(var1, var2);\n        } else if(var1 \u003d\u003d\u003d undefined \u0026\u0026 var2 \u003d\u003d\u003d undefined) {\n            return \u003cany\u003ethis.drawPrompt$();\n        } else throw new Error(\u0027invalid overload\u0027);\n    }\n\n    /*private*/ drawScores() {\n        let var1 : ShimmedGraphics \u003d this.screen;\n        let var2 : number \u003d (this.nHeight / 20|0);\n        let var3 : ShimmedFontMetrics \u003d this.screen.getFontMetrics();\n        let var4 : number \u003d var3.stringWidth(\"Replay...\");\n        var1.setColor(ShimmedColor.blue);\n        var1.fillRect(0, 0, this.nWidth, var2 + 22);\n        var1.setColor(ShimmedColor.white);\n        var1.drawString(this.slimeColText[this.p1Col] + \" : \" + this.p1Score, (this.nWidth / 20|0), var2);\n        let var5 : string \u003d this.p2Score + \" : \" + this.slimeColText[this.p2Col];\n        var1.drawString(var5, this.nWidth - (this.nWidth / 20|0) - var3.stringWidth(var5), var2);\n    }\n\n    /*private*/ flip() {\n        if(this.doubleBuffered) {\n            this.getGraphics().drawImage(this.backBuffer, 0, 0, \u003cShimmedImageObserver\u003enull);\n        }\n    }\n\n    /*private*/ getBallBounceX() : number {\n        let var1 : number \u003d this.ballVY + (\u003cnumber\u003eMath.sqrt(\u003cnumber\u003e(this.ballVY * this.ballVY + 2 * this.ballY))|0);\n        let var2 : number \u003d this.ballX + var1 * this.ballVX;\n        if(var2 \u003c 0) {\n            var2 \u003d -var2;\n        }\n        if(var2 \u003e 1000) {\n            var2 \u003d 1000 - var2;\n        }\n        return var2;\n    }\n\n    /*private*/ getBallMaxY() : number {\n        return this.ballVY \u003c 0?this.ballY:this.ballY + (this.ballVY * this.ballVY / 2|0);\n    }\n\n    public handleEvent(var1 : ShimmedEvent) : boolean {\n        switch((var1.id)) {\n        case 401:\n        case 403:\n            if(this.fCanChangeCol) {\n                switch((var1.key)) {\n                case 54:\n                    this.fSuperSlime ^\u003d true;\n                    this.repaint();\n                    break;\n                case 73:\n                case 105:\n                case 1004:\n                    do {\n                        this.p2Col \u003d this.p2Col \u003d\u003d\u003d 0?this.slimaryCols.length - 1:this.p2Col - 1;\n                    } while((this.p1Col \u003d\u003d\u003d this.p2Col));\n                    this.drawScores();\n                    this.repaint();\n                    break;\n                case 75:\n                case 107:\n                case 1005:\n                    do {\n                        this.p2Col \u003d this.p2Col !\u003d\u003d this.slimaryCols.length - 1?this.p2Col + 1:0;\n                    } while((this.p2Col \u003d\u003d\u003d this.p1Col));\n                    this.drawScores();\n                    this.repaint();\n                    break;\n                case 83:\n                case 115:\n                    do {\n                        this.p1Col \u003d this.p1Col !\u003d\u003d this.slimaryCols.length - 1?this.p1Col + 1:0;\n                    } while((this.p1Col \u003d\u003d\u003d this.p2Col));\n                    this.drawScores();\n                    this.repaint();\n                    break;\n                case 87:\n                case 119:\n                    while((true)) {\n                        this.p1Col \u003d this.p1Col \u003d\u003d\u003d 0?this.slimaryCols.length - 1:this.p1Col - 1;\n                        if(this.p1Col !\u003d\u003d this.p2Col) {\n                            this.drawScores();\n                            this.repaint();\n                            break;\n                        }\n                    };\n                }\n            }\n            if(!this.fEndGame) {\n                switch((var1.key)) {\n                case 32:\n                    this.mousePressed \u003d true;\n                    return false;\n                case 65:\n                case 97:\n                    this.p1XV \u003d -this.SLIMEVEL;\n                    return false;\n                case 66:\n                case 98:\n                    this.toggleBuffering();\n                    return false;\n                case 68:\n                case 100:\n                    this.p1XV \u003d this.SLIMEVEL;\n                    return false;\n                case 73:\n                case 105:\n                case 1004:\n                    if(this.p2Y \u003d\u003d\u003d 0 \u0026\u0026 !this.worldCup) {\n                        this.p2YV \u003d this.JUMPVEL;\n                    }\n                    return false;\n                case 74:\n                case 106:\n                case 1006:\n                    if(!this.worldCup) {\n                        this.p2XV \u003d -this.SLIMEVEL;\n                    }\n                    return false;\n                case 75:\n                case 107:\n                case 1005:\n                    if(!this.worldCup) {\n                        this.fP2Sticky \u003d true;\n                    }\n                    return false;\n                case 76:\n                case 108:\n                case 1007:\n                    if(!this.worldCup) {\n                        this.p2XV \u003d this.SLIMEVEL;\n                    }\n                    return false;\n                case 77:\n                case 109:\n                    this.fhold2 \u003d true;\n                    return false;\n                case 83:\n                case 115:\n                    this.fP1Sticky \u003d true;\n                    return false;\n                case 87:\n                case 119:\n                    if(this.p1Y \u003d\u003d\u003d 0) {\n                        this.p1YV \u003d this.JUMPVEL;\n                    }\n                    return false;\n                case 88:\n                case 120:\n                    this.fhold1 \u003d true;\n                }\n            }\n            break;\n        case 402:\n        case 404:\n            switch((var1.key)) {\n            case 65:\n            case 97:\n                if(this.p1XV \u003c 0) {\n                    this.p1XV \u003d 0;\n                }\n                return false;\n            case 68:\n            case 100:\n                if(this.p1XV \u003e 0) {\n                    this.p1XV \u003d 0;\n                }\n                return false;\n            case 74:\n            case 106:\n            case 1006:\n                if(this.p2XV \u003c 0 \u0026\u0026 !this.worldCup) {\n                    this.p2XV \u003d 0;\n                }\n                return false;\n            case 75:\n            case 107:\n            case 1005:\n                this.fP2Sticky \u003d false;\n                return false;\n            case 76:\n            case 108:\n            case 1007:\n                if(this.p2XV \u003e 0 \u0026\u0026 !this.worldCup) {\n                    this.p2XV \u003d 0;\n                }\n                return false;\n            case 77:\n            case 109:\n                this.fhold2 \u003d false;\n                return false;\n            case 83:\n            case 115:\n                this.fP1Sticky \u003d false;\n                return false;\n            case 88:\n            case 120:\n                this.fhold1 \u003d false;\n                return false;\n            default:\n                return false;\n            }\n        case 501:\n            this.mousePressed \u003d true;\n            if(this.fPictureMode) {\n                this.fPictureMode \u003d false;\n                this.promptMsg \u003d \"Choose an option to play...\";\n                this.repaint();\n            } else if(!this.fInPlay \u0026\u0026 this.testButton(var1.x, var1.y)) {\n                this.fEndGame \u003d false;\n                this.fInPlay \u003d true;\n                this.p1X \u003d 400;\n                this.p1Y \u003d 0;\n                this.p2X \u003d 600;\n                this.p2Y \u003d 0;\n                this.p1XV \u003d 0;\n                this.p1YV \u003d 0;\n                this.p2XV \u003d 0;\n                this.p2YV \u003d 0;\n                this.ballX \u003d 500;\n                this.ballY \u003d 400;\n                this.ballOldX \u003d 500;\n                this.ballOldY \u003d 400;\n                this.ballVX \u003d 0;\n                this.ballVY \u003d -this.ballVY;\n                this.p1Score \u003d 0;\n                this.p2Score \u003d 0;\n                this.promptMsg \u003d \"\";\n                this.paint(this.getGraphics());\n                try {\n                    ShimmedThread.sleep$long(100);\n                } catch(var2) {\n                };\n                this.gameThread \u003d new ShimmedThread(this);\n                this.gameThread.start();\n            }\n            break;\n        case 503:\n            this.showStatus(\"Slime Dunk Basketball: http://slimedb.tripod.com\");\n            this.requestFocus();\n        }\n        return false;\n    }\n\n    public init() {\n        this.nWidth \u003d this.size().width;\n        this.nHeight \u003d this.size().height;\n        this.fInPlay \u003d this.fEndGame \u003d false;\n        this.fPictureMode \u003d true;\n        this.fCanChangeCol \u003d true;\n        this.initStuff();\n        this.promptMsg \u003d \"Click for options...\";\n        this.backBuffer \u003d this.createImage(this.nWidth, this.nHeight);\n        this.screen \u003d this.getGraphics();\n        this.screen.setFont(new ShimmedFont(this.screen.getFont().getName(), 1, 15));\n        this.image \u003d this.getImage(this.getCodeBase(), \"sdb.jpg\");\n    }\n\n    public initStuff() {\n        this.fEndGame \u003d true;\n        this.p1X \u003d 400;\n        this.p1Y \u003d 0;\n        this.p2X \u003d 600;\n        this.p2Y \u003d 0;\n        this.p1XV \u003d 0;\n        this.p1YV \u003d 0;\n        this.p2XV \u003d 0;\n        this.p2YV \u003d 0;\n        this.p1Score \u003d 0;\n        this.p2Score \u003d 0;\n        this.ballOldX \u003d this.ballX \u003d 500;\n        this.ballOldY \u003d this.ballY \u003d 34;\n        this.ballVX \u003d 0;\n        this.ballVY \u003d -this.ballVY + 13;\n        this.replayStart \u003d this.replayPos \u003d 0;\n        this.fP1Touched \u003d this.fP2Touched \u003d false;\n        this.playOnTicks \u003d 10;\n        this.fPlayOn \u003d false;\n        this.fExtraTime \u003d false;\n        this.fGoldenGoal \u003d false;\n        this.JUMPVEL \u003d this.fSuperSlime?65:31;\n        this.SLIMEVEL \u003d this.fSuperSlime?16:8;\n        this.GRAVITY \u003d this.fSuperSlime?8:2;\n    }\n\n    /*private*/ method_rn_SlimeDB_p_1(var1 : string) {\n        ShimmedSystem.out.println$java_lang_Object(var1);\n    }\n\n    public paint(var1 : ShimmedGraphics) {\n        if(this.fPictureMode) {\n            this.image.getHeight(this);\n            var1.drawImage(this.image, 0, 0, this);\n        } else {\n            this.nWidth \u003d this.size().width;\n            this.nHeight \u003d this.size().height;\n            this.screen.setColor(ShimmedColor.blue);\n            this.screen.fillRect(0, 0, this.nWidth, (4 * this.nHeight / 5|0));\n            this.screen.setColor(ShimmedColor.gray);\n            this.screen.fillRect(0, (4 * this.nHeight / 5|0), this.nWidth, (this.nHeight / 5|0));\n            this.screen.setColor(ShimmedColor.white);\n            this.DrawGoals();\n            this.drawScores();\n        }\n        if(!this.fInPlay \u0026\u0026 !this.fPictureMode) {\n            this.DrawSlimers();\n            this.drawButtons();\n        }\n        this.drawPrompt();\n        if(!this.fInPlay \u0026\u0026 !this.fPictureMode) {\n            let var2 : ShimmedFontMetrics \u003d this.screen.getFontMetrics();\n            this.screen.setColor(ShimmedColor.white);\n            if(this.fSuperSlime) {\n                this.screen.drawString(\"Super Slime Dunk!\", (this.nWidth / 2|0) - (var2.stringWidth(\"Super Slime Dunk!\") / 2|0), (this.nHeight / 2|0) - var2.getHeight());\n            } else {\n                this.screen.drawString(\"Slime Dunk Basketball!\", (this.nWidth / 2|0) - (var2.stringWidth(\"Slime Dunk Basketball!\") / 2|0), (this.nHeight / 2|0) - var2.getHeight());\n            }\n            this.screen.setColor(ShimmedColor.white);\n            var2 \u003d this.screen.getFontMetrics();\n            this.screen.drawString(\"http://slimedb.tripod.com\", (this.nWidth / 2|0) - (var2.stringWidth(\"http://slimedb.tripod.com\") / 2|0), (this.nHeight / 2|0) + var2.getHeight() * 2);\n        }\n        this.flip();\n    }\n\n    /*private*/ promptBox(var1 : string, var2 : string) {\n        let var3 : ShimmedFontMetrics \u003d this.screen.getFontMetrics();\n        let var4 : number \u003d var3.stringWidth(var1);\n        let var5 : number \u003d var3.stringWidth(var2);\n        let var6 : number \u003d var4 \u003e var5?var4:var5;\n        this.screen.setColor(ShimmedColor.darkGray);\n        this.screen.fillRect((this.nWidth / 2|0) - (var6 / 2|0) - 20, (this.nHeight * 2 / 5|0), var6 + 40, (this.nHeight / 5|0));\n        this.screen.setColor(ShimmedColor.white);\n        this.screen.drawString(var1, (this.nWidth / 2|0) - (var4 / 2|0), (this.nHeight * 9 / 20|0));\n        this.screen.drawString(var2, (this.nWidth / 2|0) - (var5 / 2|0), (this.nHeight * 11 / 20|0));\n        this.flip();\n    }\n\n    public run() {\n        this.worldCupRound \u003d 0;\n        do {\n            this.initStuff();\n            this.replayPos \u003d this.replayStart \u003d 0;\n            this.scoringRun \u003d 0;\n            this.fP1Touched \u003d this.fP2Touched \u003d false;\n            this.gameTime \u003d 0;\n            this.startTime \u003d ShimmedSystem.currentTimeMillis();\n            this.fEndGame \u003d false;\n            this.fCanChangeCol \u003d false;\n            this.mousePressed \u003d false;\n            this.gameTime \u003d Math.floor(\u003cnumber\u003ethis.gameLength);\n            this.fInPlay \u003d true;\n            this.fEndGame \u003d false;\n            let var1 : string;\n            if(this.worldCup) {\n                this.paint(this.getGraphics());\n                do {\n                    this.p2Col \u003d (\u003cnumber\u003e(Math.random() * \u003cnumber\u003ethis.slimaryCols.length / 4.0)|0) + (this.worldCupRound * this.slimaryCols.length / 4|0);\n                } while((this.p1Col \u003d\u003d\u003d this.p2Col));\n                var1 \u003d this.slimeColText[this.p1Col] + \" vs. \" + this.slimeColText[this.p2Col];\n                switch((this.worldCupRound)) {\n                case 0:\n                    this.promptBox(\"Practice AI 1\", var1);\n                    this.gameLength \u003d 30000;\n                    break;\n                case 1:\n                    this.promptBox(\"Practice AI 2\", var1);\n                    this.gameLength \u003d 120000;\n                    break;\n                case 2:\n                    this.promptBox(\"Practice AI 3\", var1);\n                    this.gameLength \u003d 120000;\n                    break;\n                case 3:\n                    this.promptBox(\"Practice AI 4\", var1);\n                    this.gameLength \u003d 300000;\n                }\n                try {\n                    ShimmedThread.sleep$long(4000);\n                } catch(var3) {\n                };\n                this.repaint();\n                this.flip();\n            }\n            while((this.gameTime \u003e 0 || this.worldCup \u0026\u0026 this.worldCupRound \u003e 0 \u0026\u0026 this.p1Score \u003d\u003d\u003d this.p2Score)) {\n                this.gameTime \u003d this.startTime + Math.floor(\u003cnumber\u003ethis.gameLength) - ShimmedSystem.currentTimeMillis();\n                if(this.gameTime \u003c 0) {\n                    this.gameTime \u003d 0;\n                }\n                if(this.worldCup \u0026\u0026 !this.fExtraTime \u0026\u0026 this.gameTime \u003c\u003d 0 \u0026\u0026 this.worldCupRound \u003e 0 \u0026\u0026 this.p1Score \u003d\u003d\u003d this.p2Score) {\n                    var1 \u003d this.p1Score \u003d\u003d\u003d 0?\" nil\":\" \" + this.p1Score;\n                    this.promptBox(\"The score is \" + this.slimeColText[this.p1Col] + var1 + \", \" + this.slimeColText[this.p2Col] + var1 + \".\", \"And the game goes into extra time...\");\n                    try {\n                        ShimmedThread.sleep$long(4000);\n                    } catch(var8) {\n                    };\n                    this.repaint();\n                    this.flip();\n                    this.startTime +\u003d 30000;\n                    this.gameTime +\u003d 30000;\n                    this.fExtraTime \u003d true;\n                } else if(this.gameTime \u003c\u003d 0 \u0026\u0026 this.fExtraTime \u0026\u0026 !this.fGoldenGoal \u0026\u0026 this.p1Score \u003d\u003d\u003d this.p2Score) {\n                    this.fGoldenGoal \u003d true;\n                    var1 \u003d this.p1Score \u003d\u003d\u003d 0?\" nil\":\" \" + this.p1Score;\n                    this.promptBox(\"The score is \" + this.slimeColText[this.p1Col] + var1 + \", \" + this.slimeColText[this.p2Col] + var1 + \", and the game goes into Sudden Death.\", \"The next player to score will win the game!\");\n                    try {\n                        ShimmedThread.sleep$long(4000);\n                    } catch(var7) {\n                    };\n                    this.repaint();\n                    this.flip();\n                }\n                this.SaveReplayData();\n                this.p1OldX \u003d this.p1X;\n                this.p1OldY \u003d this.p1Y;\n                this.p2OldX \u003d this.p2X;\n                this.p2OldY \u003d this.p2Y;\n                this.ballOldX \u003d this.ballX;\n                this.ballOldY \u003d this.ballY;\n                this.MoveSlimers();\n                this.DrawSlimers();\n                this.DrawGoals();\n                this.DrawStatus();\n                this.flip();\n                if(this.p1X \u003e\u003d 150 \u0026\u0026 this.p1X \u003c\u003d 850) {\n                    this.p1TouchingGoal \u003d 0;\n                } else {\n                    ++this.p1TouchingGoal;\n                }\n                if(this.p2X \u003c\u003d 850 \u0026\u0026 this.p2X \u003e\u003d 150) {\n                    this.p2TouchingGoal \u003d 0;\n                } else {\n                    ++this.p2TouchingGoal;\n                }\n                if(this.fPlayOn) {\n                    --this.playOnTicks;\n                } else {\n                    this.fPlayOn \u003d this.checkScored();\n                }\n                if(this.playOnTicks \u003d\u003d\u003d 0 || this.p1TouchingGoal \u003e 60 || this.p2TouchingGoal \u003e 60) {\n                    let var9 : number \u003d ShimmedSystem.currentTimeMillis();\n                    if(this.p1TouchingGoal \u003e 60) {\n                        ++this.p2Score;\n                        this.promptMsg \u003d this.slimeColText[this.p1Col] + \" pinged for goal tending!\";\n                        this.p2X \u003d 850;\n                        this.p1X \u003d 500;\n                        this.ballX \u003d 850;\n                        this.ballY \u003d 200;\n                    } else if(this.p2TouchingGoal \u003e 60) {\n                        ++this.p1Score;\n                        this.promptMsg \u003d this.slimeColText[this.p2Col] + \" pinged for goal tending!\";\n                        this.p2X \u003d 500;\n                        this.p1X \u003d 150;\n                        this.ballX \u003d 150;\n                        this.ballY \u003d 200;\n                    } else if(this.nScoreX \u003c 500) {\n                        if(this.scoreTouch \u003e 500) {\n                            this.points \u003d 3;\n                            this.p2Score +\u003d this.points;\n                            this.promptMsg \u003d this.slimeColText[this.p2Col] + \" sinks the three!\";\n                        } else {\n                            this.points \u003d 2;\n                            this.p2Score +\u003d this.points;\n                            this.promptMsg \u003d this.slimeColText[this.p2Col] + \" Scores!\";\n                        }\n                        this.p2X \u003d 500;\n                        this.p1X \u003d 150;\n                        this.ballX \u003d 150;\n                        this.ballY \u003d 200;\n                    } else {\n                        if(this.scoreTouch \u003c 500) {\n                            this.points \u003d 3;\n                            this.p1Score +\u003d this.points;\n                            this.promptMsg \u003d this.slimeColText[this.p1Col] + \" sinks the three!\";\n                        } else {\n                            this.points \u003d 2;\n                            this.p1Score +\u003d this.points;\n                            this.promptMsg \u003d this.slimeColText[this.p1Col] + \" Scores!\";\n                        }\n                        this.p2X \u003d 850;\n                        this.p1X \u003d 500;\n                        this.ballX \u003d 850;\n                        this.ballY \u003d 200;\n                    }\n                    this.drawPrompt();\n                    this.drawPrompt$java_lang_String$int(\"Click mouse for replay...\", 1);\n                    this.flip();\n                    this.mousePressed \u003d false;\n                    if(this.gameThread !\u003d null) {\n                        try {\n                            ShimmedThread.sleep$long(2500);\n                        } catch(var6) {\n                        };\n                    }\n                    if(this.mousePressed) {\n                        this.SaveReplayData();\n                        this.DoReplay();\n                    }\n                    this.promptMsg \u003d \"\";\n                    this.drawPrompt();\n                    this.playOnTicks \u003d 10;\n                    this.fPlayOn \u003d false;\n                    this.startTime +\u003d ShimmedSystem.currentTimeMillis() - var9;\n                    this.ballVX \u003d 0;\n                    this.ballVY \u003d 0;\n                    if(this.nScoreX \u003e 500) {\n                        this.p2X \u003d 850;\n                        this.p1X \u003d 500;\n                        this.p1Y \u003d this.p2Y \u003d 0;\n                        this.ballX \u003d 850;\n                        this.ballY \u003d 200;\n                    }\n                    if(this.nScoreX \u003c 500) {\n                        this.p2X \u003d 500;\n                        this.p1X \u003d 150;\n                        this.p1Y \u003d this.p2Y \u003d 0;\n                        this.ballX \u003d 150;\n                        this.ballY \u003d 200;\n                    }\n                    this.replayStart \u003d this.replayPos \u003d 0;\n                    this.repaint();\n                }\n                if(this.gameThread !\u003d null) {\n                    try {\n                        if(this.fPlayOn) {\n                            ShimmedThread.sleep$long(120);\n                        } else {\n                            ShimmedThread.sleep$long(20);\n                        }\n                    } catch(var5) {\n                    };\n                }\n            };\n            this.fEndGame \u003d true;\n            if(this.fPlayOn) {\n                if(this.nScoreX \u003c 500) {\n                    if(this.lastTouch \u003e 500) {\n                        this.points \u003d 3;\n                    } else {\n                        this.points \u003d 2;\n                    }\n                    this.p2Score +\u003d this.points;\n                    this.promptMsg \u003d this.slimeColText[this.p2Col] + \" scores at the buzzer!\";\n                } else {\n                    if(this.lastTouch \u003c 500) {\n                        this.points \u003d 3;\n                    } else {\n                        this.points \u003d 2;\n                    }\n                    this.p1Score +\u003d this.points;\n                    this.promptMsg \u003d this.slimeColText[this.p1Col] + \" scores at the buzzer!\";\n                }\n                this.drawPrompt();\n            } else {\n                this.drawPrompt$java_lang_String$int(\"And that\\\u0027s the final buzzer!\", 0);\n            }\n            if(this.worldCup) {\n                if(this.p1Score \u003d\u003d\u003d this.p2Score) {\n                    this.drawPrompt$java_lang_String$int(\"It\\\u0027s a tie at full time, here at Slime Coliseum!\", 1);\n                    this.promptBox(\"You played well, but a draw is not enough.\", \"You have been eliminated.\");\n                    this.worldCup \u003d false;\n                    this.flip();\n                } else if(this.p1Score \u003e\u003d this.p2Score) {\n                    switch((this.worldCupRound)) {\n                    case 0:\n                        this.drawPrompt$java_lang_String$int(this.slimeColText[this.p1Col] + \" qualifies for the next AI!\", 1);\n                        break;\n                    case 1:\n                        this.drawPrompt$java_lang_String$int(this.slimeColText[this.p1Col] + \" proceeds to the next AI!\", 1);\n                        break;\n                    case 2:\n                        this.drawPrompt$java_lang_String$int(this.slimeColText[this.p1Col] + \" is through to the next AI!\", 1);\n                        break;\n                    case 3:\n                        this.drawPrompt$java_lang_String$int(this.slimeColText[this.p1Col] + \" has defeated every AI!\", 1);\n                    }\n                    if(this.worldCupRound \u003d\u003d\u003d 3) {\n                        this.worldCup \u003d false;\n                        this.promptBox(\"You have beaten all the AIs!\", \"Now it\\\u0027s time for you to play a human!\");\n                    } else {\n                        ++this.worldCupRound;\n                    }\n                } else {\n                    switch((this.worldCupRound)) {\n                    case 0:\n                    case 1:\n                        this.promptBox(\"You have been eliminated.\", \"Goodbye.\");\n                        break;\n                    case 2:\n                        this.promptBox(\"You have been knocked out of this practice session.\", \"You played well.\");\n                        break;\n                    case 3:\n                        this.promptBox(\"You almost won.\", \"Are you satisfied with that?\");\n                    }\n                    this.worldCup \u003d false;\n                }\n            } else if(this.p1Score \u003d\u003d\u003d this.p2Score) {\n                this.drawPrompt$java_lang_String$int(\"It\\\u0027s a draw at full time, here at Slime Coliseum!\", 1);\n            } else if(this.p1Score \u003c this.p2Score) {\n                this.drawPrompt$java_lang_String$int(this.slimeColText[this.p2Col] + \" (\" + this.p2Score + \")    def. \" + this.slimeColText[this.p1Col] + \" (\" + this.p1Score + \")\", 1);\n            } else {\n                this.drawPrompt$java_lang_String$int(this.slimeColText[this.p1Col] + \" (\" + this.p1Score + \")    def. \" + this.slimeColText[this.p2Col] + \" (\" + this.p2Score + \")\", 1);\n            }\n            this.flip();\n            try {\n                ShimmedThread.sleep$long(5000);\n            } catch(var4) {\n            };\n            this.initStuff();\n        } while((this.worldCup));\n        this.fCanChangeCol \u003d true;\n        this.fInPlay \u003d false;\n        this.repaint();\n    }\n\n    /*private*/ testButton(var1 : number, var2 : number) : boolean {\n        for(let var3 : number \u003d 0; var3 \u003c 5; ++var3) {\n            if(var1 \u003e ((2 * var3 + 1) * this.nWidth / 10|0) - (this.nWidth / 12|0) \u0026\u0026 var1 \u003c ((2 * var3 + 1) * this.nWidth / 10|0) + (this.nWidth / 12|0) \u0026\u0026 var2 \u003e (this.nHeight * 2 / 10|0) \u0026\u0026 var2 \u003c (this.nHeight * 3 / 10|0)) {\n                if(var3 \u003d\u003d\u003d 4) {\n                    this.gameLength \u003d 120000;\n                    this.worldCup \u003d true;\n                } else {\n                    this.gameLength \u003d (1 \u003c\u003c var3) * 60000;\n                    this.worldCup \u003d false;\n                }\n                return true;\n            }\n        };\n        return false;\n    }\n\n    /*private*/ toggleBuffering() {\n        if(this.doubleBuffered ^\u003d true) {\n            this.screen \u003d this.backBuffer.getGraphics();\n            this.screen.setFont(new ShimmedFont(this.screen.getFont().getName(), 1, 15));\n        } else {\n            this.screen \u003d this.getGraphics();\n            this.screen.setFont(new ShimmedFont(this.screen.getFont().getName(), 1, 15));\n        }\n        this.repaint();\n    }\n}\nSlimeDB[\"__class\"] \u003d \"SlimeDB\";\nSlimeDB[\"__interfaces\"] \u003d [\"ShimmedRunnable\"];\n\n\n\nclass ShimmedBufferedImage extends ShimmedImage {\n    public constructor(x : number, y : number, z : number) {\n        super();\n    }\n\n    public getSubimage(a : number, b : number, c : number, d : number) : ShimmedBufferedImage {\n        return null;\n    }\n}\nShimmedBufferedImage[\"__class\"] \u003d \"ShimmedBufferedImage\";\n\n\nclass ShimmedFrame extends ShimmedElement {\n    public setTitle(s : string) {\n    }\n\n    public pack() {\n    }\n\n    public show() {\n    }\n\n    public dispose() {\n    }\n\n    public setLayout(g : ShimmedGridLayout) {\n    }\n}\nShimmedFrame[\"__class\"] \u003d \"ShimmedFrame\";\n\n\nclass ShimmedTextField extends ShimmedElement {\n    public constructor(s : number) {\n        super();\n    }\n\n    public getText() : string {\n        return null;\n    }\n}\nShimmedTextField[\"__class\"] \u003d \"ShimmedTextField\";\n\n\nclass ShimmedButton extends ShimmedElement {\n    public constructor(s : string) {\n        super();\n    }\n}\nShimmedButton[\"__class\"] \u003d \"ShimmedButton\";\n\n\nclass ShimmedPanel extends ShimmedElement {}\nShimmedPanel[\"__class\"] \u003d \"ShimmedPanel\";\n\n\nclass ShimmedLabel extends ShimmedElement {\n    public constructor(s : string) {\n        super();\n    }\n}\nShimmedLabel[\"__class\"] \u003d \"ShimmedLabel\";\n\n\n\n",
+  "packageName": "_"
+}

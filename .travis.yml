@@ -4,6 +4,7 @@ node_js:
 sudo: required
 before_install: 
   - sudo apt-get install oracle-java8-set-default
+script: npm run build
 deploy:
   skip_cleanup: true
   provider: script

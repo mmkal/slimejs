@@ -6,15 +6,11 @@ import webpack = require("webpack");
 import paths from "./paths";
 import preprocessJava from "./preprocess-java";
 import postprocessTypeScript from "./postprocess-ts";
+import { defineBuildScript } from "../util/cmd";
 
 const webpackConfig: webpack.Configuration = require(path.join(process.cwd(), "webpack.config.js"));
 
-if (require.main === module) {
-    (async function() {
-        await findAndTranspileAll();
-        process.exit();
-    })();
-}
+defineBuildScript(module, findAndTranspileAll);
 
 async function findAndTranspileAll() {
     const dirname = paths.decompiledDir;

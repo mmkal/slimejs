@@ -4,17 +4,12 @@ import url = require("url");
 import request = require("request-promise");
 import cheerio = require("cheerio");
 import shell = require("shelljs");
-import cmd from "../util/cmd";
+import cmd, { defineBuildScript } from "../util/cmd";
 import paths from "./paths"
 
-if (require.main === module) {
-    (async function () {
-        await fetch();
-        process.exit();
-    })();
-}
+defineBuildScript(module, fetchGames);
 
-async function fetch() {
+async function fetchGames() {
     const host = "http://slimegames.eu/";
     const gameListHtml = await request(host); 
     const dom = cheerio.load(gameListHtml);
@@ -24,7 +19,7 @@ async function fetch() {
         gameLinks.add(host + el.attribs["href"]);
     });
     gameLinks.add("http://oneslime.net/");
-    gameLinks.add("http://slimetennis.com/");
+    // gameLinks.add("http://slimetennis.com/"); // seems to be dead. I think I have it cached on the `downloaded` branch. Should probably use that.
     gameLinks.add("http://footyslime.com/afl/");
     gameLinks.add("http://footyslime.com/nrl/");
 
