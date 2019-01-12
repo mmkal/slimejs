@@ -45,4 +45,5 @@ cmd(`git commit -m "Automatic deployment of commit ${lastCommit} on branch ${ini
 cmd(`git push origin ${newBranch} -f`);
 
 console.log("Exiting.");
+
 process.exit();
