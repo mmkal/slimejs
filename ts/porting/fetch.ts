@@ -20,8 +20,8 @@ async function fetchGames() {
     });
     gameLinks.add("http://oneslime.net/");
     // gameLinks.add("http://slimetennis.com/"); // seems to be dead. I think I have it cached on the `downloaded` branch. Should probably use that.
-    gameLinks.add("http://footyslime.com/afl/");
-    gameLinks.add("http://footyslime.com/nrl/");
+    // gameLinks.add("http://footyslime.com/afl/"); // and another one does
+    // gameLinks.add("http://footyslime.com/nrl/"); // and another one does
 
     const games = Array.from(gameLinks)
         .filter(game => game.indexOf("volleyball-one") === -1); // slimegames.eu/volleyball-one has some files missing on the site. It's the same as oneslime.net though.
