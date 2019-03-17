@@ -31,6 +31,7 @@
   },
   "scripts": {
     "build": "ts-node -D ts/porting/fetch.ts && ts-node -D ts/porting/decompile.ts && ts-node -D ts/porting/transpile.ts",
+    "heroku-postbuild": "echo \"don't build on heroku\"",
     "start": "ts-node -D ts/server.ts",
     "test": "echo \"no\"",
     "deploy": "ts-node -D ts/util/deploy.ts"
